@@ -85,7 +85,7 @@ export const signinService = async (props: SigninParams) => {
 }
 
 
-export const accountService = async (id: number) => {
+export const accountService = async (id: string) => {
     const user = await prisma.user.findFirst({
         where: {
             id
