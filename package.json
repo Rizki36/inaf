@@ -7,6 +7,9 @@
     "packages/*"
   ],
   "scripts": {
+    "prisma-generate": "cd apps\\server\\prisma && npx prisma generate",
+    "prisma-push": "cd apps\\server\\prisma && npx prisma db push",
+    "prisma-format": "cd apps\\server\\prisma && npx prisma format",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",

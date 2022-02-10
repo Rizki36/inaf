@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(uuid())
+  name        String?  @db.VarChar(255)
+  username    String   @unique(map: "username") @db.VarChar(128)
+  email       String   @unique(map: "email") @db.VarChar(255)
+  password    String   @db.VarChar(128)
+  role        Role     @default(USER)
+  description String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  positionId  String
+  attachment  Json
+
+  Position   Position     @relation(fields: [positionId], references: [id])
+  teams      Teams[]
+  TaskWorker TaskWorker[]
+}
+
+model Project {
+  id        String   @id @default(uuid())
+  name      String?  @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teams     Teams[]
+  taskGroup TaskGroup[]
+  Task      Task[]
+}
+
+model Position {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User  User[]
+  teams Teams[]
+}
+
+model Teams {
+  projectId  String
+  userId     String
+  positionId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  project  Project  @relation(fields: [projectId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+  position Position @relation(fields: [positionId], references: [id])
+
+  @@id([projectId, userId])
+}
+
+model TaskGroup {
+  id          String   @id @default(uuid())
+  name        String   @db.VarChar(30)
+  description String   @db.Text
+  projectId   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  attachment  Json
+
+  project Project? @relation(fields: [projectId], references: [id])
+  Task    Task[]
+}
+
+model Task {
+  id          String   @id @default(uuid())
+  name        String   @db.VarChar(30)
+  description String   @db.Text
+  taskGroupId String?
+  projectId   String?
+  beginAt     DateTime @default(now())
+  finishAt    DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  attachment  Json
+
+  taskGroup  TaskGroup?   @relation(fields: [taskGroupId], references: [id])
+  project    Project?     @relation(fields: [projectId], references: [id])
+  TaskWorker TaskWorker[]
+}
+
+model TaskWorker {
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  taskId String
+  task   Task   @relation(fields: [taskId], references: [id])
+
+  @@id([userId, taskId])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
