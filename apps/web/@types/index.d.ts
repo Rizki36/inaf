@@ -18,3 +18,10 @@ export interface IUser {
     img?: string;
     email?: string;
 }
+
+interface Input<T> {
+    label: string;
+    name: keyof T;
+}
+
+export type Inputs<T> = Record<keyof T, Input<T>>;
