@@ -1,12 +1,13 @@
 import "../styles/globals.css";
 import theme from "../configs/mui/theme";
-import React, { Fragment } from "react";
+import React from "react";
 import type { AppProps } from "next/app";
 import { Page } from "../@types";
 import Auth from "../components/Auth";
 import { Provider } from "react-redux";
 import store from "../configs/redux/store";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material";
+import AdminLayout from "components/layouts/admin";
 
 type Props = AppProps & {
     Component: Page;
@@ -14,7 +15,7 @@ type Props = AppProps & {
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: Props) {
     // default layout
-    const Layout = Component.layout ?? Fragment;
+    const Layout = Component.layout ?? AdminLayout;
 
     return (
         <ThemeProvider theme={theme}>

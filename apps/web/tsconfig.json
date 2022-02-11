@@ -6,11 +6,11 @@
         "baseUrl": ".",
         "paths": {
             "@/types/*": ["@types/*"],
-            "@/components/*": ["@components/*"],
-            "@/configs/*": ["@configs/*"],
-            "@/helpers/*": ["@helpers/*"],
-            "@/libs/*": ["@libs/*"],
-            "@/styles/*": ["@styles/*"]
+            "@/components/*": ["components/*"],
+            "@/configs/*": ["configs/*"],
+            "@/helpers/*": ["helpers/*"],
+            "@/libs/*": ["libs/*"],
+            "@/styles/*": ["styles/*"]
         }
     }
 }
