@@ -67,7 +67,7 @@
     "create-express-boilerplate": "bin/installer.js"
   },
   "devDependencies": {
-    "@faker-js/faker": "^6.0.0-alpha.5",
+    "@faker-js/faker": "^6.0.0-alpha.6",
     "@types/jest": "^27.4.0",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/method-override": "0.0.32",
