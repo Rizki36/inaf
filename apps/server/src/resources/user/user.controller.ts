@@ -1,13 +1,35 @@
-import { PrismaClient, User } from '@prisma/client';
-import { Request, Response } from 'express';
+import { PrismaClient, User } from "@prisma/client";
+import { NextFunction, Request, Response } from "express";
+import { getPaginationUsersService } from "./user.service";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 // get all user
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
     const users = await prisma.user.findMany();
-    res.send(users)
-}
+    res.send(users);
+};
+
+// get pagination user
+export const getPaginationUsers = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    const page = parseInt(req.params.page ?? 1);
+    const length = parseInt(req.params.length ?? 10);
+
+    try {
+        const data = await getPaginationUsersService({
+            length,
+            page,
+        });
+
+        res.send(data);
+    } catch (error) {
+        next(error);
+    }
+};
 
 // create new user
 export const createUser = async (req: Request, res: Response): Promise<any> => {
@@ -15,33 +37,34 @@ export const createUser = async (req: Request, res: Response): Promise<any> => {
         data: {
             email: req.body.email,
             password: req.body.password,
-            username: req.body.username
-        }
-    })
-    res.send(user)
-}
+            username: req.body.username,
+        },
+    });
+    res.send(user);
+};
 
 // update existing user
 export const updateUser = async (req: Request, res: Response): Promise<any> => {
-    const { name, email } = req.body as User
+    const { name, email } = req.body as User;
     const user = await prisma.user.update({
         where: {
-            id: parseInt(req.params.id)
+            id: req.params.id,
         },
         data: {
-            name, email
-        }
-    })
+            name,
+            email,
+        },
+    });
 
-    res.send(user)
-}
+    res.send(user);
+};
 
 // delete user
 export const deleteUser = async (req: Request, res: Response): Promise<any> => {
     const user = await prisma.user.delete({
         where: {
-            id: parseInt(req.params.id)
-        }
-    })
-    res.send(user)
-}
+            id: req.params.id,
+        },
+    });
+    res.send(user);
+};
