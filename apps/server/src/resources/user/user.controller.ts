@@ -1,5 +1,6 @@
 import { PrismaClient, User } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
+import { getPage, getPerPage } from "../../helpers/pagination";
 import { getPaginationUsersService } from "./user.service";
 
 const prisma = new PrismaClient();
@@ -12,17 +13,16 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
 
 // get pagination user
 export const getPaginationUsers = async (
-    req: Request,
+    req: Request<{}, {}, {}, { page?: string; perPage?: string }>,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
-    const page = parseInt(req.params.page ?? 1);
-    const length = parseInt(req.params.length ?? 10);
+    let { page = "0", perPage = "40" } = req.query;
 
     try {
         const data = await getPaginationUsersService({
-            length,
-            page,
+            perPage: getPerPage(perPage),
+            page: getPage(page),
         });
 
         res.send(data);

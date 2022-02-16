@@ -1,9 +1,7 @@
 import { PrismaClient } from "@prisma/client";
+import { PaginationProps } from "../../../@types";
 
-interface getPaginationUsersProps {
-    page: number;
-    length: number;
-}
+interface getPaginationUsersProps extends PaginationProps {}
 
 const prisma = new PrismaClient();
 
@@ -11,23 +9,25 @@ const prisma = new PrismaClient();
 export const getPaginationUsersService = async (
     props: getPaginationUsersProps
 ) => {
-    const { page, length } = props;
+    const { page, perPage } = props;
 
     const data = await prisma.user.findMany({
-        skip: (page - 1) * length,
-        take: length,
+        skip: page * perPage,
+        take: perPage,
         select: {
             id: true,
+            username: true,
             name: true,
+            Position: true,
         },
     });
 
-    const totalRecords = await prisma.user.count();
+    const totalRows = await prisma.user.count();
 
     return {
-        totalRecords,
+        totalRows,
         page,
-        length,
+        perPage,
         data,
     };
 };
