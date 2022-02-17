@@ -10,8 +10,11 @@ const Users: Page = () => {
         pageSize: 40,
         rows: [],
         loading: false,
-        rowCount: 0
-    })
+        rowCount: 0,
+        sort: [
+            { field: 'name', sort: 'asc' },
+        ]
+    });
 
     useEffect(() => {
         let active = true;
@@ -20,7 +23,11 @@ const Users: Page = () => {
             setRowsState((prev) => ({ ...prev, loading: true }));
             const res = await getUsers({
                 page: rowsState.page,
-                perPage: rowsState.pageSize
+                perPage: rowsState.pageSize,
+                sortPage: {
+                    field: rowsState.sort[0]?.field,
+                    sort: rowsState.sort[0]?.sort,
+                }
             })
 
             if (!active) return;
@@ -31,7 +38,7 @@ const Users: Page = () => {
         return () => {
             active = false;
         }
-    }, [rowsState.page, rowsState.pageSize]);
+    }, [rowsState.page, rowsState.pageSize, rowsState.sort]);
 
     return (
         <div className="w-full">

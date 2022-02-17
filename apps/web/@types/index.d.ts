@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { ComponentType, ReactElement, ReactNode } from "react";
-import { GridRowModel } from "@mui/x-data-grid";
+import { GridRowModel, GridSortModel } from "@mui/x-data-grid";
 
 export type Page<P = {}> = NextPage<P> & {
     getLayout?: (page: ReactElement) => ReactNode;
@@ -33,4 +33,16 @@ export interface RowsState {
     rowCount: number;
     rows: GridRowModel[];
     loading: boolean;
+    sort?: GridSortModel;
+}
+
+export interface SortProps{
+    field: string;
+    sort: "asc" | "desc";
+}
+
+export interface PaginationProps {
+    page: number;
+    perPage: number;
+    sortPage?: SortProps
 }

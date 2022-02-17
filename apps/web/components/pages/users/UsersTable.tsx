@@ -15,21 +15,28 @@ const UsersTable = (props: UserTableProps) => {
                 columns={[
                     {
                         field: 'name',
-                        headerName: 'Nama'
+                        headerName: 'Name',
+                        width: 300,
+
                     },
                     {
                         field: 'username',
-                        headerName: 'Username'
+                        headerName: 'Username',
+                        width: 300
                     },
                     {
                         field: 'position',
-                        headerName: 'Position'
+                        headerName: 'Position',
+                        width: 300
                     }
                 ]}
                 {...rowsState}
                 pagination
                 paginationMode="server"
+                sortingMode="server"
+                sortModel={rowsState?.sort}
                 onPageChange={(page) => setRowsState((prev) => ({ ...prev, page }))}
+                onSortModelChange={(sort) => setRowsState((prev) => ({ ...prev, sort }))}
                 onPageSizeChange={(pageSize) =>
                     setRowsState((prev) => ({ ...prev, pageSize }))
                 }
