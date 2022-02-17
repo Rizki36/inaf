@@ -11,9 +11,7 @@ const Users: Page = () => {
         rows: [],
         loading: false,
         rowCount: 0,
-        sort: [
-            { field: 'name', sort: 'asc' },
-        ]
+        sort: [{ field: "name", sort: "asc" }],
     });
 
     useEffect(() => {
@@ -27,18 +25,24 @@ const Users: Page = () => {
                 sortPage: {
                     field: rowsState.sort[0]?.field,
                     sort: rowsState.sort[0]?.sort,
-                }
-            })
+                },
+                search: rowsState.search,
+            });
 
             if (!active) return;
 
-            setRowsState((prev) => ({ ...prev, loading: false, rows: res.data, rowCount: res.totalRows }));
+            setRowsState((prev) => ({
+                ...prev,
+                loading: false,
+                rows: res.data,
+                rowCount: res.totalRows,
+            }));
         })();
 
         return () => {
             active = false;
-        }
-    }, [rowsState.page, rowsState.pageSize, rowsState.sort]);
+        };
+    }, [rowsState.page, rowsState.pageSize, rowsState.sort, rowsState.search]);
 
     return (
         <div className="w-full">
@@ -47,7 +51,10 @@ const Users: Page = () => {
             </Typography>
             <Card>
                 <CardContent>
-                    <UsersTable rowsState={rowsState} setRowsState={setRowsState} />
+                    <UsersTable
+                        rowsState={rowsState}
+                        setRowsState={setRowsState}
+                    />
                 </CardContent>
             </Card>
         </div>

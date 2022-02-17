@@ -9,6 +9,7 @@ export const getUsers = async (props: getUsetsProps) => {
         page = 1,
         perPage = 40,
         sortPage: { sort, field },
+        search
     } = props;
 
     const res = await backendApi.get<getPaginationUsersDTO>("admin/users", {
@@ -17,6 +18,7 @@ export const getUsers = async (props: getUsetsProps) => {
             perPage,
             sort,
             field,
+            search
         },
     });
 
