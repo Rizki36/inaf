@@ -1,3 +1,4 @@
+import { getOrderPage } from './../../helpers/pagination';
 import { PrismaClient, User } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { getPage, getPerPage } from "../../helpers/pagination";
@@ -13,16 +14,22 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
 
 // get pagination user
 export const getPaginationUsers = async (
-    req: Request<{}, {}, {}, { page?: string; perPage?: string }>,
+    req: Request<{}, {}, {}, { page?: string; perPage?: string,field : keyof User, sort: "asc"|"desc" }>,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
-    let { page = "0", perPage = "40" } = req.query;
+    let { page = "0", perPage = "40",field, sort } = req.query;
 
     try {
         const data = await getPaginationUsersService({
             perPage: getPerPage(perPage),
             page: getPage(page),
+            sortPage: getOrderPage<User>({
+                sortProps:{field ,sort},
+                filds:['name','username'],
+                defaultField:'name',
+                defaultSort:'asc'
+            })
         });
 
         res.send(data);

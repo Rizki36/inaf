@@ -14,7 +14,13 @@ export interface IResponse {
     errors: Record<string, any> | null;
 }
 
-export interface PaginationProps {
+export interface SortProps<T>{
+    field: keyof T;
+    sort: "asc" | "desc";
+}
+
+export interface PaginationProps<T> {
     page: number;
     perPage: number;
+    sortPage?: SortProps<T>
 }

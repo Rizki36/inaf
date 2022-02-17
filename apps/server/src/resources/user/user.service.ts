@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import { PaginationProps } from "../../../@types";
 
-interface getPaginationUsersProps extends PaginationProps {}
+interface getPaginationUsersProps extends PaginationProps<User> {}
 
 const prisma = new PrismaClient();
 
@@ -9,7 +9,9 @@ const prisma = new PrismaClient();
 export const getPaginationUsersService = async (
     props: getPaginationUsersProps
 ) => {
-    const { page, perPage } = props;
+    const { page, perPage, sortPage } = props;
+
+    const orderKey : keyof User = [].find(i=>i === sortPage?.field) ?? 'name';
 
     const data = await prisma.user.findMany({
         skip: page * perPage,
@@ -20,6 +22,11 @@ export const getPaginationUsersService = async (
             name: true,
             Position: true,
         },
+        orderBy: [
+            {
+                [orderKey]: sortPage?.sort ?? 'asc',
+            },
+        ],
     });
 
     const totalRows = await prisma.user.count();
