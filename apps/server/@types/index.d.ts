@@ -23,4 +23,5 @@ export interface PaginationProps<T> {
     page: number;
     perPage: number;
     sortPage?: SortProps<T>
+    search?: string;
 }
