@@ -44,7 +44,12 @@ const UserDetails: Page = () => {
 
             {data &&
                 (edit ? (
-                    <UserDetailsEdit data={data.data} />
+                    <UserDetailsEdit
+                        id={id as string}
+                        data={data.data}
+                        edit={{ edit, toggleEdit }}
+                        mutate={mutate}
+                    />
                 ) : (
                     <UserDetailsView data={data.data} />
                 ))}

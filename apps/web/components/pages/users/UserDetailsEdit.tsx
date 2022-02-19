@@ -1,10 +1,12 @@
-import { Inputs } from "@/types/index";
-import { Box, Button, Card, CardContent, TextField } from "@mui/material";
+import { EditProp, Inputs } from "@/types/index";
+import { Box, Button, Card, CardContent, TextField, Grid } from "@mui/material";
 import { getUserDetailsDTO } from "server";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useCallback } from "react";
+import { patchUserDetails } from "@/libs/mutation/userMutation";
+import { commonError } from "@/helpers/errorHandler";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 interface IForm extends Omit<getUserDetailsDTO["data"], "id"> {
     password?: string;
@@ -44,11 +46,17 @@ const schema = yup
     .required();
 
 interface UserDetailsEditProps {
+    id: string;
     data: getUserDetailsDTO;
+    edit: EditProp;
+    mutate: any;
 }
 const UserDetailsEdit = (props: UserDetailsEditProps) => {
     const {
+        id,
         data: { data },
+        edit: { toggleEdit },
+        mutate,
     } = props;
 
     const {
@@ -66,133 +74,137 @@ const UserDetailsEdit = (props: UserDetailsEditProps) => {
         },
     });
 
-    const onSubmit: SubmitHandler<IForm> = useCallback((props) => {
-        console.log(props);
-    }, []);
+    const onSubmit: SubmitHandler<IForm> = useCallback(
+        (props) => {
+            const body = {
+                ...props,
+            };
+
+            patchUserDetails({
+                id,
+                body,
+            })
+                .then((res) => {
+                    mutate();
+                    toggleEdit();
+                })
+                .catch(commonError);
+        },
+        [id]
+    );
 
     return (
         <Card>
             <CardContent>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Box
-                        display={"flex"}
-                        rowGap={5}
-                        columnGap={10}
-                        flexWrap={"wrap"}
-                        justifyContent={"space-between"}
-                        paddingY={5}
-                        paddingX={7}
+                    <Grid
+                        container
+                        rowSpacing={1}
+                        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                        columns={2}
                     >
-                        <Controller
-                            control={control}
-                            name={inputs.username.name}
-                            defaultValue=""
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label={inputs.username.label}
-                                    className="w-full"
-                                    margin="normal"
-                                    variant="standard"
-                                    error={Boolean(
-                                        errors[inputs.username.name]
-                                    )}
-                                    helperText={
-                                        errors[inputs.username.name]
-                                            ? errors[inputs.username.name]
-                                                  .message
-                                            : ""
-                                    }
-                                />
-                            )}
-                        />
-                        <Controller
-                            control={control}
-                            name={inputs.name.name}
-                            defaultValue=""
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label={inputs.name.label}
-                                    className="w-full"
-                                    margin="normal"
-                                    variant="standard"
-                                    error={Boolean(errors[inputs.name.name])}
-                                    helperText={
-                                        errors[inputs.name.name]
-                                            ? errors[inputs.name.name].message
-                                            : ""
-                                    }
-                                />
-                            )}
-                        />
-                        <Controller
-                            control={control}
-                            name={inputs.password.name}
-                            defaultValue=""
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label={inputs.password.label}
-                                    className="w-full"
-                                    margin="normal"
-                                    variant="standard"
-                                    error={Boolean(
-                                        errors[inputs.password.name]
-                                    )}
-                                    helperText={
-                                        errors[inputs.password.name]
-                                            ? errors[inputs.password.name]
-                                                  .message
-                                            : ""
-                                    }
-                                />
-                            )}
-                        />
-                        <Controller
-                            control={control}
-                            name={inputs.email.name}
-                            defaultValue=""
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label={inputs.email.label}
-                                    className="w-full"
-                                    margin="normal"
-                                    variant="standard"
-                                    error={Boolean(errors[inputs.email.name])}
-                                    helperText={
-                                        errors[inputs.email.name]
-                                            ? errors[inputs.email.name].message
-                                            : ""
-                                    }
-                                />
-                            )}
-                        />
-                        <Controller
-                            control={control}
-                            name={inputs.description.name}
-                            defaultValue=""
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label={inputs.description.label}
-                                    className="w-full"
-                                    margin="normal"
-                                    variant="standard"
-                                    error={Boolean(
-                                        errors[inputs.description.name]
-                                    )}
-                                    helperText={
-                                        errors[inputs.description.name]
-                                            ? errors[inputs.description.name]
-                                                  .message
-                                            : ""
-                                    }
-                                />
-                            )}
-                        />
-                    </Box>
+                        <Grid item>
+                            <Controller
+                                control={control}
+                                name={inputs.username.name}
+                                defaultValue=""
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label={inputs.username.label}
+                                        className="w-full"
+                                        margin="normal"
+                                        variant="standard"
+                                        error={Boolean(
+                                            errors[inputs.username.name]
+                                        )}
+                                        helperText={
+                                            errors[inputs.username.name]
+                                                ? errors[inputs.username.name]
+                                                      .message
+                                                : ""
+                                        }
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Controller
+                                control={control}
+                                name={inputs.name.name}
+                                defaultValue=""
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label={inputs.name.label}
+                                        className="w-full"
+                                        margin="normal"
+                                        variant="standard"
+                                        error={Boolean(
+                                            errors[inputs.name.name]
+                                        )}
+                                        helperText={
+                                            errors[inputs.name.name]
+                                                ? errors[inputs.name.name]
+                                                      .message
+                                                : ""
+                                        }
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Controller
+                                control={control}
+                                name={inputs.email.name}
+                                defaultValue=""
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label={inputs.email.label}
+                                        className="w-full"
+                                        margin="normal"
+                                        variant="standard"
+                                        error={Boolean(
+                                            errors[inputs.email.name]
+                                        )}
+                                        helperText={
+                                            errors[inputs.email.name]
+                                                ? errors[inputs.email.name]
+                                                      .message
+                                                : ""
+                                        }
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Controller
+                                control={control}
+                                name={inputs.description.name}
+                                defaultValue=""
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label={inputs.description.label}
+                                        className="w-full"
+                                        margin="normal"
+                                        variant="standard"
+                                        error={Boolean(
+                                            errors[inputs.description.name]
+                                        )}
+                                        helperText={
+                                            errors[inputs.description.name]
+                                                ? errors[
+                                                      inputs.description.name
+                                                  ].message
+                                                : ""
+                                        }
+                                    />
+                                )}
+                            />
+                        </Grid>
+                    </Grid>
 
                     <Button type="submit" variant="contained">
                         Update

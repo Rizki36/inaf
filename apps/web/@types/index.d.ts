@@ -48,3 +48,8 @@ export interface PaginationProps {
     sortPage?: SortProps;
     search?: string;
 }
+
+export interface EditProp {
+    edit: boolean;
+    toggleEdit: () => void;
+}
