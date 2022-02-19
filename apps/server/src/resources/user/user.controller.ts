@@ -1,13 +1,101 @@
-import { PrismaClient, User } from '@prisma/client';
-import { Request, Response } from 'express';
+import { getOrderPage } from "./../../helpers/pagination";
+import { PrismaClient, User } from "@prisma/client";
+import { NextFunction, Request, Response } from "express";
+import { getPage, getPerPage } from "../../helpers/pagination";
+import {
+    getPaginationUsersService,
+    getUserDetailsService,
+    updateUserDetailsService,
+} from "./user.service";
+import { updateUserDetailsBody } from "./user.dto";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 // get all user
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
     const users = await prisma.user.findMany();
-    res.send(users)
-}
+    res.send(users);
+};
+
+// get pagination user
+export const getPaginationUsers = async (
+    req: Request<
+        {},
+        {},
+        {},
+        {
+            page?: string;
+            perPage?: string;
+            field: keyof User;
+            sort: "asc" | "desc";
+            search?: string;
+        }
+    >,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    let { page = "0", perPage = "40", field, sort, search } = req.query;
+
+    try {
+        const data = await getPaginationUsersService({
+            perPage: getPerPage(perPage),
+            page: getPage(page),
+            sortPage: getOrderPage<User>({
+                sortProps: { field, sort },
+                filds: ["name", "username"],
+                defaultField: "name",
+                defaultSort: "asc",
+            }),
+            search,
+        });
+
+        res.send(data);
+    } catch (error) {
+        next(error);
+    }
+};
+
+// get user details
+export const getUserDetails = async (
+    req: Request<{ id: string }, {}, {}, {}>,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { id } = req.params;
+        const data = await getUserDetailsService({
+            id,
+        });
+
+        return res.send(data);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
+
+// get user details
+export const updateUserDetails = async (
+    req: Request<{ id: string }, {}, { body: updateUserDetailsBody }, {}>,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { id } = req.params;
+        const { body } = req.body;
+        console.log("body", body);
+
+        const data = await updateUserDetailsService({
+            id,
+            body,
+        });
+
+        return res.send(data);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
 
 // create new user
 export const createUser = async (req: Request, res: Response): Promise<any> => {
@@ -15,33 +103,34 @@ export const createUser = async (req: Request, res: Response): Promise<any> => {
         data: {
             email: req.body.email,
             password: req.body.password,
-            username: req.body.username
-        }
-    })
-    res.send(user)
-}
+            username: req.body.username,
+        },
+    });
+    res.send(user);
+};
 
 // update existing user
 export const updateUser = async (req: Request, res: Response): Promise<any> => {
-    const { name, email } = req.body as User
+    const { name, email } = req.body as User;
     const user = await prisma.user.update({
         where: {
-            id: parseInt(req.params.id)
+            id: req.params.id,
         },
         data: {
-            name, email
-        }
-    })
+            name,
+            email,
+        },
+    });
 
-    res.send(user)
-}
+    res.send(user);
+};
 
 // delete user
 export const deleteUser = async (req: Request, res: Response): Promise<any> => {
     const user = await prisma.user.delete({
         where: {
-            id: parseInt(req.params.id)
-        }
-    })
-    res.send(user)
-}
+            id: req.params.id,
+        },
+    });
+    res.send(user);
+};

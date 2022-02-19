@@ -1,3 +1,4 @@
-import { User } from '@prisma/client';
+export * from "./src/resources/user/user.dto";
 
-export { User }
+import { User } from "@prisma/client";
+export { User };
