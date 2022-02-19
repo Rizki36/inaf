@@ -1,5 +1,6 @@
 import { PrismaClient, User, Prisma } from "@prisma/client";
 import { PaginationProps } from "../../../@types";
+import { successResponse } from "../../helpers/methods";
 
 interface getPaginationUsersProps extends PaginationProps<User> {}
 
@@ -59,4 +60,28 @@ export const getPaginationUsersService = async (
         perPage,
         data,
     };
+};
+
+interface GetUserDetails {
+    id: string;
+}
+// get user details
+export const getUserDetailsService = async (props: GetUserDetails) => {
+    const { id } = props;
+    const data = await prisma.user.findFirst({
+        select: {
+            id: true,
+            name: true,
+            username: true,
+            description: true,
+            email: true,
+        },
+        where: {
+            id,
+        },
+    });
+
+    return successResponse<typeof data>({
+        data: data,
+    });
 };

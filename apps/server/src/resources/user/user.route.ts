@@ -12,4 +12,11 @@ route.get(
     UserController.getPaginationUsers
 );
 
+route.get(
+    "/admin/users/:id",
+    verifyToken,
+    authorization(["ADMIN"]),
+    UserController.getUserDetails
+);
+
 export default route;

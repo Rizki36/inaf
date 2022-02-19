@@ -2,7 +2,10 @@ import { getOrderPage } from "./../../helpers/pagination";
 import { PrismaClient, User } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { getPage, getPerPage } from "../../helpers/pagination";
-import { getPaginationUsersService } from "./user.service";
+import {
+    getPaginationUsersService,
+    getUserDetailsService,
+} from "./user.service";
 
 const prisma = new PrismaClient();
 
@@ -46,6 +49,25 @@ export const getPaginationUsers = async (
 
         res.send(data);
     } catch (error) {
+        next(error);
+    }
+};
+
+// get user details
+export const getUserDetails = async (
+    req: Request<{ id: string }, {}, {}, {}>,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { id } = req.params;
+        const data = await getUserDetailsService({
+            id,
+        });
+
+        return res.send(data);
+    } catch (error) {
+        console.log(error);
         next(error);
     }
 };

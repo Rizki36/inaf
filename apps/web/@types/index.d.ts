@@ -34,10 +34,10 @@ export interface RowsState {
     rows: GridRowModel[];
     loading: boolean;
     sort?: GridSortModel;
-    search?:string;
+    search?: string;
 }
 
-export interface SortProps{
+export interface SortProps {
     field: string;
     sort: "asc" | "desc";
 }
@@ -46,5 +46,5 @@ export interface PaginationProps {
     page: number;
     perPage: number;
     sortPage?: SortProps;
-    search?:string;
+    search?: string;
 }
