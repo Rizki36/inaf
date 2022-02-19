@@ -5,7 +5,9 @@ import { getPage, getPerPage } from "../../helpers/pagination";
 import {
     getPaginationUsersService,
     getUserDetailsService,
+    updateUserDetailsService,
 } from "./user.service";
+import { updateUserDetailsBody } from "./user.dto";
 
 const prisma = new PrismaClient();
 
@@ -63,6 +65,29 @@ export const getUserDetails = async (
         const { id } = req.params;
         const data = await getUserDetailsService({
             id,
+        });
+
+        return res.send(data);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
+
+// get user details
+export const updateUserDetails = async (
+    req: Request<{ id: string }, {}, { body: updateUserDetailsBody }, {}>,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { id } = req.params;
+        const { body } = req.body;
+        console.log("body", body);
+
+        const data = await updateUserDetailsService({
+            id,
+            body,
         });
 
         return res.send(data);

@@ -1,3 +1,4 @@
+import { updateUserDetailsBody } from "./user.dto";
 import { PrismaClient, User, Prisma } from "@prisma/client";
 import { PaginationProps } from "../../../@types";
 import { successResponse } from "../../helpers/methods";
@@ -83,5 +84,28 @@ export const getUserDetailsService = async (props: GetUserDetails) => {
 
     return successResponse<typeof data>({
         data: data,
+    });
+};
+
+interface UpdateUserDetails {
+    id: string;
+    body: updateUserDetailsBody;
+}
+export const updateUserDetailsService = async (props: UpdateUserDetails) => {
+    const { id, body } = props;
+    const data = await prisma.user.update({
+        data: {
+            name: body.name,
+            username: body.username,
+            email: body.email,
+            description: body.description,
+        },
+        where: {
+            id,
+        },
+    });
+
+    return successResponse<typeof data>({
+        data,
     });
 };

@@ -1,26 +1,35 @@
-import { PrismaClient, User } from '@prisma/client';
+import { Prisma, PrismaClient, User } from "@prisma/client";
 
 // define prisma client
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 interface isExistUserByProps<T> {
-    column: keyof T,
-    value: T[keyof T]
+    column: keyof T;
+    value: T[keyof T];
+    id?: string;
 }
 
 export const isExistUserBy = async (props: isExistUserByProps<User>) => {
-    const { column, value } = props
+    const { column, value, id } = props;
     try {
+        const where: Prisma.UserWhereInput = {
+            [column]: value,
+        };
+
+        if (id) {
+            where.NOT = {
+                id,
+            };
+        }
+
         const user = await prisma.user.findFirst({
-            where: {
-                [column]: value
-            }
-        })
+            where,
+        });
 
-        if (!user) return false
+        if (!user) return false;
 
-        return true
+        return true;
     } catch (error) {
-        return false
+        return false;
     }
-}
+};
