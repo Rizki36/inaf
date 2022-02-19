@@ -5,9 +5,10 @@ import type { AppProps } from "next/app";
 import { Page } from "../@types";
 import Auth from "../components/Auth";
 import { Provider } from "react-redux";
-import store from "../configs/redux/store";
+import store, { persistor } from "../configs/redux/store";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material";
 import AdminLayout from "components/layouts/admin";
+import { PersistGate } from "redux-persist/lib/integration/react";
 
 type Props = AppProps & {
     Component: Page;
@@ -21,11 +22,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: Props) {
         <ThemeProvider theme={theme}>
             <StyledEngineProvider injectFirst>
                 <Provider store={store}>
-                    <Layout>
-                        <Auth {...Component.auth}>
-                            <Component {...pageProps} />
-                        </Auth>
-                    </Layout>
+                    <PersistGate loading={null} persistor={persistor}>
+                        <Layout>
+                            <Auth {...Component.auth}>
+                                <Component {...pageProps} />
+                            </Auth>
+                        </Layout>
+                    </PersistGate>
                 </Provider>
             </StyledEngineProvider>
         </ThemeProvider>
