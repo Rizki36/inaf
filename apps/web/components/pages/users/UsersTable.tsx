@@ -1,7 +1,10 @@
 import QuickSearchToolbar from "@/components/QuickSearchToolbar";
 import { RowsState } from "@/types/index";
+import { IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Dispatch, SetStateAction } from "react";
+import { RemoveRedEye } from "@mui/icons-material";
+import Link from "next/link";
 
 interface UserTableProps {
     rowsState: RowsState;
@@ -10,6 +13,7 @@ interface UserTableProps {
 
 const UsersTable = (props: UserTableProps) => {
     const { rowsState, setRowsState } = props;
+
     return (
         <div style={{ height: 400, width: "100%" }}>
             <DataGrid
@@ -30,8 +34,30 @@ const UsersTable = (props: UserTableProps) => {
                         headerName: "Position",
                         width: 300,
                     },
+                    {
+                        field: "action",
+                        headerName: "Action",
+                        sortable: false,
+                        align: "center",
+                        renderCell: (params) => {
+                            return (
+                                <Link href={`users/${params.id}`} passHref>
+                                    <IconButton
+                                        aria-label="delete"
+                                        size="small"
+                                    >
+                                        <RemoveRedEye fontSize="small" />
+                                    </IconButton>
+                                </Link>
+                            );
+                        },
+                    },
                 ]}
                 {...rowsState}
+                rows={rowsState.rows}
+                disableColumnFilter
+                disableSelectionOnClick
+                disableDensitySelector
                 pagination
                 paginationMode="server"
                 sortingMode="server"
