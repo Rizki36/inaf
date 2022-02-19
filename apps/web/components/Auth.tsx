@@ -47,13 +47,7 @@ const Auth = (props: Props) => {
         // redirect when user is unauthenticated and page is not login page
         if (!user && Router.pathname !== redirectUnAuthenticated)
             handleLogout();
-    }, [
-        user,
-        handleLogout,
-        mustLoggedIn,
-        redirectAuthenticated,
-        redirectUnAuthenticated,
-    ]);
+    }, [user, redirectAuthenticated, redirectUnAuthenticated]);
 
     // loading
     if (!user && mustLoggedIn) return <></>;

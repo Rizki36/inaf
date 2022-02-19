@@ -23,6 +23,7 @@
     "react-hook-form": "^7.27.0",
     "react-redux": "^7.2.6",
     "recharts": "^2.1.9",
+    "redux-persist": "^6.0.0",
     "server": "*",
     "swr": "^1.2.1",
     "ui": "*",
