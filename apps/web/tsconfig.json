@@ -1,6 +1,12 @@
 {
     "extends": "tsconfig/nextjs.json",
-    "include": ["@types/*.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "include": [
+        "@types/*.d.ts",
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        "components/ui-component/Loadable.jsx"
+    ],
     "exclude": ["node_modules"],
     "compilerOptions": {
         "baseUrl": ".",

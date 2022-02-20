@@ -13,6 +13,7 @@ import {
     REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import customizationReducer from "./customizationSlice";
 
 const persistConfig = {
     key: "dikirim",
@@ -23,6 +24,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: userReducer,
+    customization: customizationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
