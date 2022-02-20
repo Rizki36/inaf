@@ -1,7 +1,5 @@
-import PropTypes from "prop-types";
 import React, { forwardRef } from "react";
 
-// material-ui
 import { useTheme } from "@mui/material/styles";
 import {
     Card,
@@ -11,12 +9,9 @@ import {
     Typography,
 } from "@mui/material";
 
-// constant
 const headerSX = {
     "& .MuiCardHeader-action": { mr: 0 },
 };
-
-// ==============================|| CUSTOM MAIN CARD ||============================== //
 
 interface IMainCard {
     border?: boolean;

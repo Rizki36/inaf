@@ -1,4 +1,11 @@
+import {
+    CustomComponents,
+    CustomTypography,
+    ICustomization,
+} from "@/types/index";
 import { createTheme, ThemeOptions } from "@mui/material/styles";
+
+import { Theme } from "@mui/material";
 
 // assets
 import colors from "../../assets/scss/_themes-vars.module.scss";
@@ -8,15 +15,9 @@ import componentStyleOverrides from "./compStyleOverride";
 import themePalette from "./palette";
 import themeTypography from "./typography";
 
-/**
- * Represent theme style and structure as per Material-UI
- * @param {JsonObject} customization customization parameter object
- */
-
-export const theme = (customization) => {
+export const theme = (customization: ICustomization) => {
     const color = colors;
-
-    const themeOption = {
+    const themeOption: CustomComponents = {
         colors: color,
         heading: color.grey900,
         paper: color.paper,
@@ -31,6 +32,7 @@ export const theme = (customization) => {
         customization,
     };
 
+    const themeTypographyOption = themeTypography(themeOption);
     const themeOptions: ThemeOptions = {
         direction: "ltr",
         palette: themePalette(themeOption),
@@ -43,11 +45,12 @@ export const theme = (customization) => {
                 },
             },
         },
-        typography: themeTypography(themeOption),
+        typography: themeTypographyOption,
     };
 
     const themes = createTheme(themeOptions);
-    themes.components = componentStyleOverrides(themeOption);
+    const styleOverrides = componentStyleOverrides(themeOption);
+    themes.components = styleOverrides;
 
     return themes;
 };

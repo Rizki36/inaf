@@ -11,8 +11,8 @@ const AdminLayout: FC = ({ children }) => {
 
     return (
         <MainLayout>
-            {/* test */}
             <CssBaseline />
+            {children}
         </MainLayout>
     );
 };

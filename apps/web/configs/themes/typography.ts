@@ -1,23 +1,8 @@
-/**
- * Typography used in theme
- * @param {JsonObject} theme theme customization object
- */
+import { CustomComponents } from "@/types/index";
+import { Typography } from "@mui/material/styles";
 
-import { TypographyOptions } from "@mui/material/styles/createTypography";
-
-interface IOptions extends TypographyOptions {
-    customInput: any;
-    mainContent: any;
-    menuCaption: any;
-    subMenuCaption: any;
-    commonAvatar: any;
-    smallAvatar: any;
-    mediumAvatar: any;
-    largeAvatar: any;
-}
-
-export default function themeTypography(theme: any) {
-    const options: IOptions = {
+export default function themeTypography(theme: CustomComponents): Typography {
+    const options = {
         fontFamily: theme?.customization?.fontFamily,
         h6: {
             fontWeight: 500,
@@ -84,6 +69,7 @@ export default function themeTypography(theme: any) {
             "& > label": {
                 top: 23,
                 left: 0,
+                // @ts-ignore
                 color: theme.grey500,
                 '&[data-shrink="false"]': {
                     top: 5,

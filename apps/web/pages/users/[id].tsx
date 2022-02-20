@@ -2,10 +2,13 @@ import UserDetailsEdit from "@/components/pages/users/UserDetailsEdit";
 import UserDetailsView from "@/components/pages/users/UserDetailsView";
 import { useUserDetails } from "@/libs/query/userQuery";
 import { Page } from "@/types/index";
-import { Button, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import RunningProjectCard from "@/components/pages/users/widgets/RunningProjectCard";
+import { gridSpacing } from "@/configs/constant";
+import TodoListCard from "@/components/pages/users/widgets/TodoListCard";
 
 const UserDetails: Page = () => {
     const router = useRouter();
@@ -17,43 +20,34 @@ const UserDetails: Page = () => {
     });
 
     return (
-        <div className="w-full">
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                }}
-            >
-                <Typography variant="h4" className="my-10">
-                    User Details
-                </Typography>
-                {edit ? (
-                    <div>
-                        <Button onClick={toggleEdit}>Cancel Edit</Button>
-                    </div>
-                ) : (
-                    <div>
-                        <Button onClick={toggleEdit}>Edit</Button>
-                    </div>
-                )}
-            </Box>
+        <Grid container spacing={gridSpacing}>
+            <Grid item lg={4} md={4} sm={4} xs={4}>
+                <Grid container spacing={gridSpacing}>
+                    <Grid item xs={12}>
+                        <RunningProjectCard isLoading={false} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TodoListCard isLoading={true} />
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid item xs={8}>
+                {isLoading && <>Loading</>}
+                {isError && <>Error</>}
 
-            {isLoading && <>Loading</>}
-            {isError && <>Error</>}
-
-            {data &&
-                (edit ? (
-                    <UserDetailsEdit
-                        id={id as string}
-                        data={data.data}
-                        edit={{ edit, toggleEdit }}
-                        mutate={mutate}
-                    />
-                ) : (
-                    <UserDetailsView data={data.data} />
-                ))}
-        </div>
+                {data &&
+                    (edit ? (
+                        <UserDetailsEdit
+                            id={id as string}
+                            data={data.data}
+                            edit={{ edit, toggleEdit }}
+                            mutate={mutate}
+                        />
+                    ) : (
+                        <UserDetailsView data={data.data} />
+                    ))}
+            </Grid>
+        </Grid>
     );
 };
 

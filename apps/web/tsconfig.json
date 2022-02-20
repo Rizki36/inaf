@@ -12,6 +12,7 @@
         "baseUrl": ".",
         "paths": {
             "@/types/*": ["@types/*"],
+            "@/assets/*": ["assets/*"],
             "@/components/*": ["components/*"],
             "@/configs/*": ["configs/*"],
             "@/helpers/*": ["helpers/*"],
