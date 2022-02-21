@@ -1,6 +1,11 @@
 # InAF
 Aplikasi to do untuk perusahaan
 
+## How To Run
+- yarn install
+- yarn prisma-push
+- yarn dev
+
 Home <br>
 ![home](https://user-images.githubusercontent.com/39044004/153438183-6c64f1a7-3246-42fa-911b-5bc83c94da67.png)
 
