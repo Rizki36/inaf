@@ -2,8 +2,7 @@ import UserDetailsEdit from "@/components/pages/users/UserDetailsEdit";
 import UserDetailsView from "@/components/pages/users/UserDetailsView";
 import { useUserDetails } from "@/libs/query/userQuery";
 import { Page } from "@/types/index";
-import { Button, Grid, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Grid} from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import RunningProjectCard from "@/components/pages/users/widgets/RunningProjectCard";
@@ -27,7 +26,7 @@ const UserDetails: Page = () => {
                         <RunningProjectCard isLoading={false} />
                     </Grid>
                     <Grid item xs={12}>
-                        <TodoListCard isLoading={true} />
+                        <TodoListCard isLoading={false} />
                     </Grid>
                 </Grid>
             </Grid>
