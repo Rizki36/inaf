@@ -7,7 +7,7 @@ import {
     updateUserDetailsService,
 } from "./user.service";
 
-export type getPaginationUsersDTO = ReturnType<
+export type getPaginationUsersDTO = AsyncReturnType<
     typeof getPaginationUsersService
 >;
 
