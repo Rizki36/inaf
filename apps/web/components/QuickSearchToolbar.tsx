@@ -1,9 +1,16 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import TextField from "@mui/material/TextField";
-import ClearIcon from "@mui/icons-material/Clear";
-import SearchIcon from "@mui/icons-material/Search";
+import {
+    ButtonBase,
+    FormControl,
+    InputAdornment,
+    InputLabel,
+    OutlinedInput,
+    useTheme,
+} from "@mui/material";
+import { shouldForwardProp } from "@mui/system";
+import { styled } from "@mui/material/styles";
+import { IconSearch } from "@tabler/icons";
 
 interface QuickSearchToolbarProps {
     clearSearch: () => void;
@@ -11,49 +18,45 @@ interface QuickSearchToolbarProps {
     value: string;
 }
 
+const OutlineInputStyle = styled(OutlinedInput, { shouldForwardProp })(
+    ({ theme }) => ({
+        width: 300,
+        marginLeft: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
+        "& input": {
+            background: "transparent !important",
+            paddingLeft: "4px !important",
+        },
+        [theme.breakpoints.down("lg")]: {
+            width: 250,
+        },
+        [theme.breakpoints.down("md")]: {
+            width: "100%",
+            marginLeft: 4,
+            background: "#fff",
+        },
+    })
+);
+
 const QuickSearchToolbar = (props: QuickSearchToolbarProps) => {
+    const theme = useTheme();
     return (
-        <Box
-            sx={{
-                p: 0.5,
-                pb: 0,
-            }}
-        >
-            <TextField
-                variant="standard"
+        <Box sx={{ py: 2, width: 20 }}>
+            <OutlineInputStyle
                 value={props.value}
                 onChange={props.onChange}
-                placeholder="Search…"
-                InputProps={{
-                    startAdornment: <SearchIcon fontSize="small" />,
-                    endAdornment: (
-                        <IconButton
-                            title="Clear"
-                            aria-label="Clear"
-                            size="small"
-                            style={{
-                                visibility: props.value ? "visible" : "hidden",
-                            }}
-                            onClick={props.clearSearch}
-                        >
-                            <ClearIcon fontSize="small" />
-                        </IconButton>
-                    ),
-                }}
-                sx={{
-                    width: {
-                        xs: 1,
-                        sm: "auto",
-                    },
-                    m: (theme) => theme.spacing(1, 0.5, 1.5),
-                    "& .MuiSvgIcon-root": {
-                        mr: 0.5,
-                    },
-                    "& .MuiInput-underline:before": {
-                        borderBottom: 1,
-                        borderColor: "divider",
-                    },
-                }}
+                placeholder="Search"
+                startAdornment={
+                    <InputAdornment position="start">
+                        <IconSearch
+                            stroke={1.5}
+                            size="1rem"
+                            color={theme.palette.grey[500]}
+                        />
+                    </InputAdornment>
+                }
+                inputProps={{ "aria-label": "weight" }}
             />
         </Box>
     );

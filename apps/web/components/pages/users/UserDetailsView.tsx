@@ -1,4 +1,6 @@
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import MainCard from "@/components/ui-component/cards/MainCard";
+import { gridSpacing } from "@/configs/constant";
+import { Grid, Typography } from "@mui/material";
 import { getUserDetailsDTO } from "server";
 
 interface UserDetailsViewProps {
@@ -10,71 +12,50 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
         data: { data },
     } = props;
     return (
-        <Card>
-            <CardContent>
-                <Grid
-                    container
-                    rowSpacing={1}
-                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                    columns={2}
-                >
-                    <Grid item>
-                        <div>
-                            <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                gutterBottom
-                            >
-                                Username
-                            </Typography>
-                            <Typography variant="body2">
-                                {data.username}
-                            </Typography>
-                        </div>
-                    </Grid>
-                    <Grid item>
-                        <div>
-                            <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                gutterBottom
-                            >
-                                Name
-                            </Typography>
-                            <Typography variant="body2">{data.name}</Typography>
-                        </div>
-                    </Grid>
-                    <Grid item>
-                        <div>
-                            <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                gutterBottom
-                            >
-                                Email
-                            </Typography>
-                            <Typography variant="body2">
-                                {data.email}
-                            </Typography>
-                        </div>
-                    </Grid>
-                    <Grid item>
-                        <div>
-                            <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                gutterBottom
-                            >
-                                Description
-                            </Typography>
-                            <Typography variant="body2">
-                                {data.description}
-                            </Typography>
-                        </div>
-                    </Grid>
+        <MainCard title="User Details">
+            <Grid container spacing={gridSpacing}>
+                <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        gutterBottom
+                    >
+                        Username
+                    </Typography>
+                    <Typography variant="body2">{data.username}</Typography>
                 </Grid>
-            </CardContent>
-        </Card>
+                <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        gutterBottom
+                    >
+                        Name
+                    </Typography>
+                    <Typography variant="body2">{data.name}</Typography>
+                </Grid>
+                <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        gutterBottom
+                    >
+                        Email
+                    </Typography>
+                    <Typography variant="body2">{data.email}</Typography>
+                </Grid>
+                <Grid item lg={12} md={12} sm={12} xs={12}>
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        gutterBottom
+                    >
+                        Description
+                    </Typography>
+                    <Typography variant="body2">{data.description}</Typography>
+                </Grid>
+            </Grid>
+        </MainCard>
     );
 };
 

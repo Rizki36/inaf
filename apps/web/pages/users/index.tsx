@@ -1,8 +1,10 @@
 import UsersTable from "@/components/pages/users/UsersTable";
+import MainCard from "@/components/ui-component/cards/MainCard";
 import { Page, RowsState } from "@/types/index";
-import { Card, CardContent, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { getUsers } from "libs/query/userQuery";
 import { useEffect, useState } from "react";
+import { IconPlus } from "@tabler/icons";
 
 const Users: Page = () => {
     const [rowsState, setRowsState] = useState<RowsState>({
@@ -46,17 +48,20 @@ const Users: Page = () => {
 
     return (
         <div className="w-full">
-            <Typography variant="h4" className="my-10">
-                Users
-            </Typography>
-            <Card>
-                <CardContent>
-                    <UsersTable
-                        rowsState={rowsState}
-                        setRowsState={setRowsState}
-                    />
-                </CardContent>
-            </Card>
+            <MainCard
+                title="Users"
+                secondary={
+                    <Button
+                        variant="outlined"
+                        color="secondary"
+                        startIcon={<IconPlus />}
+                    >
+                        Add
+                    </Button>
+                }
+            >
+                <UsersTable rowsState={rowsState} setRowsState={setRowsState} />
+            </MainCard>
         </div>
     );
 };

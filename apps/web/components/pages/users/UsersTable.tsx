@@ -4,6 +4,7 @@ import { IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Dispatch, SetStateAction } from "react";
 import { RemoveRedEye } from "@mui/icons-material";
+import { IconTrash, IconEye } from "@tabler/icons";
 import Link from "next/link";
 
 interface UserTableProps {
@@ -15,7 +16,7 @@ const UsersTable = (props: UserTableProps) => {
     const { rowsState, setRowsState } = props;
 
     return (
-        <div style={{ height: 400, width: "100%" }}>
+        <div style={{ height: "60vh", width: "100%" }}>
             <DataGrid
                 components={{ Toolbar: QuickSearchToolbar }}
                 columns={[
@@ -41,14 +42,23 @@ const UsersTable = (props: UserTableProps) => {
                         align: "center",
                         renderCell: (params) => {
                             return (
-                                <Link href={`users/${params.id}`} passHref>
+                                <>
+                                    <Link href={`users/${params.id}`} passHref>
+                                        <IconButton
+                                            aria-label="delete"
+                                            size="small"
+                                        >
+                                            <IconEye fontSize="small" />
+                                        </IconButton>
+                                    </Link>
+
                                     <IconButton
                                         aria-label="delete"
                                         size="small"
                                     >
-                                        <RemoveRedEye fontSize="small" />
+                                        <IconTrash fontSize={"small"} />
                                     </IconButton>
-                                </Link>
+                                </>
                             );
                         },
                     },
