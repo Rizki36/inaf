@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import { AsyncReturnType } from "./../../../@types/index.d";
 import {
+    deleteUserService,
     getPaginationUsersService,
     getUserDetailsService,
     updateUserDetailsService,
@@ -20,3 +21,5 @@ export type updateUserDetailsBody = Pick<
 export type updateUserDetailsSDTO = AsyncReturnType<
     typeof updateUserDetailsService
 >;
+
+export type deleteUserDTO = AsyncReturnType<typeof deleteUserService>;

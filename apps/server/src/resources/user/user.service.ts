@@ -109,3 +109,19 @@ export const updateUserDetailsService = async (props: UpdateUserDetails) => {
         data,
     });
 };
+
+interface DeleteUser {
+    id: string;
+}
+export const deleteUserService = async (props: DeleteUser) => {
+    const { id } = props;
+    const data = await prisma.user.delete({
+        where: {
+            id,
+        },
+    });
+
+    return successResponse<typeof data>({
+        data,
+    });
+};
