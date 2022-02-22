@@ -9,13 +9,15 @@ import { IconButton } from "@mui/material";
 import { IconTrash } from "@tabler/icons";
 import { deleteUser } from "@/libs/mutation/userMutation";
 import { commonError } from "@/helpers/errorHandler";
+import { mutate } from "swr";
 
 interface UserDeleteDialogProps {
     id: string;
     name: string;
+    mutate: any;
 }
 const UserDeleteDialog = (props: UserDeleteDialogProps) => {
-    const { id, name } = props;
+    const { id, name, mutate } = props;
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -31,7 +33,7 @@ const UserDeleteDialog = (props: UserDeleteDialogProps) => {
             id,
         })
             .then((res) => {
-                alert("Deleted");
+                mutate();
             })
             .catch((error) => commonError(error))
             .finally(() => {

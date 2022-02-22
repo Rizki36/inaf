@@ -2,7 +2,7 @@ import UsersTable from "@/components/pages/users/UsersTable";
 import MainCard from "@/components/ui-component/cards/MainCard";
 import { Page, RowsState } from "@/types/index";
 import { Button } from "@mui/material";
-import { getUsers } from "libs/query/userQuery";
+import { getUsers, useUsers } from "libs/query/userQuery";
 import { useEffect, useState } from "react";
 import { IconPlus } from "@tabler/icons";
 
@@ -16,35 +16,30 @@ const Users: Page = () => {
         sort: [{ field: "name", sort: "asc" }],
     });
 
+    const { data, isError, isLoading, mutate } = useUsers({
+        page: rowsState.page,
+        perPage: rowsState.pageSize,
+        sortPage: {
+            field: rowsState.sort[0]?.field,
+            sort: rowsState.sort[0]?.sort,
+        },
+        search: rowsState.search,
+    });
+
     useEffect(() => {
-        let active = true;
-
-        (async () => {
-            setRowsState((prev) => ({ ...prev, loading: true }));
-            const res = await getUsers({
-                page: rowsState.page,
-                perPage: rowsState.pageSize,
-                sortPage: {
-                    field: rowsState.sort[0]?.field,
-                    sort: rowsState.sort[0]?.sort,
-                },
-                search: rowsState.search,
-            });
-
-            if (!active) return;
-
+        if (data?.data && !isLoading) {
             setRowsState((prev) => ({
                 ...prev,
                 loading: false,
-                rows: res.data,
-                rowCount: res.totalRows,
+                rows: data.data.data,
+                rowCount: data.data.totalRows,
             }));
-        })();
+        }
 
-        return () => {
-            active = false;
-        };
-    }, [rowsState.page, rowsState.pageSize, rowsState.sort, rowsState.search]);
+        if (isError && !isLoading) {
+            alert("Error");
+        }
+    }, [data, isError, isLoading]);
 
     return (
         <div className="w-full">
@@ -60,7 +55,11 @@ const Users: Page = () => {
                     </Button>
                 }
             >
-                <UsersTable rowsState={rowsState} setRowsState={setRowsState} />
+                <UsersTable
+                    rowsState={rowsState}
+                    setRowsState={setRowsState}
+                    mutate={mutate}
+                />
             </MainCard>
         </div>
     );

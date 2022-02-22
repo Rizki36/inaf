@@ -10,10 +10,11 @@ import UserDeleteDialog from "./UserDeleteDialog";
 interface UserTableProps {
     rowsState: RowsState;
     setRowsState: Dispatch<SetStateAction<RowsState>>;
+    mutate: any;
 }
 
 const UsersTable = (props: UserTableProps) => {
-    const { rowsState, setRowsState } = props;
+    const { rowsState, setRowsState, mutate } = props;
 
     return (
         <div style={{ height: "60vh", width: "100%" }}>
@@ -55,6 +56,7 @@ const UsersTable = (props: UserTableProps) => {
                                     <UserDeleteDialog
                                         id={params.id as string}
                                         name={params.row.name}
+                                        mutate={mutate}
                                     />
                                 </>
                             );
