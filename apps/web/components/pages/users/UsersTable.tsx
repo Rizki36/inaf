@@ -3,9 +3,9 @@ import { RowsState } from "@/types/index";
 import { IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Dispatch, SetStateAction } from "react";
-import { RemoveRedEye } from "@mui/icons-material";
-import { IconTrash, IconEye } from "@tabler/icons";
+import { IconEye } from "@tabler/icons";
 import Link from "next/link";
+import UserDeleteDialog from "./UserDeleteDialog";
 
 interface UserTableProps {
     rowsState: RowsState;
@@ -52,12 +52,10 @@ const UsersTable = (props: UserTableProps) => {
                                         </IconButton>
                                     </Link>
 
-                                    <IconButton
-                                        aria-label="delete"
-                                        size="small"
-                                    >
-                                        <IconTrash fontSize={"small"} />
-                                    </IconButton>
+                                    <UserDeleteDialog
+                                        id={params.id as string}
+                                        name={params.row.name}
+                                    />
                                 </>
                             );
                         },

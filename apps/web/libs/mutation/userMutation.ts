@@ -1,5 +1,9 @@
 import backendApi from "configs/api/backendApi";
-import { updateUserDetailsBody, updateUserDetailsSDTO } from "server";
+import {
+    deleteUserDTO,
+    updateUserDetailsBody,
+    updateUserDetailsSDTO,
+} from "server";
 
 interface PatchUserDetailsProps {
     id: string;
@@ -11,4 +15,9 @@ export const patchUserDetails = (props: PatchUserDetailsProps) => {
     return backendApi.patch<updateUserDetailsSDTO>(`/admin/users/${id}`, {
         body,
     });
+};
+
+export const deleteUser = (props: { id: string }) => {
+    const { id } = props;
+    return backendApi.delete<deleteUserDTO>(`/admin/users/${id}`);
 };
