@@ -63,9 +63,6 @@ const LoginForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Typography variant="h5" marginBottom={"20px"}>
-                Login
-            </Typography>
             <Controller
                 control={control}
                 name={inputs.username.name}
