@@ -2,7 +2,7 @@ import UsersTable from "@/components/pages/users/UsersTable";
 import MainCard from "@/components/ui-component/cards/MainCard";
 import { Page, RowsState } from "@/types/index";
 import { Button } from "@mui/material";
-import { getUsers, useUsers } from "libs/query/userQuery";
+import { useUsers } from "libs/query/userQuery";
 import { useEffect, useState } from "react";
 import { IconPlus } from "@tabler/icons";
 
