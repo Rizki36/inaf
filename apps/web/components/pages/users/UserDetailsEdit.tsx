@@ -2,12 +2,13 @@ import { EditProp, Inputs } from "@/types/index";
 import { Button, TextField, Grid } from "@mui/material";
 import { getUserDetailsDTO } from "server";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { patchUserDetails } from "@/libs/mutation/userMutation";
 import { commonError } from "@/helpers/errorHandler";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import MainCard from "@/components/ui-component/cards/MainCard";
+import { gridSpacing } from "@/configs/constant";
 
 interface IForm extends Omit<getUserDetailsDTO["data"], "id"> {
     password?: string;
@@ -51,12 +52,13 @@ interface UserDetailsEditProps {
     data: getUserDetailsDTO;
     edit: EditProp;
     mutate: any;
+    btnSecondary: React.ReactNode;
 }
 const UserDetailsEdit = (props: UserDetailsEditProps) => {
     const {
         id,
         data: { data },
-        edit: { toggleEdit },
+        edit: { edit, toggleEdit },
         mutate,
     } = props;
 
@@ -94,16 +96,19 @@ const UserDetailsEdit = (props: UserDetailsEditProps) => {
         [id]
     );
 
+    const BtnSecondary = useMemo(() => {
+        if (edit) {
+            return <Button onClick={toggleEdit}>Cancel Edit</Button>;
+        } else {
+            return <Button onClick={toggleEdit}>Edit</Button>;
+        }
+    }, [edit, toggleEdit]);
+
     return (
-        <MainCard title="User Details">
+        <MainCard title="User Details" secondary={<>{BtnSecondary}</>}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Grid
-                    container
-                    rowSpacing={1}
-                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                    columns={2}
-                >
-                    <Grid item>
+                <Grid container spacing={gridSpacing}>
+                    <Grid item lg={6} md={6} sm={6} xs={6}>
                         <Controller
                             control={control}
                             name={inputs.username.name}
@@ -128,7 +133,7 @@ const UserDetailsEdit = (props: UserDetailsEditProps) => {
                             )}
                         />
                     </Grid>
-                    <Grid item>
+                    <Grid item lg={6} md={6} sm={6} xs={6}>
                         <Controller
                             control={control}
                             name={inputs.name.name}
@@ -150,7 +155,7 @@ const UserDetailsEdit = (props: UserDetailsEditProps) => {
                             )}
                         />
                     </Grid>
-                    <Grid item>
+                    <Grid item lg={6} md={6} sm={6} xs={6}>
                         <Controller
                             control={control}
                             name={inputs.email.name}
@@ -172,7 +177,7 @@ const UserDetailsEdit = (props: UserDetailsEditProps) => {
                             )}
                         />
                     </Grid>
-                    <Grid item>
+                    <Grid item lg={12} md={12} sm={12} xs={12}>
                         <Controller
                             control={control}
                             name={inputs.description.name}
@@ -197,11 +202,18 @@ const UserDetailsEdit = (props: UserDetailsEditProps) => {
                             )}
                         />
                     </Grid>
+                    <Grid
+                        item
+                        lg={12}
+                        md={12}
+                        sm={12}
+                        xs={12}
+                    >
+                        <Button type="submit" variant="contained">
+                            Update
+                        </Button>
+                    </Grid>
                 </Grid>
-
-                <Button type="submit" variant="contained">
-                    Update
-                </Button>
             </form>
         </MainCard>
     );

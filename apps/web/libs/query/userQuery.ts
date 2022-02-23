@@ -4,7 +4,7 @@ import { PaginationProps } from "../../@types/index";
 import useSWR from "swr";
 
 interface getUsetsProps extends PaginationProps {}
-export const getUsers = async (props: getUsetsProps) => {
+export const useUsers = (props: getUsetsProps) => {
     const {
         page = 1,
         perPage = 40,
@@ -12,17 +12,27 @@ export const getUsers = async (props: getUsetsProps) => {
         search,
     } = props;
 
-    const res = await backendApi.get<getPaginationUsersDTO>("admin/users", {
-        params: {
-            page,
-            perPage,
-            sort,
-            field,
-            search,
-        },
-    });
+    const { data, error, mutate } = useSWR(
+        ["admin/users", page, perPage, sort, search],
+        (url, page, perPage, sort, search) => {
+            return backendApi.get<getPaginationUsersDTO>(url, {
+                params: {
+                    page,
+                    perPage,
+                    sort,
+                    field,
+                    search,
+                },
+            });
+        }
+    );
 
-    return res.data;
+    return {
+        data,
+        isLoading: !error && !data,
+        isError: error,
+        mutate,
+    };
 };
 
 interface GetUserDetailsProps {
@@ -34,7 +44,7 @@ export const useUserDetails = (props: GetUserDetailsProps) => {
     const { data, error, mutate } = useSWR(id, (id) => {
         return backendApi.get<getUserDetailsDTO>(`admin/users/${id}`);
     });
-    console.log(id, data, error);
+
     return {
         data,
         isLoading: !error && !data,

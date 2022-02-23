@@ -29,4 +29,11 @@ route.patch(
     UserController.updateUserDetails
 );
 
+route.delete(
+    "/admin/users/:id",
+    verifyToken,
+    authorization(["ADMIN"]),
+    UserController.deleteUser
+);
+
 export default route;

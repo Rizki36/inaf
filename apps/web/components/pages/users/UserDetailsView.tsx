@@ -5,14 +5,16 @@ import { getUserDetailsDTO } from "server";
 
 interface UserDetailsViewProps {
     data: getUserDetailsDTO;
+    btnSecondary: React.ReactNode;
 }
 
 const UserDetailsView = (props: UserDetailsViewProps) => {
     const {
         data: { data },
+        btnSecondary,
     } = props;
     return (
-        <MainCard title="User Details">
+        <MainCard title="User Details" secondary={<>{btnSecondary}</>}>
             <Grid container spacing={gridSpacing}>
                 <Grid item lg={6} md={6} sm={6} xs={6}>
                     <Typography

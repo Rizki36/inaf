@@ -3,17 +3,18 @@ import { RowsState } from "@/types/index";
 import { IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Dispatch, SetStateAction } from "react";
-import { RemoveRedEye } from "@mui/icons-material";
-import { IconTrash, IconEye } from "@tabler/icons";
+import { IconEye } from "@tabler/icons";
 import Link from "next/link";
+import UserDeleteDialog from "./UserDeleteDialog";
 
 interface UserTableProps {
     rowsState: RowsState;
     setRowsState: Dispatch<SetStateAction<RowsState>>;
+    mutate: any;
 }
 
 const UsersTable = (props: UserTableProps) => {
-    const { rowsState, setRowsState } = props;
+    const { rowsState, setRowsState, mutate } = props;
 
     return (
         <div style={{ height: "60vh", width: "100%" }}>
@@ -52,12 +53,11 @@ const UsersTable = (props: UserTableProps) => {
                                         </IconButton>
                                     </Link>
 
-                                    <IconButton
-                                        aria-label="delete"
-                                        size="small"
-                                    >
-                                        <IconTrash fontSize={"small"} />
-                                    </IconButton>
+                                    <UserDeleteDialog
+                                        id={params.id as string}
+                                        name={params.row.name}
+                                        mutate={mutate}
+                                    />
                                 </>
                             );
                         },

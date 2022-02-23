@@ -3,6 +3,7 @@ import { PrismaClient, User } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { getPage, getPerPage } from "../../helpers/pagination";
 import {
+    deleteUserService,
     getPaginationUsersService,
     getUserDetailsService,
     updateUserDetailsService,
@@ -126,11 +127,20 @@ export const updateUser = async (req: Request, res: Response): Promise<any> => {
 };
 
 // delete user
-export const deleteUser = async (req: Request, res: Response): Promise<any> => {
-    const user = await prisma.user.delete({
-        where: {
-            id: req.params.id,
-        },
-    });
-    res.send(user);
+export const deleteUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { id } = req.params;
+        const data = await deleteUserService({
+            id,
+        });
+
+        return res.send(data);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
 };
