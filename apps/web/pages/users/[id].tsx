@@ -2,8 +2,8 @@ import UserDetailsEdit from "@/components/pages/users/UserDetailsEdit";
 import UserDetailsView from "@/components/pages/users/UserDetailsView";
 import { useUserDetails } from "@/libs/query/userQuery";
 import { Page } from "@/types/index";
-import { Grid} from "@mui/material";
-import { useState } from "react";
+import { Button, Grid } from "@mui/material";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import RunningProjectCard from "@/components/pages/users/widgets/RunningProjectCard";
 import { gridSpacing } from "@/configs/constant";
@@ -18,9 +18,17 @@ const UserDetails: Page = () => {
         id: id as string,
     });
 
+    const btnSecondary = useMemo(() => {
+        if (edit) {
+            return <Button onClick={toggleEdit}>Cancel Edit</Button>;
+        } else {
+            return <Button onClick={toggleEdit}>Edit</Button>;
+        }
+    }, [edit, toggleEdit]);
+
     return (
         <Grid container spacing={gridSpacing}>
-            <Grid item lg={4} md={4} sm={4} xs={4}>
+            <Grid item lg={4} md={12} sm={12} xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item xs={12}>
                         <RunningProjectCard isLoading={false} />
@@ -30,7 +38,7 @@ const UserDetails: Page = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item lg={8} md={12} sm={12} xs={12}>
                 {isLoading && <>Loading</>}
                 {isError && <>Error</>}
 
@@ -41,9 +49,13 @@ const UserDetails: Page = () => {
                             data={data.data}
                             edit={{ edit, toggleEdit }}
                             mutate={mutate}
+                            btnSecondary={btnSecondary}
                         />
                     ) : (
-                        <UserDetailsView data={data.data} />
+                        <UserDetailsView
+                            data={data.data}
+                            btnSecondary={btnSecondary}
+                        />
                     ))}
             </Grid>
         </Grid>
