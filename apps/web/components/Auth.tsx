@@ -35,7 +35,7 @@ const Auth = (props: Props) => {
                 dispatch(setUser(res.data.data));
             })
             .catch((e: AxiosError) => {
-                if (e.response.status === 401) handleLogout();
+                if (e.response?.status === 401) handleLogout();
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
