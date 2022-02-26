@@ -23,14 +23,13 @@ export const getPaginationPositionsService = async (
     const orderKey: keyof Position =
         [].find((i) => i === sortPage?.field) ?? "createdAt";
 
-    const where: Prisma.PositionWhereInput = {};
+    const where: Prisma.PositionFindManyArgs["where"] = {};
     if (search) {
         where.OR = {
             name: { contains: search },
         };
     }
 
-    console.log("where", where);
     const data = await prisma.position.findMany({
         skip: page * perPage,
         take: perPage,
@@ -48,9 +47,8 @@ export const getPaginationPositionsService = async (
         where,
     });
 
-    prisma.$on("query", (e) => {
-        console.log("Query: " + e.query);
-        console.log("Duration: " + e.duration + "ms");
+    prisma.$on("query", (e: Prisma.QueryEvent) => {
+        console.log(`${e.duration} ms : ${e.query}`);
     });
 
     const totalRows = await prisma.position.count();
@@ -73,6 +71,7 @@ export const getPositionDetailsService = async (props: GetUPositionDetails) => {
         select: {
             id: true,
             name: true,
+            description: true,
             createdAt: true,
             updatedAt: true,
         },
@@ -94,9 +93,11 @@ export const updatePositionDetailsService = async (
     props: UpdatePositionDetails
 ) => {
     const { id, body } = props;
+    console.log(body);
     const data = await prisma.position.update({
         data: {
             name: body.name,
+            description: body.description,
         },
         where: {
             id,

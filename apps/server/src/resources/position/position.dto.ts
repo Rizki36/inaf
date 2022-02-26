@@ -15,7 +15,7 @@ export type getPositionDetailsDTO = AsyncReturnType<
     typeof getPositionDetailsService
 >;
 
-export type updatePositionDetailsBody = Pick<Position, "name">;
+export type updatePositionDetailsBody = Pick<Position, "name" | "description">;
 
 export type updatePositionDetailsDTO = AsyncReturnType<
     typeof updatePositionDetailsService
