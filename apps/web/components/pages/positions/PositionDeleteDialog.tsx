@@ -7,8 +7,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { IconButton } from "@mui/material";
 import { IconTrash } from "@tabler/icons";
-import { deleteUser } from "@/libs/mutation/userMutation";
 import { commonError } from "@/helpers/errorHandler";
+import { deletePosition } from "@/libs/mutation/positionMutation";
 
 interface PositionDeleteDialogProps {
     id: string;
@@ -28,7 +28,7 @@ const PositionDeleteDialog = (props: PositionDeleteDialogProps) => {
     };
 
     const handleConfirm = () => {
-        deleteUser({
+        deletePosition({
             id,
         })
             .then((res) => {

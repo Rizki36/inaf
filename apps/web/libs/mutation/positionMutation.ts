@@ -12,12 +12,15 @@ interface PatchPositionDetailsProps {
 
 export const patchPositionDetails = (props: PatchPositionDetailsProps) => {
     const { id, body } = props;
-    return backendApi.patch<updatePositionDetailsDTO>(`/admin/users/${id}`, {
-        body,
-    });
+    return backendApi.patch<updatePositionDetailsDTO>(
+        `/admin/positions/${id}`,
+        {
+            body,
+        }
+    );
 };
 
 export const deletePosition = (props: { id: string }) => {
     const { id } = props;
-    return backendApi.delete<deletePositionDTO>(`/admin/users/${id}`);
+    return backendApi.delete<deletePositionDTO>(`/admin/positions/${id}`);
 };
