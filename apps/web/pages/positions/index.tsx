@@ -5,8 +5,12 @@ import { Button } from "@mui/material";
 import { usePositions } from "libs/query/positionQuery";
 import { useEffect, useState } from "react";
 import { IconPlus } from "@tabler/icons";
+import useModal from "hooks/useModal";
+import PositionCreateModal from "@/components/pages/positions/PositionCreateModal";
 
 const Positions: Page = () => {
+    const modal = useModal(false);
+
     const [rowsState, setRowsState] = useState<RowsState>({
         page: 0,
         pageSize: 40,
@@ -50,6 +54,7 @@ const Positions: Page = () => {
                         variant="outlined"
                         color="secondary"
                         startIcon={<IconPlus />}
+                        onClick={modal.toggleModal}
                     >
                         Add
                     </Button>
@@ -61,6 +66,7 @@ const Positions: Page = () => {
                     mutate={mutate}
                 />
             </MainCard>
+            <PositionCreateModal modal={modal} mutate={mutate} />
         </div>
     );
 };

@@ -1,10 +1,9 @@
 import dashboard from "./dashboard";
 import users from "./users";
-
-// ==============================|| MENU ITEMS ||============================== //
+import positions from "./positions";
 
 const menuItems = {
-    items: [dashboard, users],
+    items: [dashboard, users, positions],
 };
 
 export default menuItems;

@@ -14,17 +14,29 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
         btnSecondary,
     } = props;
     return (
-        <MainCard title="User Details" secondary={<>{btnSecondary}</>}>
+        <MainCard title="Position Details" secondary={<>{btnSecondary}</>}>
             <Grid container spacing={gridSpacing}>
-                <Grid item lg={6} md={6} sm={6} xs={6}>
-                    <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        gutterBottom
-                    >
-                        Name
-                    </Typography>
-                    <Typography variant="body2">{data.name}</Typography>
+                <Grid item lg={12} md={12} sm={12} xs={12}>
+                    <div style={{ marginTop:"16px" }}>
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            gutterBottom
+                        >
+                            Name
+                        </Typography>
+                        <Typography variant="body2">{data.name}</Typography>
+                    </div>
+                    <div style={{ marginTop:"16px" }}>
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            gutterBottom
+                        >
+                            Description
+                        </Typography>
+                        <Typography variant="body2">{data.description}</Typography>
+                    </div>
                 </Grid>
             </Grid>
         </MainCard>

@@ -3,12 +3,14 @@ import { Position, PrismaClient, User } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { getPage, getPerPage } from "../../helpers/pagination";
 import {
+    createPositionService,
     deletePositionService,
     getPaginationPositionsService,
     getPositionDetailsService,
     updatePositionDetailsService,
 } from "./position.service";
-import { updatePositionDetailsBody } from "./position.dto";
+import { createPositionBody, updatePositionDetailsBody } from "./position.dto";
+import { createdResponse } from "../../helpers/methods";
 
 const prisma = new PrismaClient();
 
@@ -92,19 +94,27 @@ export const updatePositionDetails = async (
     }
 };
 
-// create new user
+// create new position
 export const createPosition = async (
-    req: Request,
-    res: Response
+    req: Request<{}, {}, { body: createPositionBody }>,
+    res: Response,
+    next: NextFunction
 ): Promise<any> => {
-    const user = await prisma.user.create({
-        data: {
-            email: req.body.email,
-            password: req.body.password,
-            username: req.body.username,
-        },
-    });
-    res.send(user);
+    try {
+        const {
+            body: { name, description },
+        } = req.body;
+        const position = await createPositionService({
+            body: {
+                name,
+                description,
+            },
+        });
+
+        res.send(createdResponse(position));
+    } catch (error) {
+        next(error);
+    }
 };
 
 // update existing user

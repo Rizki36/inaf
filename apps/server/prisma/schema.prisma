@@ -41,6 +41,8 @@ model Position {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String   @db.VarChar(255)
+  description String? @db.LongText()
+  attachments Json?
 
   User  User[]
   teams Teams[]

@@ -17,11 +17,16 @@ const inputs: Inputs<IForm> = {
         label: "Name",
         name: "name",
     },
+    description: {
+        label: "Description",
+        name: "description",
+    },
 };
 
 const schema = yup
     .object<Record<keyof IForm, any>>({
         name: yup.string().required(),
+        description: yup.string().required(),
     })
     .required();
 
@@ -48,6 +53,7 @@ const PostionDetailsEdit = (props: PositionDetailsEditProps) => {
         resolver: yupResolver(schema),
         defaultValues: {
             name: data.name,
+            description: data.description,
         },
     });
 
@@ -82,7 +88,7 @@ const PostionDetailsEdit = (props: PositionDetailsEditProps) => {
         <MainCard title="Position Details" secondary={<>{BtnSecondary}</>}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={gridSpacing}>
-                    <Grid item lg={6} md={6} sm={6} xs={6}>
+                    <Grid item lg={12} md={12} sm={12} xs={12}>
                         <Controller
                             control={control}
                             name={inputs.name.name}
@@ -98,6 +104,29 @@ const PostionDetailsEdit = (props: PositionDetailsEditProps) => {
                                     helperText={
                                         errors[inputs.name.name]
                                             ? errors[inputs.name.name].message
+                                            : ""
+                                    }
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name={inputs.description.name}
+                            defaultValue=""
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    label={inputs.description.label}
+                                    className="w-full"
+                                    margin="normal"
+                                    variant="standard"
+                                    error={Boolean(
+                                        errors[inputs.description.name]
+                                    )}
+                                    helperText={
+                                        errors[inputs.description.name]
+                                            ? errors[inputs.description.name]
+                                                  .message
                                             : ""
                                     }
                                 />

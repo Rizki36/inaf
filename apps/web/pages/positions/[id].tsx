@@ -5,9 +5,9 @@ import { Page } from "@/types/index";
 import { Button, Grid } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import RunningProjectCard from "@/components/pages/users/widgets/RunningProjectCard";
 import { gridSpacing } from "@/configs/constant";
-import TodoListCard from "@/components/pages/users/widgets/TodoListCard";
+import AttachmentListCard from "@/components/pages/positions/widgets/AttachmentListCard";
+import TotalPositionUsersCard from "@/components/pages/positions/widgets/TotalPositionUsersCard";
 
 const PositionDetails: Page = () => {
     const router = useRouter();
@@ -31,10 +31,10 @@ const PositionDetails: Page = () => {
             <Grid item lg={4} md={12} sm={12} xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item xs={12}>
-                        <RunningProjectCard isLoading={false} />
+                        <TotalPositionUsersCard isLoading={false} />
                     </Grid>
                     <Grid item xs={12}>
-                        <TodoListCard isLoading={false} />
+                        <AttachmentListCard isLoading={false} />
                     </Grid>
                 </Grid>
             </Grid>
