@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest ./src/main.test.ts",
-    "compile": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc",
     "dev": "nodemon --exec ts-node server.ts --watch"
   },
   "repository": {
