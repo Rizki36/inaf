@@ -1,5 +1,12 @@
+import { useModal } from "hooks/useModal";
 import { NextPage } from "next";
-import { ComponentType, ReactElement, ReactNode } from "react";
+import {
+    ComponentType,
+    Dispatch,
+    ReactElement,
+    ReactNode,
+    SetStateAction,
+} from "react";
 import { GridRowModel, GridSortModel } from "@mui/x-data-grid";
 import theme from "@/configs/themes";
 import {
@@ -96,6 +103,13 @@ export interface CustomTypography extends TypographyOptions {
 }
 
 export interface CustomPalette extends Palette {}
+
+// export type IUseModal = ReturnType<useModal>;
+export type IUseModal = {
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    toggleModal: () => void;
+};
 
 declare module "@mui/material/styles" {
     interface Theme {

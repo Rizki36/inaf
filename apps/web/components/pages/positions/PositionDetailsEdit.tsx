@@ -17,10 +17,10 @@ const inputs: Inputs<IForm> = {
         label: "Name",
         name: "name",
     },
-    description:{
-        label:"Description",
-        name:"description"
-    }
+    description: {
+        label: "Description",
+        name: "description",
+    },
 };
 
 const schema = yup
@@ -120,10 +120,13 @@ const PostionDetailsEdit = (props: PositionDetailsEditProps) => {
                                     className="w-full"
                                     margin="normal"
                                     variant="standard"
-                                    error={Boolean(errors[inputs.description.name])}
+                                    error={Boolean(
+                                        errors[inputs.description.name]
+                                    )}
                                     helperText={
                                         errors[inputs.description.name]
-                                            ? errors[inputs.description.name].message
+                                            ? errors[inputs.description.name]
+                                                  .message
                                             : ""
                                     }
                                 />
