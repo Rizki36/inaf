@@ -2,7 +2,10 @@ import * as PositionController from "./position.controller";
 import express from "express";
 import verifyToken from "../../middleware/verifToken";
 import { authorization } from "../../middleware/authorization";
-import { updatePositionDetailsSchema } from "./position.validation";
+import {
+    createPositionSchema,
+    updatePositionDetailsSchema,
+} from "./position.validation";
 import validate from "../../middleware/validation";
 
 const route = express.Router();
@@ -12,6 +15,14 @@ route.get(
     verifyToken,
     authorization(["ADMIN"]),
     PositionController.getPaginationPositions
+);
+
+route.post(
+    "/admin/positions",
+    verifyToken,
+    authorization(["ADMIN"]),
+    validate(createPositionSchema),
+    PositionController.createPosition
 );
 
 route.get(

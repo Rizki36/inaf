@@ -1,6 +1,7 @@
 import { Position } from "@prisma/client";
 import { AsyncReturnType } from "./../../../@types/index.d";
 import {
+    createPositionService,
     deletePositionService,
     getPaginationPositionsService,
     getPositionDetailsService,
@@ -14,6 +15,10 @@ export type getPaginationPositionsDTO = AsyncReturnType<
 export type getPositionDetailsDTO = AsyncReturnType<
     typeof getPositionDetailsService
 >;
+
+export type createPositionBody = Pick<Position, "name" | "description">;
+
+export type createPositionDTO = AsyncReturnType<typeof createPositionService>;
 
 export type updatePositionDetailsBody = Pick<Position, "name" | "description">;
 

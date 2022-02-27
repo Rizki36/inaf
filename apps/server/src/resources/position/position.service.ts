@@ -1,4 +1,4 @@
-import { updatePositionDetailsBody } from "./position.dto";
+import { createPositionBody, updatePositionDetailsBody } from "./position.dto";
 import { PrismaClient, Prisma, Position } from "@prisma/client";
 import { PaginationProps } from "../../../@types";
 import { successResponse } from "../../helpers/methods";
@@ -82,6 +82,24 @@ export const getPositionDetailsService = async (props: GetUPositionDetails) => {
 
     return successResponse<typeof data>({
         data: data,
+    });
+};
+
+interface CreatePosition {
+    body: createPositionBody;
+}
+export const createPositionService = async (props: CreatePosition) => {
+    const { body } = props;
+
+    const data = await prisma.position.create({
+        data: {
+            name: body.name,
+            description: body.description,
+        },
+    });
+
+    return successResponse<typeof data>({
+        data,
     });
 };
 
