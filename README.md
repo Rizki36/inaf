@@ -3,6 +3,8 @@ Aplikasi to do untuk perusahaan
 
 ## How To Run
 - yarn install
+- copy .env.example to .env
+- create database with name "inaf"
 - yarn prisma-push
 - yarn dev
 
