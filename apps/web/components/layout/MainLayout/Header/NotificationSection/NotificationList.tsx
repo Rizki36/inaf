@@ -24,7 +24,6 @@ import {
     IconMailbox,
     IconPhoto,
 } from "@tabler/icons";
-import User1 from "assets/images/users/user-round.svg";
 
 // styles
 const ListItemWrapper = styled("div")(({ theme }) => ({
@@ -93,7 +92,7 @@ const NotificationList = () => {
             <ListItemWrapper>
                 <ListItem alignItems="center">
                     <ListItemAvatar>
-                        <Avatar alt="John Doe" src={User1} />
+                        <Avatar alt="John Doe" src={""} />
                     </ListItemAvatar>
                     <ListItemText primary="John Doe" />
                     <ListItemSecondaryAction>
@@ -247,7 +246,7 @@ const NotificationList = () => {
             <ListItemWrapper>
                 <ListItem alignItems="center">
                     <ListItemAvatar>
-                        <Avatar alt="John Doe" src={User1} />
+                        <Avatar alt="John Doe" src={""} />
                     </ListItemAvatar>
                     <ListItemText
                         primary={
@@ -316,7 +315,7 @@ const NotificationList = () => {
             <ListItemWrapper>
                 <ListItem alignItems="center">
                     <ListItemAvatar>
-                        <Avatar alt="John Doe" src={User1} />
+                        <Avatar alt="John Doe" src={""} />
                     </ListItemAvatar>
                     <ListItemText
                         primary={
