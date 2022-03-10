@@ -52,3 +52,17 @@ export const useUserDetails = (props: GetUserDetailsProps) => {
         mutate,
     };
 };
+
+export const useProfile = ()=>{
+    const { data, error, mutate,isValidating } = useSWR("account", (url) => backendApi.get<getUserDetailsDTO>(url).then(res=>res.data.data),{
+        shouldRetryOnError:false
+    });
+
+    return {
+        data,
+        isLoading: !error && !data,
+        isError: error,
+        mutate,
+        isValidating
+    };
+}

@@ -1,56 +1,44 @@
-import Router from "next/router";
-
-import { AxiosError } from "axios";
+import { useRouter } from "next/router";
 import React, { useCallback, useEffect } from "react";
 import { AuthOptions } from "../@types";
-import backendApi from "../configs/api/backendApi";
 import { useAppDispatch, useAppSelector } from "../configs/redux/hooks";
 import { logout, setUser } from "../configs/redux/userSlice";
+import { NextPage } from "next";
+import { useProfile } from "@/libs/query/userQuery";
 
 interface Props extends AuthOptions {
     children: any;
 }
 
-const Auth = (props: Props) => {
+const Auth: NextPage = (props: Props) => {
     const {
-        redirectAuthenticated = "/",
         mustLoggedIn = true,
+        redirectAuthenticated = "/",
         redirectUnAuthenticated = "/login",
         children,
     } = props;
 
-    const user = useAppSelector((state) => state.user.account);
-    const dispatch = useAppDispatch();
-
-    const handleLogout = useCallback(() => {
-        dispatch(logout());
-        Router.replace(redirectUnAuthenticated);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [redirectUnAuthenticated]);
+    const router = useRouter();
+    const { data: profile, isError, isLoading } = useProfile();
+    console.log("profile", profile, isError, isLoading);
 
     useEffect(() => {
-        backendApi
-            .get<{ data: any }>("/account")
-            .then((res) => {
-                dispatch(setUser(res.data.data));
-            })
-            .catch((e: AxiosError) => {
-                if (e.response?.status === 401) handleLogout();
-            });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        if (mustLoggedIn && isError) {
+            console.log("unAuthenticated");
+            router.replace("/login");
+        }
+    }, [isError]);
 
+    // redirect user from login to redirectAuthenticated when is authenticated
     useEffect(() => {
-        // redirect when user is authenticated
-        if (!mustLoggedIn && user) Router.replace(redirectAuthenticated);
-
-        // redirect when user is unauthenticated and page is not login page
-        if (!user && Router.pathname !== redirectUnAuthenticated)
-            handleLogout();
-    }, [user, redirectAuthenticated, redirectUnAuthenticated]);
+        if (!mustLoggedIn && profile && !isError) {
+            console.log("redirect Authenticated");
+            router.push("/");
+        }
+    }, [mustLoggedIn, profile, isError]);
 
     // loading
-    if (!user && mustLoggedIn) return <></>;
+    if (isLoading) return <></>;
 
     return children;
 };
