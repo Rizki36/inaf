@@ -35,11 +35,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: Props) {
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <Theme>
-                    <Layout>
-                        <Auth {...Component.auth}>
+                    <Auth {...Component.auth}>
+                        <Layout>
                             <Component {...pageProps} />
-                        </Auth>
-                    </Layout>
+                        </Layout>
+                    </Auth>
                 </Theme>
             </PersistGate>
         </Provider>
