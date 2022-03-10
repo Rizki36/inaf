@@ -9,7 +9,7 @@ const route = express.Router();
 
 route.post('/signup', validate(signupSchema), AuthController.signup)
     .post('/signin', validate(signinSchema), AuthController.signin)
-    .get('/account', verifyToken, authorization(['USER']), AuthController.account)
+    .get('/account', verifyToken, authorization(['USER','ADMIN']), AuthController.account)
     .post('/logout', verifyToken, AuthController.logout)
 
 export default route;
