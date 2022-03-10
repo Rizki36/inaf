@@ -87,6 +87,9 @@ export const signinService = async (props: SigninParams) => {
 
 export const accountService = async (id: string) => {
     const user = await prisma.user.findFirst({
+        select:{
+            name:true,
+        },
         where: {
             id
         }
@@ -94,10 +97,6 @@ export const accountService = async (id: string) => {
 
     if (!user) throw new ErrorUserNotFound()
 
-    // remove password
-    const response: Partial<User> = user
-    delete response.password
-
-    return response;
+    return user;
 }
 

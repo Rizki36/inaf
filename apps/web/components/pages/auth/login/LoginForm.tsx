@@ -1,13 +1,13 @@
-import { Button, TextField, Typography } from "@mui/material";
-import { useCallback } from "react";
+import { Button, TextField } from "@mui/material";
+import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Inputs } from "@/types/index";
 import { loginMutation } from "libs/mutation/Auth";
 import { commonError } from "helpers/errorHandler";
-import { setUser } from "configs/redux/userSlice";
-import { useAppDispatch } from "configs/redux/hooks";
+import { AxiosError } from "axios";
+import Router from "next/router";
 
 interface IForm {
     username: string;
@@ -33,7 +33,8 @@ const schema = yup
     .required();
 
 const LoginForm = () => {
-    const dispatch = useAppDispatch();
+    const [isLoading, setIsLoading] = useState(false);
+    const [errMsg, setErrMsg] = useState<string | null>(null);
 
     const {
         control,
@@ -47,19 +48,23 @@ const LoginForm = () => {
         },
     });
 
-    const onSubmit: SubmitHandler<IForm> = useCallback(
-        ({ username, password }) => {
-            loginMutation({
-                username,
-                password,
+    const onSubmit: SubmitHandler<IForm> = ({ username, password }) => {
+        setIsLoading(true);
+        setErrMsg(null);
+
+        loginMutation({
+            username,
+            password,
+        })
+            .then(async (res) => {
+                Router.replace("/");
             })
-                .then((res) => {
-                    dispatch(setUser(res.data.data.user));
-                })
-                .catch((e) => commonError);
-        },
-        []
-    );
+            .catch((e: AxiosError) => {
+                setErrMsg("Uppsss error");
+                setIsLoading(false);
+                commonError(e);
+            });
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -105,7 +110,7 @@ const LoginForm = () => {
             />
 
             <div className="flex justify-center mt-10">
-                <Button type="submit" variant="contained">
+                <Button type="submit" variant="contained" disabled={isLoading}>
                     Login
                 </Button>
             </div>

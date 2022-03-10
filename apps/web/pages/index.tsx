@@ -1,10 +1,13 @@
 import { Button } from "ui";
+import { Page } from "../@types";
 
-export default function Web() {
-  return (
-    <div>
-      <h1>Web</h1>
-      <Button />
-    </div>
-  );
-}
+const Dashboard: Page = () => {
+    return (
+        <div>
+            <h1>Web</h1>
+            <Button />
+        </div>
+    );
+};
+
+export default Dashboard;
