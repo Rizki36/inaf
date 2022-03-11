@@ -5,6 +5,7 @@ import {
     getPaginationUsersService,
     getUserDetailsService,
     updateUserDetailsService,
+    createUserService
 } from "./user.service";
 
 export type getPaginationUsersDTO = AsyncReturnType<
@@ -17,6 +18,10 @@ export type updateUserDetailsBody = Pick<
     User,
     "name" | "username" | "email" | "description"
 >;
+
+export type createUserBody = Pick<User, "name" | "description" | "username" | "password" | "email" | "positionId">;
+
+export type createUserDTO = AsyncReturnType<typeof createUserService>;
 
 export type updateUserDetailsSDTO = AsyncReturnType<
     typeof updateUserDetailsService

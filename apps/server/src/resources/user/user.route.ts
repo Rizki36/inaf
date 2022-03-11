@@ -14,6 +14,14 @@ route.get(
     UserController.getPaginationUsers
 );
 
+route.post(
+    "/admin/users",
+    verifyToken,
+    authorization(["ADMIN"]),
+    validate(updateUserDetailsSchema),
+    UserController.createUser
+);
+
 route.get(
     "/admin/users/:id",
     verifyToken,
