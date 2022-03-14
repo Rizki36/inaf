@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -7,8 +7,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import { gridSpacing } from "@/configs/constant";
-import { IUseModal } from "@/types/index";
-import { Grid, Typography } from "@mui/material";
+import { IOption, IUseModal } from "@/types/index";
+import { Autocomplete, Grid, Typography } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,6 +16,7 @@ import { Inputs } from "@/types/index";
 import { createUserBody } from "server";
 import { createUser } from "@/libs/mutation/userMutation";
 import { commonError } from "@/helpers/errorHandler";
+import { usePositions } from "@/libs/query/positionQuery";
 
 interface IProps {
     modal: IUseModal;
@@ -54,16 +55,28 @@ const inputs: Inputs<IForm> = {
 const schema = yup
     .object<Record<keyof IForm, any>>({
         name: yup.string().required().label("Name"),
-        email: yup.string().required().label("Email"),
+        email: yup.string().required().email().label("Email"),
         password: yup.string().required().label("Password"),
         username: yup.string().required().label("Username"),
         positionId: yup.string().required().label("Position"),
-        description: yup.string().required().label("Description"),
+        description: yup.string().label("Description"),
     })
     .required();
 
 const UserCreateModal = (props: IProps) => {
     const { modal, mutate } = props;
+
+    const [positionOptions, setPositionOptions] = useState<IOption[]>([]);
+
+    const {
+        data: positions,
+        isError: isErrorPosition,
+        isLoading: isLoadingPosition,
+    } = usePositions({
+        page: 0,
+        perPage: 40,
+        // search: rowsState.search,
+    });
 
     const {
         control,
@@ -74,15 +87,31 @@ const UserCreateModal = (props: IProps) => {
         resolver: yupResolver(schema),
     });
 
+    useEffect(() => {
+        if (!isErrorPosition && !isLoadingPosition && positions.data.data) {
+            const options = positions.data.data.map((item) => {
+                const option: IOption = {
+                    label: item.name,
+                    value: item.id,
+                };
+
+                return option;
+            });
+
+            setPositionOptions(options);
+        } else {
+            setPositionOptions([]);
+        }
+    }, [isErrorPosition, isLoadingPosition, positions]);
+
     const handleCancel = useCallback(() => {
         modal.toggleModal();
     }, [modal]);
 
     const onSubmit: SubmitHandler<IForm> = useCallback(
         (props) => {
-            const body = {
-                ...props,
-            };
+            const body = { ...props };
+
             createUser({
                 body,
             })
@@ -99,7 +128,7 @@ const UserCreateModal = (props: IProps) => {
         <Dialog
             open={modal.isOpen}
             onClose={modal.toggleModal}
-            maxWidth="sm"
+            maxWidth="md"
             fullWidth={true}
         >
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -110,161 +139,193 @@ const UserCreateModal = (props: IProps) => {
                 </DialogTitle>
                 <DialogContent dividers>
                     <Grid container spacing={gridSpacing}>
-                        <Grid item lg={6} md={12} sm={12} xs={12}>
-                            <Controller
-                                control={control}
-                                name={inputs.name.name}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label={inputs.name.label}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="standard"
-                                        error={Boolean(
-                                            errors[inputs.name.name]
+                        <Grid item lg={6} xs={12}>
+                            <Grid container spacing={gridSpacing}>
+                                <Grid item lg={6} md={12} sm={12} xs={12}>
+                                    <Controller
+                                        control={control}
+                                        name={inputs.name.name}
+                                        defaultValue=""
+                                        render={({ field }) => (
+                                            <TextField
+                                                {...field}
+                                                label={inputs.name.label}
+                                                fullWidth
+                                                margin="normal"
+                                                variant="standard"
+                                                error={Boolean(
+                                                    errors[inputs.name.name]
+                                                )}
+                                                helperText={
+                                                    errors[inputs.name.name]
+                                                        ? errors[
+                                                              inputs.name.name
+                                                          ].message
+                                                        : ""
+                                                }
+                                            />
                                         )}
-                                        helperText={
-                                            errors[inputs.name.name]
-                                                ? errors[inputs.name.name]
-                                                      .message
-                                                : ""
-                                        }
                                     />
-                                )}
-                            />
-                        </Grid>
+                                </Grid>
 
-                        <Grid item lg={6} md={12} sm={12} xs={12}>
-                            <Controller
-                                control={control}
-                                name={inputs.email.name}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label={inputs.email.label}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="standard"
-                                        error={Boolean(
-                                            errors[inputs.email.name]
+                                <Grid item lg={6} md={12} sm={12} xs={12}>
+                                    <Controller
+                                        control={control}
+                                        name={inputs.email.name}
+                                        defaultValue=""
+                                        render={({ field }) => (
+                                            <TextField
+                                                {...field}
+                                                label={inputs.email.label}
+                                                fullWidth
+                                                margin="normal"
+                                                variant="standard"
+                                                error={Boolean(
+                                                    errors[inputs.email.name]
+                                                )}
+                                                helperText={
+                                                    errors[inputs.email.name]
+                                                        ? errors[
+                                                              inputs.email.name
+                                                          ].message
+                                                        : ""
+                                                }
+                                            />
                                         )}
-                                        helperText={
-                                            errors[inputs.email.name]
-                                                ? errors[inputs.email.name]
-                                                      .message
-                                                : ""
-                                        }
                                     />
-                                )}
-                            />
-                        </Grid>
+                                </Grid>
 
-                        <Grid item lg={6} md={12} sm={12} xs={12}>
-                            <Controller
-                                control={control}
-                                name={inputs.username.name}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label={inputs.username.label}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="standard"
-                                        error={Boolean(
-                                            errors[inputs.username.name]
+                                <Grid item lg={6} md={12} sm={12} xs={12}>
+                                    <Controller
+                                        control={control}
+                                        name={inputs.username.name}
+                                        defaultValue=""
+                                        render={({ field }) => (
+                                            <TextField
+                                                {...field}
+                                                label={inputs.username.label}
+                                                fullWidth
+                                                margin="normal"
+                                                variant="standard"
+                                                error={Boolean(
+                                                    errors[inputs.username.name]
+                                                )}
+                                                helperText={
+                                                    errors[inputs.username.name]
+                                                        ? errors[
+                                                              inputs.username
+                                                                  .name
+                                                          ].message
+                                                        : ""
+                                                }
+                                            />
                                         )}
-                                        helperText={
-                                            errors[inputs.username.name]
-                                                ? errors[inputs.username.name]
-                                                      .message
-                                                : ""
-                                        }
                                     />
-                                )}
-                            />
-                        </Grid>
+                                </Grid>
 
-                        <Grid item lg={6} md={12} sm={12} xs={12}>
-                            <Controller
-                                control={control}
-                                name={inputs.password.name}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label={inputs.password.label}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="standard"
-                                        error={Boolean(
-                                            errors[inputs.password.name]
+                                <Grid item lg={6} md={12} sm={12} xs={12}>
+                                    <Controller
+                                        control={control}
+                                        name={inputs.password.name}
+                                        defaultValue=""
+                                        render={({ field }) => (
+                                            <TextField
+                                                {...field}
+                                                label={inputs.password.label}
+                                                fullWidth
+                                                margin="normal"
+                                                variant="standard"
+                                                error={Boolean(
+                                                    errors[inputs.password.name]
+                                                )}
+                                                helperText={
+                                                    errors[inputs.password.name]
+                                                        ? errors[
+                                                              inputs.password
+                                                                  .name
+                                                          ].message
+                                                        : ""
+                                                }
+                                            />
                                         )}
-                                        helperText={
-                                            errors[inputs.password.name]
-                                                ? errors[inputs.password.name]
-                                                      .message
-                                                : ""
-                                        }
                                     />
-                                )}
-                            />
-                        </Grid>
+                                </Grid>
 
-                        <Grid item lg={6} md={12} sm={12} xs={12}>
-                            <Controller
-                                control={control}
-                                name={inputs.positionId.name}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label={inputs.positionId.label}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="standard"
-                                        error={Boolean(
-                                            errors[inputs.positionId.name]
+                                <Grid item lg={12} md={12} sm={12} xs={12}>
+                                    <Controller
+                                        name={"positionId"}
+                                        control={control}
+                                        render={({
+                                            field: { onChange, onBlur },
+                                            fieldState: { error },
+                                        }) => (
+                                            <Autocomplete
+                                                id="position"
+                                                disablePortal
+                                                options={positionOptions}
+                                                onChange={(e, v) => {
+                                                    if (typeof v !== "string")
+                                                        onChange(v.value);
+                                                }}
+                                                getOptionLabel={(option) =>
+                                                    option.label || ""
+                                                }
+                                                isOptionEqualToValue={(o, v) =>
+                                                    o.value === v.value
+                                                }
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label={
+                                                            inputs.positionId
+                                                                .label
+                                                        }
+                                                        variant={"standard"}
+                                                        onBlur={onBlur}
+                                                        error={Boolean(
+                                                            error?.message
+                                                        )}
+                                                        helperText={
+                                                            error?.message
+                                                        }
+                                                    />
+                                                )}
+                                            />
                                         )}
-                                        helperText={
-                                            errors[inputs.positionId.name]
-                                                ? errors[inputs.positionId.name]
-                                                      .message
-                                                : ""
-                                        }
                                     />
-                                )}
-                            />
+                                </Grid>
+                            </Grid>
                         </Grid>
-
-                        <Grid item lg={6} md={12} sm={12} xs={12}>
-                            <Controller
-                                control={control}
-                                name={inputs.description.name}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label={inputs.description.label}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="standard"
-                                        error={Boolean(
-                                            errors[inputs.description.name]
-                                        )}
-                                        helperText={
-                                            errors[inputs.description.name]
-                                                ? errors[
-                                                      inputs.description.name
-                                                  ].message
-                                                : ""
-                                        }
-                                    />
-                                )}
-                            />
+                        <Grid item lg={6} xs={12}>
+                            <Grid item lg={12} md={12} sm={12} xs={12}>
+                                <Controller
+                                    control={control}
+                                    name={inputs.description.name}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            label={inputs.description.label}
+                                            fullWidth
+                                            multiline
+                                            margin="normal"
+                                            variant="outlined"
+                                            minRows={10}
+                                            error={Boolean(
+                                                errors[inputs.description.name]
+                                            )}
+                                            helperText={
+                                                errors[inputs.description.name]
+                                                    ? errors[
+                                                          inputs.description
+                                                              .name
+                                                      ].message
+                                                    : ""
+                                            }
+                                        />
+                                    )}
+                                />
+                            </Grid>
                         </Grid>
                     </Grid>
                 </DialogContent>

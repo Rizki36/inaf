@@ -91,6 +91,11 @@ export interface CustomComponents {
     customization: ICustomization;
 }
 
+export interface IOption{
+    label:string,
+    value: number | string
+}
+
 export interface CustomTypography extends TypographyOptions {
     customInput: any;
     mainContent: any;
