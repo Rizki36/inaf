@@ -7,6 +7,7 @@ export const updateUserDetailsSchema = yup.object<Record<string, any>>({
         username: yup.string(),
         name: yup.string().min(4).max(25).required(),
         description: yup.string(),
+        positionId: yup.string(),
     }),
 });
 
@@ -16,7 +17,7 @@ export const createUserSchema = yup.object<Record<string, any>>({
         username: yup.string(),
         name: yup.string().min(4).max(25).required(),
         description: yup.string(),
-        password:yup.string().required(),
-        positionId:yup.string()
+        password: yup.string().required(),
+        positionId: yup.string(),
     }),
 });
