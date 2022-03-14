@@ -1,4 +1,4 @@
-import { updateUserDetailsBody } from "./user.dto";
+import { createUserBody, updateUserDetailsBody } from "./user.dto";
 import { PrismaClient, User, Prisma } from "@prisma/client";
 import { PaginationProps } from "../../../@types";
 import { successResponse } from "../../helpers/methods";
@@ -76,6 +76,12 @@ export const getUserDetailsService = async (props: GetUserDetails) => {
             username: true,
             description: true,
             email: true,
+            positionId: true,
+            Position: {
+                select: {
+                    name: true,
+                },
+            },
         },
         where: {
             id,
@@ -99,6 +105,7 @@ export const updateUserDetailsService = async (props: UpdateUserDetails) => {
             username: body.username,
             email: body.email,
             description: body.description,
+            positionId: body.positionId,
         },
         where: {
             id,
@@ -120,6 +127,26 @@ export const deleteUserService = async (props: DeleteUser) => {
             id,
         },
     });
+
+    return successResponse<typeof data>({
+        data,
+    });
+};
+
+interface CreateUser {
+    body: createUserBody;
+}
+export const createUserService = async (props: CreateUser) => {
+    const { body } = props;
+
+    const data = await prisma.user.create({
+        select: {
+            name: true,
+        },
+        data: body,
+    });
+
+    console.log("created", data);
 
     return successResponse<typeof data>({
         data,

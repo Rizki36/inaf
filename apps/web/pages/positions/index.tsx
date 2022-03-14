@@ -41,7 +41,7 @@ const Positions: Page = () => {
         }
 
         if (isError && !isLoading) {
-            alert("Error");
+            console.log("Error");
         }
     }, [data, isError, isLoading]);
 

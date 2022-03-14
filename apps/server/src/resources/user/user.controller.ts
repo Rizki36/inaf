@@ -3,12 +3,14 @@ import { PrismaClient, User } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { getPage, getPerPage } from "../../helpers/pagination";
 import {
+    createUserService,
     deleteUserService,
     getPaginationUsersService,
     getUserDetailsService,
     updateUserDetailsService,
 } from "./user.service";
-import { updateUserDetailsBody } from "./user.dto";
+import { createUserBody, updateUserDetailsBody } from "./user.dto";
+import { createdResponse } from "../../helpers/methods";
 
 const prisma = new PrismaClient();
 
@@ -99,15 +101,21 @@ export const updateUserDetails = async (
 };
 
 // create new user
-export const createUser = async (req: Request, res: Response): Promise<any> => {
-    const user = await prisma.user.create({
-        data: {
-            email: req.body.email,
-            password: req.body.password,
-            username: req.body.username,
-        },
-    });
-    res.send(user);
+export const createUser = async (req: Request<{}, {}, { body: createUserBody }>, res: Response,next:NextFunction): Promise<any> => {
+    try {
+        const {
+            body: { name, description,email,password,positionId,username },
+        } = req.body;
+        const user = await createUserService({
+            body: {
+                name, description,email,password,positionId,username
+            },
+        });
+
+        res.send(createdResponse(user));
+    } catch (error) {
+        next(error);
+    }
 };
 
 // update existing user

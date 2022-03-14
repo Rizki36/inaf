@@ -5,8 +5,12 @@ import { Button } from "@mui/material";
 import { useUsers } from "libs/query/userQuery";
 import { useEffect, useState } from "react";
 import { IconPlus } from "@tabler/icons";
+import useModal from "hooks/useModal";
+import UserCreateModal from "@/components/pages/users/UserCreateModal";
 
 const Users: Page = () => {
+    const modal = useModal(false);
+
     const [rowsState, setRowsState] = useState<RowsState>({
         page: 0,
         pageSize: 40,
@@ -37,7 +41,7 @@ const Users: Page = () => {
         }
 
         if (isError && !isLoading) {
-            alert("Error");
+            console.log("Error");
         }
     }, [data, isError, isLoading]);
 
@@ -50,6 +54,7 @@ const Users: Page = () => {
                         variant="outlined"
                         color="secondary"
                         startIcon={<IconPlus />}
+                        onClick={modal.toggleModal}
                     >
                         Add
                     </Button>
@@ -61,6 +66,8 @@ const Users: Page = () => {
                     mutate={mutate}
                 />
             </MainCard>
+
+            {modal.isOpen && <UserCreateModal modal={modal} mutate={mutate} />}
         </div>
     );
 };
