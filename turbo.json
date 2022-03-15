@@ -1,8 +1,24 @@
 {
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
+    },
+    "prisma-generate": {
+      "dependsOn": [
+        "^prisma-generate"
+      ]
+    },
+    "web#build": {
+      "dependsOn": [
+        "server#build",
+        "prisma-generate"
+      ]
     },
     "lint": {
       "outputs": []
