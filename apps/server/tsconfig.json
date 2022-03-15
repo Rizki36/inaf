@@ -109,5 +109,6 @@
         /* Skip type checking all .d.ts files. */
         "outDir": "./dist",
         "rootDir": "./"
-    }
+    },
+    "include": ["**/*.spec.ts", "**/*.d.ts", "**/*.ts"]
 }
