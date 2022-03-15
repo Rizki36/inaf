@@ -50,5 +50,9 @@
     "tailwindcss": "^3.0.21",
     "tsconfig": "*",
     "typescript": "^4.5.3"
+  },
+  "engines": {
+    "yarn": "1.x",
+    "node": "14.x"
   }
 }
