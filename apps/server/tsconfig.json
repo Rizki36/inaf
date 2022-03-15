@@ -110,5 +110,6 @@
         "outDir": "./dist",
         "rootDir": "./"
     },
-    "include": ["**/*.spec.ts", "**/*.d.ts", "**/*.ts"]
+    "include": ["**/*.spec.ts", "**/*.d.ts", "**/*.ts"],
+    "exclude": ["node_modules"]
 }
