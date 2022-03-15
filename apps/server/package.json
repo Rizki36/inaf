@@ -8,7 +8,7 @@
     "test": "jest ./src/main.test.ts",
     "build": "rimraf dist && tsc",
     "dev": "nodemon --exec ts-node --files server.ts --watch",
-    "start": "tsc && ts-node ./dist/server.js"
+    "start": "nodemon --exec ts-node --files server.ts --watch"
   },
   "repository": {
     "type": "git",
