@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest ./src/main.test.ts",
-    "build": "rimraf dist && tsc",
+    "build": "npx prisma db push && rimraf dist && tsc",
     "dev": "nodemon --exec ts-node --files server.ts --watch",
     "start": "node dist/server.js"
   },
