@@ -1,6 +1,7 @@
 import axios from "axios";
+import process from "process";
 
 export default axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: process.env.NEXT_PUBLIC_END_POINT,
     withCredentials: true,
 });
