@@ -8,6 +8,7 @@ import { loginMutation } from "libs/mutation/Auth";
 import { commonError } from "helpers/errorHandler";
 import { AxiosError } from "axios";
 import Router from "next/router";
+import { key_token } from "@/configs/constant";
 
 interface IForm {
     username: string;
@@ -57,6 +58,7 @@ const LoginForm = () => {
             password,
         })
             .then(async (res) => {
+                localStorage.setItem(key_token,res.data.data.accessToken)
                 Router.replace("/");
             })
             .catch((e: AxiosError) => {
