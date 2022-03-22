@@ -4,16 +4,24 @@ import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { API_SECRET } from '../config/env';
 
-
 const prisma = new PrismaClient()
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = req.cookies?.token;
-    // const [prefix, token] = req?.headers?.authorization?.split(' ') ?? ['', '']
+    let token : string = "";
+    
+    if(req.cookies?.token){
+      token = req.cookies?.token
+    }else{
+      const authArray = req?.headers?.authorization?.split(' ') ?? [];
 
-    // get token from access_token by explode and get first index
-    // if (prefix !== 'Bearer' || token === '') throw new ErrorUnAuthenticated();
+      const prefix = authArray[0] ?? ""
+
+      token = authArray[1] ??  ""
+
+      // get token from access_token by explode and get first index
+      if (prefix !== 'Bearer' || token === '') throw new ErrorUnAuthenticated();
+    }
 
     // @ts-ignore
     jwt.verify(token, API_SECRET, function (err, decode) {
