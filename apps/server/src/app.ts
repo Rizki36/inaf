@@ -4,6 +4,7 @@ import indexRoutes from "./resources/routes";
 import errorHandlerYup from "./middleware/errorHandlerYup";
 import errorHandlerMyError from "./middleware/errorHandlerMyError";
 import errorHandlerPrisma from "./middleware/errorHandlerPrisma";
+import morgan from "morgan"
 // import swaggerUi from "swagger-ui-express";
 // import { optionsSwaggerUI, swaggerSpec } from "./lib/DocsSwagger";
 
@@ -33,6 +34,7 @@ class App {
         this.application.use(express.json());
         this.application.use(express.urlencoded());
         this.application.use(cookieParser());
+        this.application.use(morgan("common"))
 
         this.application.get(
             "/api-docs.json",
