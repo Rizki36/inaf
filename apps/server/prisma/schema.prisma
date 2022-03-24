@@ -26,10 +26,13 @@ model User {
 }
 
 model Project {
-  id        String   @id @default(uuid())
-  name      String?  @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  name        String   @db.VarChar(255)
+  description String?  @db.Text
+  attachments Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
 
   teams     Teams[]
   taskGroup TaskGroup[]

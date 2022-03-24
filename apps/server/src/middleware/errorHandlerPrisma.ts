@@ -11,10 +11,14 @@ async function errorHandlerPrisma(
     next: NextFunction
 ): Promise<Response<any, Record<string, any>> | undefined> {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
+        let errMsg = err.message;
+
+        // @ts-ignore
+        if(!!err?.meta?.cause) errMsg = err?.meta?.cause
 
         return res
             .status(StatusCodes.UNPROCESSABLE_ENTITY)
-            .json(errorResponse({ message: err.message }))
+            .json(errorResponse({ message: errMsg}))
     }
 
     next(err)
