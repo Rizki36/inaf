@@ -7,7 +7,7 @@ const users = {
     type: "group",
     children: [
         {
-            id: "default",
+            id: "positions",
             title: "Positions",
             type: "item",
             url: "/positions",
