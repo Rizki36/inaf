@@ -11,14 +11,14 @@ import validate from "../../middleware/validation";
 const route = express.Router();
 
 route.get(
-    "/admin/project",
+    "/admin/projects",
     verifyToken,
     authorization(["ADMIN"]),
     PositionController.getPaginationProjects
 );
 
 route.post(
-    "/admin/project",
+    "/admin/projects",
     verifyToken,
     authorization(["ADMIN"]),
     validate(createProjectSchema),
@@ -26,14 +26,14 @@ route.post(
 );
 
 route.get(
-    "/admin/project/:id",
+    "/admin/projects/:id",
     verifyToken,
     authorization(["ADMIN"]),
     PositionController.getProjectDetails
 );
 
 route.patch(
-    "/admin/project/:id",
+    "/admin/projects/:id",
     verifyToken,
     authorization(["ADMIN"]),
     validate(updateProjectDetailsSchema),
@@ -41,7 +41,7 @@ route.patch(
 );
 
 route.delete(
-    "/admin/project/:id",
+    "/admin/projects/:id",
     verifyToken,
     authorization(["ADMIN"]),
     PositionController.deleteProject
