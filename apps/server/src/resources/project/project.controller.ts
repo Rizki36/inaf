@@ -66,7 +66,6 @@ export const getProjectDetails = async (
 
         return res.send(data);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };
@@ -89,7 +88,6 @@ export const updateProjectDetails = async (
 
         return res.send(data);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };
@@ -151,7 +149,6 @@ export const deleteProject = async (
 
         return res.send(data);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };
