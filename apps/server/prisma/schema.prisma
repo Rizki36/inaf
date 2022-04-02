@@ -21,7 +21,7 @@ model User {
   attachment  Json?
 
   Position   Position?    @relation(fields: [positionId], references: [id])
-  teams      Teams[]
+  teams      Team[]
   TaskWorker TaskWorker[]
 }
 
@@ -34,7 +34,7 @@ model Project {
   updatedAt   DateTime @updatedAt
 
 
-  teams     Teams[]
+  teams     Team[]
   taskGroup TaskGroup[]
   Task      Task[]
 }
@@ -48,10 +48,10 @@ model Position {
   attachments Json?
 
   User  User[]
-  teams Teams[]
+  teams Team[]
 }
 
-model Teams {
+model Team {
   projectId  String
   userId     String
   positionId String
