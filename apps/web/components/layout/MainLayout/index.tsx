@@ -142,7 +142,7 @@ const MainLayout = ({ children }) => {
                 {children}
             </Main>
             {/* @ts-ignore */}
-            <Customization />
+            {/* <Customization /> */}
         </Box>
     );
 };

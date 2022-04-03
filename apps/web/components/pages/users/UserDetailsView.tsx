@@ -26,7 +26,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                             >
                                 Name
                             </Typography>
-                            <Typography variant="body2">{data.name}</Typography>
+                            <Typography variant="body2">{data.name || '-'}</Typography>
                         </Grid>
                         <Grid item lg={6} md={6} sm={6} xs={6}>
                             <Typography
@@ -37,7 +37,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                                 Username
                             </Typography>
                             <Typography variant="body2">
-                                {data.username}
+                                {data.username || '-'}
                             </Typography>
                         </Grid>
                         <Grid item lg={6} md={6} sm={6} xs={6}>
@@ -49,7 +49,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                                 Email
                             </Typography>
                             <Typography variant="body2">
-                                {data.email}
+                                {data.email || '-'}
                             </Typography>
                         </Grid>
                         <Grid item lg={6} md={6} sm={6} xs={6}>
@@ -61,7 +61,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                                 Position
                             </Typography>
                             <Typography variant="body2">
-                                {data.Position.name}
+                                {data.Position.name || '-'}
                             </Typography>
                         </Grid>
                     </Grid>
