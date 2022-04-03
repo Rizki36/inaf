@@ -16,3 +16,11 @@ export type User = IUser;
 export type Position = IPosition;
 export type Project = IProject;
 export type Team = ITeam;
+
+// TODO : move into types folder
+export type IResponsePagination<T> = {
+    totalRows: number;
+    page: number;
+    perPage: number;
+    data: T[];
+};
