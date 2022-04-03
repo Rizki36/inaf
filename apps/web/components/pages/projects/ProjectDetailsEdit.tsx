@@ -43,6 +43,7 @@ const ProjectDetailsEdit = (props: ProjectDetailsEditProps) => {
         data: { data },
         edit: { edit, toggleEdit },
         mutate,
+        btnSecondary,
     } = props;
 
     const {
@@ -73,19 +74,11 @@ const ProjectDetailsEdit = (props: ProjectDetailsEditProps) => {
                 })
                 .catch(commonError);
         },
-        [id]
+        [id, mutate, toggleEdit]
     );
 
-    const BtnSecondary = useMemo(() => {
-        if (edit) {
-            return <Button onClick={toggleEdit}>Cancel Edit</Button>;
-        } else {
-            return <Button onClick={toggleEdit}>Edit</Button>;
-        }
-    }, [edit, toggleEdit]);
-
     return (
-        <MainCard title="Project Details" secondary={<>{BtnSecondary}</>}>
+        <MainCard title="Project Details" secondary={<>{btnSecondary}</>}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={12} md={12} sm={12} xs={12}>
