@@ -20,10 +20,14 @@ import { usePositions } from "@/libs/query/positionQuery";
 import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
 import { useUsers } from "@/libs/query/userQuery";
 import { getOptionsFromPaginationQuery } from "@/helpers/inputHelper";
-import { createTeam } from "@/libs/mutation/teamMutation";
+import { updateTeam } from "@/libs/mutation/teamMutation";
 import { AxiosError } from "axios";
 
 interface IProps {
+    teamUpdate: {
+        userId: string;
+        positionId: string;
+    };
     projectId: string;
     modal: IUseModal;
     mutate: any;
@@ -49,8 +53,13 @@ const schema = yup
     })
     .required();
 
-const ProjectTeamsCreateModal = (props: IProps) => {
-    const { projectId, modal, mutate } = props;
+const ProjectTeamsUpdateModal = (props: IProps) => {
+    const {
+        modal,
+        mutate,
+        projectId,
+        teamUpdate: { userId, positionId },
+    } = props;
 
     const [errMsg, setErrMsg] = useState<string | null>(null);
 
@@ -62,6 +71,8 @@ const ProjectTeamsCreateModal = (props: IProps) => {
         resolver: yupResolver(schema),
         defaultValues: {
             projectId,
+            userId,
+            positionId,
         },
     });
 
@@ -124,8 +135,17 @@ const ProjectTeamsCreateModal = (props: IProps) => {
         modal.toggleModal();
     };
 
-    const onSubmit: SubmitHandler<IForm> = (inputData) => {
-        createTeam(inputData)
+    const onSubmit: SubmitHandler<IForm> = ({
+        positionId,
+        projectId,
+        userId,
+    }) => {
+        updateTeam({
+            params: { projectId, userId },
+            data: {
+                positionId,
+            },
+        })
             .then(() => {
                 mutate();
                 resetForm();
@@ -145,7 +165,7 @@ const ProjectTeamsCreateModal = (props: IProps) => {
             fullWidth={true}
         >
             <form onSubmit={handleSubmit(onSubmit)}>
-                <DialogTitle>Create New Team</DialogTitle>
+                <DialogTitle>Update Existing Team</DialogTitle>
                 <DialogContent dividers>
                     <Grid container spacing={gridSpacing}>
                         <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -154,6 +174,7 @@ const ProjectTeamsCreateModal = (props: IProps) => {
                                 label={inputs.userId.label}
                                 control={control}
                                 options={userOptions}
+                                disabled
                             />
                         </Grid>
                         <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -186,4 +207,4 @@ const ProjectTeamsCreateModal = (props: IProps) => {
     );
 };
 
-export default ProjectTeamsCreateModal;
+export default ProjectTeamsUpdateModal;

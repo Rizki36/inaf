@@ -7,17 +7,28 @@ interface IControlledAutoCompleteProps {
     label: string;
     control: Control<any>;
     options: IOption[];
+    defaultValue?: string;
+    disabled?: boolean;
 }
 
 const ControlledAutocomplete = (props: IControlledAutoCompleteProps) => {
-    const { name, label, control, options } = props;
+    const { name, label, control, options, disabled = false } = props;
+
+    const getCurrentOption = (value) => {
+        return (
+            options.find((option) => option.value === value) ?? {
+                label: "",
+                value: "",
+            }
+        );
+    };
 
     return (
         <Controller
             name={name}
             control={control}
             render={({
-                field: { onChange, onBlur },
+                field: { onChange, onBlur, value },
                 fieldState: { error },
             }) => (
                 <Autocomplete
@@ -26,8 +37,8 @@ const ControlledAutocomplete = (props: IControlledAutoCompleteProps) => {
                     onChange={(e, v) => {
                         if (typeof v !== "string") onChange(v.value);
                     }}
-                    getOptionLabel={(option) => option.label || ""}
-                    isOptionEqualToValue={(o, v) => o.value === v.value}
+                    value={getCurrentOption(value)}
+                    disabled={disabled}
                     renderInput={(params) => (
                         <TextField
                             {...params}

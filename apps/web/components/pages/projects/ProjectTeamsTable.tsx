@@ -6,7 +6,7 @@ import {
     Typography,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { IconPlus, IconPencil } from "@tabler/icons";
 import Link from "next/link";
 import { useTeamsByPorject } from "@/libs/query/teamQuery";
@@ -16,6 +16,7 @@ import AnimateButton from "@/components/ui-component/extended/AnimateButton";
 import ProjectTeamsDeleteDialog from "./ProjectTeamsDeleteDialog";
 import ProjectTeamsCreateModal from "./ProjectTeamsCreateModal";
 import useModal from "hooks/useModal";
+import ProjectTeamsUpdateModal from "./ProjectTeamsUpdateModal";
 
 interface IProjectsTeamsTableProps {
     projectId: string;
@@ -24,8 +25,16 @@ interface IProjectsTeamsTableProps {
 const ProjectsTeamsTable = (props: IProjectsTeamsTableProps) => {
     const { projectId } = props;
 
+    const [teamUpdate, setTeamUpdate] = useState<{
+        userId: string;
+        positionId: string;
+    } | null>(null);
+
     /** modal create team */
-    const modal = useModal(false);
+    const stateModalCreate = useModal(false);
+
+    /** modal update team */
+    const stateModalUpdate = useModal(false);
 
     const { data, isError, isLoading, mutate } = useTeamsByPorject({
         projectId,
@@ -41,6 +50,8 @@ const ProjectsTeamsTable = (props: IProjectsTeamsTableProps) => {
                 id: i.user.id,
                 name: i.user.name,
                 position: i.position.name,
+                positionId: i.position.id,
+                userId: i.user.id,
             };
         });
     }, [data, isError, isLoading]);
@@ -71,7 +82,9 @@ const ProjectsTeamsTable = (props: IProjectsTeamsTableProps) => {
                                             color="secondary"
                                             variant="outlined"
                                             startIcon={<IconPlus />}
-                                            onClick={modal.toggleModal}
+                                            onClick={
+                                                stateModalCreate.toggleModal
+                                            }
                                         >
                                             Add
                                         </Button>
@@ -79,8 +92,9 @@ const ProjectsTeamsTable = (props: IProjectsTeamsTableProps) => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} sx={{ height: "300px" }}>
+                        <Grid item xs={12}>
                             <DataGrid
+                                autoHeight
                                 rows={rows}
                                 columns={[
                                     {
@@ -99,19 +113,25 @@ const ProjectsTeamsTable = (props: IProjectsTeamsTableProps) => {
                                         sortable: false,
                                         align: "center",
                                         renderCell: (params) => {
+                                            console.log(params);
                                             return (
                                                 <>
-                                                    <Link
-                                                        href={`projects/${params.id}`}
-                                                        passHref
+                                                    <IconButton
+                                                        aria-label="edit"
+                                                        size="small"
+                                                        onClick={() => {
+                                                            setTeamUpdate({
+                                                                positionId:
+                                                                    params.row
+                                                                        .positionId,
+                                                                userId: params
+                                                                    .row.userId,
+                                                            });
+                                                            stateModalUpdate.toggleModal();
+                                                        }}
                                                     >
-                                                        <IconButton
-                                                            aria-label="edit"
-                                                            size="small"
-                                                        >
-                                                            <IconPencil fontSize="small" />
-                                                        </IconButton>
-                                                    </Link>
+                                                        <IconPencil fontSize="small" />
+                                                    </IconButton>
 
                                                     <ProjectTeamsDeleteDialog
                                                         projectId={projectId}
@@ -137,9 +157,18 @@ const ProjectsTeamsTable = (props: IProjectsTeamsTableProps) => {
 
             <ProjectTeamsCreateModal
                 projectId={projectId}
-                modal={modal}
+                modal={stateModalCreate}
                 mutate={mutate}
             />
+
+            {!!stateModalUpdate.isOpen && (
+                <ProjectTeamsUpdateModal
+                    projectId={projectId}
+                    teamUpdate={teamUpdate}
+                    modal={stateModalUpdate}
+                    mutate={mutate}
+                />
+            )}
         </>
     );
 };
