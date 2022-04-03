@@ -7,13 +7,15 @@ import {
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useMemo } from "react";
-import { IconEye, IconPlus } from "@tabler/icons";
+import { IconPlus, IconPencil } from "@tabler/icons";
 import Link from "next/link";
 import { useTeamsByPorject } from "@/libs/query/teamQuery";
 import MainCard from "@/components/ui-component/cards/MainCard";
 import { gridSpacing } from "@/configs/constant";
 import AnimateButton from "@/components/ui-component/extended/AnimateButton";
 import ProjectTeamsDeleteDialog from "./ProjectTeamsDeleteDialog";
+import ProjectTeamsCreateModal from "./ProjectTeamsCreateModal";
+import useModal from "hooks/useModal";
 
 interface IProjectsTeamsTableProps {
     projectId: string;
@@ -21,6 +23,9 @@ interface IProjectsTeamsTableProps {
 
 const ProjectsTeamsTable = (props: IProjectsTeamsTableProps) => {
     const { projectId } = props;
+
+    /** modal create team */
+    const modal = useModal(false);
 
     const { data, isError, isLoading, mutate } = useTeamsByPorject({
         projectId,
@@ -66,6 +71,7 @@ const ProjectsTeamsTable = (props: IProjectsTeamsTableProps) => {
                                             color="secondary"
                                             variant="outlined"
                                             startIcon={<IconPlus />}
+                                            onClick={modal.toggleModal}
                                         >
                                             Add
                                         </Button>
@@ -100,10 +106,10 @@ const ProjectsTeamsTable = (props: IProjectsTeamsTableProps) => {
                                                         passHref
                                                     >
                                                         <IconButton
-                                                            aria-label="delete"
+                                                            aria-label="edit"
                                                             size="small"
                                                         >
-                                                            <IconEye fontSize="small" />
+                                                            <IconPencil fontSize="small" />
                                                         </IconButton>
                                                     </Link>
 
@@ -128,6 +134,12 @@ const ProjectsTeamsTable = (props: IProjectsTeamsTableProps) => {
                     </Grid>
                 </CardContent>
             </MainCard>
+
+            <ProjectTeamsCreateModal
+                projectId={projectId}
+                modal={modal}
+                mutate={mutate}
+            />
         </>
     );
 };

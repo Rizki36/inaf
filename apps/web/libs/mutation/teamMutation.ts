@@ -1,5 +1,14 @@
 import backendApi from "configs/api/backendApi";
-import { deleteTeamDTO, deleteTeamParams } from "server";
+import {
+    createTeamBody,
+    createTeamDTO,
+    deleteTeamDTO,
+    deleteTeamParams,
+} from "server";
+
+export const createTeam = (data: createTeamBody) => {
+    return backendApi.post<createTeamDTO>(`/admin/teams`, data);
+};
 
 interface IDeleteTeamProps extends deleteTeamParams {}
 /** delete team based on projectId and userId  */

@@ -8,11 +8,11 @@ export const usePositions = (props: getPositionsProps) => {
     const {
         page = 1,
         perPage = 40,
-        sortPage = {sort : null,field:null},
+        sortPage = { sort: null, field: null },
         search,
     } = props;
 
-    const {sort,field} = sortPage
+    const { sort, field } = sortPage;
 
     const { data, error, mutate } = useSWR(
         ["admin/positions", page, perPage, sort, search],
