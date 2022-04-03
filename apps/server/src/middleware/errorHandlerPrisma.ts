@@ -1,8 +1,7 @@
-import { errorResponse } from './../helpers/methods';
-import { NextFunction, Request, Response } from 'express'
-import { StatusCodes } from 'http-status-codes'
-import { Prisma } from '@prisma/client';
-
+import { errorResponse } from "./../helpers/methods";
+import { NextFunction, Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
+import { Prisma } from "@prisma/client";
 
 async function errorHandlerPrisma(
     err: any,
@@ -14,14 +13,17 @@ async function errorHandlerPrisma(
         let errMsg = err.message;
 
         // @ts-ignore
-        if(!!err?.meta?.cause) errMsg = err?.meta?.cause
+        if (!!err?.meta?.cause) errMsg = err?.meta?.cause;
+
+        // TODO : create validation middleware for check existing resource
+        if (err.code === "P2002") errMsg = "Resource already exist !";
 
         return res
             .status(StatusCodes.UNPROCESSABLE_ENTITY)
-            .json(errorResponse({ message: errMsg}))
+            .json(errorResponse({ message: errMsg }));
     }
 
-    next(err)
+    next(err);
 }
 
-export default errorHandlerPrisma
+export default errorHandlerPrisma;

@@ -2,16 +2,12 @@ import { NextFunction, Request, Response } from "express";
 import { ValidateOptions } from "yup/lib/types";
 import { SchemaOf } from "yup";
 
-/**
- * validate body
- * @deprecated use validateRequest
- *
- * */
-const validateBody =
+/** validate request */
+const validateRequest =
     (schema: SchemaOf<any>, options?: ValidateOptions) =>
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            await schema.validate(req.body, {
+            await schema.validate(req, {
                 abortEarly: false,
                 stripUnknown: true,
                 ...options,
@@ -22,4 +18,4 @@ const validateBody =
         }
     };
 
-export default validateBody;
+export default validateRequest;
