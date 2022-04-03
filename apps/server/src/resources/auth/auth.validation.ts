@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 import * as yup from 'yup'
 import { isExistUserBy } from '../../helpers/validation';
 

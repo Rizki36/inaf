@@ -8,9 +8,11 @@ export const useUsers = (props: getUsetsProps) => {
     const {
         page = 1,
         perPage = 40,
-        sortPage: { sort, field },
+        sortPage = { sort: null, field: null },
         search,
     } = props;
+
+    const { sort, field } = sortPage;
 
     const { data, error, mutate } = useSWR(
         ["admin/users", page, perPage, sort, search],
@@ -53,16 +55,21 @@ export const useUserDetails = (props: GetUserDetailsProps) => {
     };
 };
 
-export const useProfile = ()=>{
-    const { data, error, mutate,isValidating } = useSWR("account", (url) => backendApi.get<getUserDetailsDTO>(url).then(res=>res.data.data),{
-        shouldRetryOnError:false
-    });
+export const useProfile = () => {
+    const { data, error, mutate, isValidating } = useSWR(
+        "account",
+        (url) =>
+            backendApi.get<getUserDetailsDTO>(url).then((res) => res.data.data),
+        {
+            shouldRetryOnError: false,
+        }
+    );
 
     return {
         data,
         isLoading: !error && !data,
         isError: error,
         mutate,
-        isValidating
+        isValidating,
     };
-}
+};
