@@ -11,6 +11,7 @@
     "prisma-generate": "cd apps\\server\\prisma && npx prisma generate",
     "prisma-push": "cd apps\\server\\prisma && npx prisma db push",
     "prisma-format": "cd apps\\server\\prisma && npx prisma format",
+    "prisma-migrate": "cd apps\\server && npx prisma migrate dev",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
