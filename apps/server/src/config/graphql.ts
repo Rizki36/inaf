@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { buildSchema } from "type-graphql";
-import { resolvers } from "@generated/type-graphql";
+import { resolvers } from "../../prisma/generated/type-graphql";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { Config, ExpressContext } from "apollo-server-express";
 
