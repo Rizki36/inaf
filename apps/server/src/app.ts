@@ -44,7 +44,11 @@ class App {
     private plugins() {
         this.application.use(
             cors({
-                origin: ["http://localhost:3000", "https://inaf.vercel.app"],
+                origin: [
+                    "http://localhost:3000",
+                    "https://inaf.vercel.app",
+                    // `http://localhost:${port}`,
+                ],
                 credentials: true,
             })
         );
