@@ -1,7 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { buildSchema } from "type-graphql";
 import { resolvers } from "../../prisma/generated/type-graphql";
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import {
+    ApolloServerPluginLandingPageGraphQLPlayground,
+    ApolloServerPluginLandingPageDisabled,
+} from "apollo-server-core";
 import { Config, ExpressContext } from "apollo-server-express";
 
 interface Context {
@@ -21,7 +24,13 @@ async function getConfigGraphql() {
     const config: Config<ExpressContext> = {
         schema,
         context: (): Context => ({ prisma }),
-        plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+        introspection: true, //process.env.NODE_ENV !== "production"
+        plugins: [
+            // process.env.NODE_ENV === "production"
+            //     ? ApolloServerPluginLandingPageDisabled()
+            //     : ApolloServerPluginLandingPageGraphQLPlayground(),
+            ApolloServerPluginLandingPageGraphQLPlayground({}),
+        ],
     };
 
     return config;
