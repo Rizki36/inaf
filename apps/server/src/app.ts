@@ -1,15 +1,17 @@
-import "reflect-metadata";
 import express, { Application, NextFunction, Request, Response } from "express";
 import { cors } from "cors-ts";
 import indexRoutes from "./resources/routes";
+import morgan from "morgan";
+
+/** error handlers */
 import errorHandlerYup from "./middleware/errorHandlerYup";
 import errorHandlerMyError from "./middleware/errorHandlerMyError";
 import errorHandlerPrisma from "./middleware/errorHandlerPrisma";
-import morgan from "morgan";
 
+/** graphql */
+import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
 import getConfigGraphql from "./config/graphql";
-import http from "http";
 
 // import swaggerUi from "swagger-ui-express";
 // import { optionsSwaggerUI, swaggerSpec } from "./lib/DocsSwagger";
