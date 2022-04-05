@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "turbo": "^1.1.10"
   },
   "engines": {
     "yarn": "1.x",

@@ -1,10 +1,16 @@
+import "reflect-metadata";
 import express, { Application, NextFunction, Request, Response } from "express";
 import { cors } from "cors-ts";
 import indexRoutes from "./resources/routes";
 import errorHandlerYup from "./middleware/errorHandlerYup";
 import errorHandlerMyError from "./middleware/errorHandlerMyError";
 import errorHandlerPrisma from "./middleware/errorHandlerPrisma";
-import morgan from "morgan"
+import morgan from "morgan";
+
+import { ApolloServer } from "apollo-server-express";
+import getConfigGraphql from "./config/graphql";
+import http from "http";
+
 // import swaggerUi from "swagger-ui-express";
 // import { optionsSwaggerUI, swaggerSpec } from "./lib/DocsSwagger";
 
@@ -13,6 +19,7 @@ const port = process.env.PORT;
 
 class App {
     public readonly application: Application;
+    public graphqlPath: string = "/graphql";
 
     constructor() {
         this.application = express();
@@ -24,7 +31,15 @@ class App {
         this.routes();
     }
 
-    private plugins(): void {
+    private async graphql() {
+        const server = new ApolloServer(await getConfigGraphql());
+        await server.start();
+        server.applyMiddleware({
+            app: this.application,
+        });
+    }
+
+    private plugins() {
         this.application.use(
             cors({
                 origin: ["http://localhost:3000", "https://inaf.vercel.app"],
@@ -34,7 +49,7 @@ class App {
         this.application.use(express.json());
         this.application.use(express.urlencoded());
         this.application.use(cookieParser());
-        this.application.use(morgan("common"))
+        this.application.use(morgan("common"));
 
         this.application.get(
             "/api-docs.json",
@@ -51,7 +66,10 @@ class App {
         // )
     }
 
-    private routes(): void {
+    private async routes() {
+        // init route graphql
+        await this.graphql();
+
         this.application.use(indexRoutes);
 
         // Catch error 404 endpoint not found
@@ -77,11 +95,16 @@ class App {
         });
     }
 
-    public run(): void {
+    public async run() {
         console.log(`Node environment: ${process.env.NODE_ENV}`);
+
         this.application.listen(port, () => {
             console.log(
                 `Example app listening at port http://localhost:${port}`
+            );
+
+            console.log(
+                `Server is running, GraphQL Playground available at http://localhost:${port}${this.graphqlPath}`
             );
         });
     }
