@@ -22,23 +22,31 @@ const Auth: NextPage = (props: Props) => {
     const { data: profile, isError, isLoading } = useProfile();
     console.log("profile", profile, isError, isLoading);
 
-    useEffect(() => {
+    const handleRedirectUnAuthenticated = useCallback(() => {
         if (mustLoggedIn && isError) {
             console.log("unAuthenticated");
             router.replace("/login");
         }
-    }, [isError]);
+    },[isError, mustLoggedIn, router])
 
-    // redirect user from login to redirectAuthenticated when is authenticated
-    useEffect(() => {
+    const handleRedirectAuthenticated = useCallback(() => {
         if (!mustLoggedIn && profile && !isError) {
             console.log("redirect Authenticated");
             router.push("/");
         }
-    }, [mustLoggedIn, profile, isError]);
+    },[isError, mustLoggedIn, profile, router])
+
+    useEffect(() => {
+        handleRedirectUnAuthenticated()
+    }, [handleRedirectUnAuthenticated]);
+
+    // redirect user from login to redirectAuthenticated when is authenticated
+    useEffect(() => {
+        handleRedirectAuthenticated()
+    }, [handleRedirectAuthenticated]);
 
     // loading
-    if (isLoading) return <></>;
+    if (isLoading || (!profile && mustLoggedIn)) return <></>;
 
     return children;
 };
