@@ -5,7 +5,7 @@ import {
     ITaskGroupDetailsServiceProps,
     IUpdateTaskGroupProps,
 } from "./task_group.dto";
-import { PrismaClient, Prisma, Task, TaskGroup } from "@prisma/client";
+import { PrismaClient, Prisma, TaskGroup } from "@prisma/client";
 
 const prisma = new PrismaClient({
     log: [

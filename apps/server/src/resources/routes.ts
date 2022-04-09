@@ -6,6 +6,8 @@ import projectRoute from "./project/project.route";
 import teamRoute from "./team/team.route";
 import taskRoute from "./task/task.route";
 import taskGroupRoute from "./task_group/task_group.route";
+import taskWorkerRoute from "./task_worker/task_worker.route";
+
 const route = express.Router();
 
 route.use([
@@ -16,6 +18,7 @@ route.use([
     teamRoute,
     taskRoute,
     taskGroupRoute,
+    taskWorkerRoute,
 ]);
 
 export default route;
