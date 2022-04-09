@@ -14,12 +14,6 @@ import { createdResponse } from "../../helpers/methods";
 
 const prisma = new PrismaClient();
 
-// get all user
-export const getUsers = async (req: Request, res: Response): Promise<void> => {
-    const users = await prisma.user.findMany();
-    res.send(users);
-};
-
 // get pagination user
 export const getPaginationUsers = async (
     req: Request<
