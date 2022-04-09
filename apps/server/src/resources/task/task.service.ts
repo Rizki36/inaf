@@ -115,7 +115,6 @@ export const createTaskService = async (props: ICreateTaskServiceProps) => {
 /** update task */
 export const updateTaskService = async (props: IUpdateTaskProps) => {
     const { id, body } = props;
-    console.log(body);
     const data = await prisma.task.update({
         data: {
             name: body.name,

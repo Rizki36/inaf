@@ -38,7 +38,7 @@ route.patch(
     verifyToken,
     authorization(["ADMIN"]),
     validateRequest(updateTaskSchema),
-    TaskController.updateTeam
+    TaskController.updateTask
 );
 
 /** delete task */

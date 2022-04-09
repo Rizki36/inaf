@@ -11,15 +11,15 @@ import {
 } from "./task.service";
 import {
     ICreateTaskRequest,
-    IPaginationTeamsRequest,
+    IPaginationTasksRequest,
     ITaskDetailsRequest,
-    IUpdateTeamRequest,
+    IUpdateTaskRequest,
 } from "./task.dto";
 import { createdResponse, successResponse } from "../../helpers/methods";
 
 /** pagination tasks */
 export const taskPagination = async (
-    req: IPaginationTeamsRequest,
+    req: IPaginationTasksRequest,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
@@ -68,8 +68,8 @@ export const taskDetails = async (
 };
 
 /** update task */
-export const updateTeam = async (
-    req: IUpdateTeamRequest,
+export const updateTask = async (
+    req: IUpdateTaskRequest,
     res: Response,
     next: NextFunction
 ) => {
