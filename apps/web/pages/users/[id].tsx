@@ -3,7 +3,7 @@ import UserDetailsView from "@/components/pages/users/UserDetailsView";
 import { useUserDetails } from "@/libs/query/userQuery";
 import { Page } from "@/types/index";
 import { Button, Grid } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import RunningProjectCard from "@/components/pages/users/widgets/RunningProjectCard";
 import { gridSpacing } from "@/configs/constant";
@@ -13,7 +13,7 @@ const UserDetails: Page = () => {
     const router = useRouter();
     const { id } = router.query;
     const [edit, setEdit] = useState(false);
-    const toggleEdit = () => setEdit(!edit);
+    const toggleEdit = useCallback(() => setEdit(!edit),[edit]);
     const { data, isError, isLoading, mutate } = useUserDetails({
         id: id as string,
     });

@@ -57,7 +57,7 @@ interface UserDetailsEditProps {
 const UserDetailsEdit = (props: UserDetailsEditProps) => {
     const {
         id,
-        data: { data },
+        data,
         edit: { edit, toggleEdit },
         mutate,
     } = props;

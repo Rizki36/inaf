@@ -1,3 +1,4 @@
+import { IResponse } from "./../../../server/index";
 import backendApi from "configs/api/backendApi";
 import { getPaginationUsersDTO, getUserDetailsDTO } from "server";
 import { PaginationProps } from "../../@types/index";
@@ -44,7 +45,9 @@ interface GetUserDetailsProps {
 export const useUserDetails = (props: GetUserDetailsProps) => {
     const { id } = props;
     const { data, error, mutate } = useSWR(id, (id) => {
-        return backendApi.get<getUserDetailsDTO>(`admin/users/${id}`);
+        return backendApi
+            .get<IResponse<getUserDetailsDTO>>(`admin/users/${id}`)
+            .then((res) => res.data);
     });
 
     return {
@@ -59,7 +62,9 @@ export const useProfile = () => {
     const { data, error, mutate, isValidating } = useSWR(
         "account",
         (url) =>
-            backendApi.get<getUserDetailsDTO>(url).then((res) => res.data.data),
+            backendApi
+                .get<IResponse<getUserDetailsDTO>>(url)
+                .then((res) => res.data.data),
         {
             shouldRetryOnError: false,
         }
