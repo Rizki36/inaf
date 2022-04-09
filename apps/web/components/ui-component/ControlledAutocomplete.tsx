@@ -35,7 +35,7 @@ const ControlledAutocomplete = (props: IControlledAutoCompleteProps) => {
                     id={name}
                     options={options}
                     onChange={(e, v) => {
-                        if (typeof v !== "string") onChange(v.value);
+                        if (typeof v !== "string") onChange(v?.value);
                     }}
                     value={getCurrentOption(value)}
                     disabled={disabled}

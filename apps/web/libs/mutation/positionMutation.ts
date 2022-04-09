@@ -3,7 +3,7 @@ import {
     createPositionBody,
     createPositionDTO,
     deletePositionDTO,
-    updatePositionDetailsBody,
+    updatePositionBody,
     updatePositionDetailsDTO,
 } from "server";
 
@@ -12,26 +12,25 @@ interface CreatePositionProps {
 }
 export const createPosition = (props: CreatePositionProps) => {
     const { body } = props;
-    return backendApi.post<createPositionDTO>(`/admin/positions`, {
-        body,
-    });
+
+    return backendApi.post<createPositionDTO>(`/admin/positions`, body);
 };
 
 interface PatchPositionDetailsProps {
     id: string;
-    body: updatePositionDetailsBody;
+    body: updatePositionBody;
 }
 export const patchPositionDetails = (props: PatchPositionDetailsProps) => {
     const { id, body } = props;
+
     return backendApi.patch<updatePositionDetailsDTO>(
         `/admin/positions/${id}`,
-        {
-            body,
-        }
+        body
     );
 };
 
 export const deletePosition = (props: { id: string }) => {
     const { id } = props;
+
     return backendApi.delete<deletePositionDTO>(`/admin/positions/${id}`);
 };

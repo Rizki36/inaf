@@ -11,6 +11,7 @@ import MainCard from "@/components/ui-component/cards/MainCard";
 import { gridSpacing } from "@/configs/constant";
 import { usePositions } from "@/libs/query/positionQuery";
 import { Box } from "@mui/system";
+import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
 
 interface IForm extends updateUserDetailsBody {}
 
@@ -85,6 +86,7 @@ const UserDetailsEdit = (props: UserDetailsEditProps) => {
             description: data.description,
             email: data.email,
             name: data.name,
+            positionId: data.positionId,
         },
     });
 
@@ -131,10 +133,8 @@ const UserDetailsEdit = (props: UserDetailsEditProps) => {
 
     if (!positionOptions.length) return <></>;
 
-    console.log(
-        "selected",
-        positionOptions.find((o) => o.value === data.positionId)
-    );
+    console.log("selected", data.positionId);
+    console.log(errors);
 
     return (
         <MainCard title="User Details" secondary={<>{BtnSecondary}</>}>
@@ -222,49 +222,11 @@ const UserDetailsEdit = (props: UserDetailsEditProps) => {
                             </Grid>
 
                             <Grid item lg={6} md={12} sm={12} xs={12}>
-                                <Controller
-                                    name={"positionId"}
+                                <ControlledAutocomplete
+                                    name={inputs.positionId.name}
+                                    label={inputs.positionId.label}
                                     control={control}
-                                    defaultValue={data.positionId}
-                                    render={({
-                                        field: { onChange, onBlur, value },
-                                        fieldState: { error },
-                                    }) => (
-                                        <Autocomplete
-                                            id="position"
-                                            disablePortal
-                                            defaultValue={positionOptions.find(
-                                                (o) => o.value === value
-                                            )}
-                                            options={positionOptions}
-                                            onChange={(e, v) => {
-                                                typeof v === "string"
-                                                    ? ""
-                                                    : onChange(v.value);
-                                            }}
-                                            getOptionLabel={(option) =>
-                                                option.label
-                                            }
-                                            isOptionEqualToValue={(o, v) =>
-                                                o.value === v.value
-                                            }
-                                            renderInput={(params) => (
-                                                <TextField
-                                                    {...params}
-                                                    label={
-                                                        inputs.positionId.label
-                                                    }
-                                                    margin="normal"
-                                                    variant={"standard"}
-                                                    onBlur={onBlur}
-                                                    error={Boolean(
-                                                        error?.message
-                                                    )}
-                                                    helperText={error?.message}
-                                                />
-                                            )}
-                                        />
-                                    )}
+                                    options={positionOptions}
                                 />
                             </Grid>
                         </Grid>

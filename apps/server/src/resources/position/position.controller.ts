@@ -1,40 +1,32 @@
-import { getOrderPage } from "./../../helpers/pagination";
-import { Position, PrismaClient, User } from "@prisma/client";
+import { Position } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
-import { getPage, getPerPage } from "../../helpers/pagination";
+import { getPage, getPerPage, getOrderPage } from "../../helpers/pagination";
+import { createdResponse, successResponse } from "../../helpers/methods";
+
 import {
     createPositionService,
     deletePositionService,
-    getPaginationPositionsService,
-    getPositionDetailsService,
-    updatePositionDetailsService,
+    paginationPositionService,
+    positionDetailsService,
+    updatePositionService,
 } from "./position.service";
-import { createPositionBody, updatePositionDetailsBody } from "./position.dto";
-import { createdResponse } from "../../helpers/methods";
+import {
+    ICreatePositionRequest,
+    IPaginationPositionRequest,
+    IPositionDetailsRequest,
+    IUpdatePositionRequest,
+} from "./position.dto";
 
-const prisma = new PrismaClient();
-
-// get pagination position
-export const getPaginationPositions = async (
-    req: Request<
-        {},
-        {},
-        {},
-        {
-            page?: string;
-            perPage?: string;
-            field: keyof Position;
-            sort: "asc" | "desc";
-            search?: string;
-        }
-    >,
+/** pagination position */
+export const paginationPosition = async (
+    req: IPaginationPositionRequest,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
-    let { page = "0", perPage = "40", field, sort, search } = req.query;
-
     try {
-        const data = await getPaginationPositionsService({
+        let { page = "0", perPage = "40", field, sort, search } = req.query;
+
+        const data = await paginationPositionService({
             perPage: getPerPage(perPage),
             page: getPage(page),
             sortPage: getOrderPage<Position>({
@@ -52,58 +44,66 @@ export const getPaginationPositions = async (
     }
 };
 
-// get position details
-export const getPositionDetails = async (
-    req: Request<{ id: string }, {}, {}, {}>,
+/** position details */
+export const positionDetails = async (
+    req: IPositionDetailsRequest,
     res: Response,
     next: NextFunction
 ) => {
     try {
         const { id } = req.params;
-        const data = await getPositionDetailsService({
+
+        const data = await positionDetailsService({
             id,
         });
 
-        return res.send(data);
+        return res.send(
+            successResponse({
+                data: data,
+            })
+        );
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };
 
-// get position details
-export const updatePositionDetails = async (
-    req: Request<{ id: string }, {}, { body: updatePositionDetailsBody }, {}>,
+/** update position */
+export const updatePosition = async (
+    req: IUpdatePositionRequest,
     res: Response,
     next: NextFunction
 ) => {
     try {
         const { id } = req.params;
-        const { body } = req.body;
-        console.log("body", body);
+        const { name, description } = req.body;
 
-        const data = await updatePositionDetailsService({
+        const data = await updatePositionService({
             id,
-            body,
+            body: {
+                name,
+                description,
+            },
         });
 
-        return res.send(data);
+        return res.send(
+            successResponse({
+                data,
+            })
+        );
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };
 
-// create new position
+/* create position */
 export const createPosition = async (
-    req: Request<{}, {}, { body: createPositionBody }>,
+    req: ICreatePositionRequest,
     res: Response,
     next: NextFunction
 ): Promise<any> => {
     try {
-        const {
-            body: { name, description },
-        } = req.body;
+        const { name, description } = req.body;
+
         const position = await createPositionService({
             body: {
                 name,
@@ -117,26 +117,7 @@ export const createPosition = async (
     }
 };
 
-// update existing user
-export const updatePosition = async (
-    req: Request,
-    res: Response
-): Promise<any> => {
-    const { name, email } = req.body as User;
-    const user = await prisma.user.update({
-        where: {
-            id: req.params.id,
-        },
-        data: {
-            name,
-            email,
-        },
-    });
-
-    res.send(user);
-};
-
-// delete user
+/** delete user */
 export const deletePosition = async (
     req: Request,
     res: Response,
@@ -144,13 +125,17 @@ export const deletePosition = async (
 ) => {
     try {
         const { id } = req.params;
+
         const data = await deletePositionService({
             id,
         });
 
-        return res.send(data);
+        return res.send(
+            successResponse<typeof data>({
+                data,
+            })
+        );
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };

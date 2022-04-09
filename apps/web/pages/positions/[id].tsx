@@ -46,14 +46,14 @@ const PositionDetails: Page = () => {
                     (edit ? (
                         <PostionDetailsEdit
                             id={id as string}
-                            data={data.data}
+                            data={data}
                             edit={{ edit, toggleEdit }}
                             mutate={mutate}
                             btnSecondary={btnSecondary}
                         />
                     ) : (
                         <PositionDetailsView
-                            data={data.data}
+                            data={data}
                             btnSecondary={btnSecondary}
                         />
                     ))}

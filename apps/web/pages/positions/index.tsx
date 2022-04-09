@@ -39,10 +39,6 @@ const Positions: Page = () => {
                 rowCount: data.data.totalRows,
             }));
         }
-
-        if (isError && !isLoading) {
-            console.log("Error");
-        }
     }, [data, isError, isLoading]);
 
     return (
