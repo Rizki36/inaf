@@ -2,8 +2,12 @@ import * as UserController from "../user/user.controller";
 import express from "express";
 import verifyToken from "../../middleware/verifToken";
 import { authorization } from "../../middleware/authorization";
-import { updateUserDetailsSchema } from "./user.validation";
-import validate from "../../middleware/validation";
+import {
+    createUserSchema,
+    deleteUserSchema,
+    updateUserSchema,
+} from "./user.validation";
+import validateRequest from "../../middleware/validationRequest";
 
 const route = express.Router();
 
@@ -11,14 +15,14 @@ route.get(
     "/admin/users",
     verifyToken,
     authorization(["ADMIN"]),
-    UserController.getPaginationUsers
+    UserController.paginationUser
 );
 
 route.post(
     "/admin/users",
     verifyToken,
     authorization(["ADMIN"]),
-    validate(updateUserDetailsSchema),
+    validateRequest(createUserSchema),
     UserController.createUser
 );
 
@@ -26,21 +30,22 @@ route.get(
     "/admin/users/:id",
     verifyToken,
     authorization(["ADMIN"]),
-    UserController.getUserDetails
+    UserController.userDetails
 );
 
 route.patch(
     "/admin/users/:id",
     verifyToken,
     authorization(["ADMIN"]),
-    validate(updateUserDetailsSchema),
-    UserController.updateUserDetails
+    validateRequest(updateUserSchema),
+    UserController.updateUser
 );
 
 route.delete(
     "/admin/users/:id",
     verifyToken,
     authorization(["ADMIN"]),
+    validateRequest(deleteUserSchema),
     UserController.deleteUser
 );
 

@@ -1,40 +1,32 @@
 import { getOrderPage } from "./../../helpers/pagination";
-import { PrismaClient, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { getPage, getPerPage } from "../../helpers/pagination";
 import {
     createUserService,
     deleteUserService,
-    getPaginationUsersService,
-    getUserDetailsService,
-    updateUserDetailsService,
+    paginationUserService,
+    userDetailsService,
+    updateUserService,
 } from "./user.service";
-import { createUserBody, updateUserDetailsBody } from "./user.dto";
-import { createdResponse } from "../../helpers/methods";
+import {
+    ICreateUserRequest,
+    IPaginationUserRequest,
+    IUpdateUserRequest,
+    IUserDetailsRequest,
+} from "./user.dto";
+import { createdResponse, successResponse } from "../../helpers/methods";
 
-const prisma = new PrismaClient();
-
-// get pagination user
-export const getPaginationUsers = async (
-    req: Request<
-        {},
-        {},
-        {},
-        {
-            page?: string;
-            perPage?: string;
-            field: keyof User;
-            sort: "asc" | "desc";
-            search?: string;
-        }
-    >,
+/** pagination user  */
+export const paginationUser = async (
+    req: IPaginationUserRequest,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
     let { page = "0", perPage = "40", field, sort, search } = req.query;
 
     try {
-        const data = await getPaginationUsersService({
+        const data = await paginationUserService({
             perPage: getPerPage(perPage),
             page: getPage(page),
             sortPage: getOrderPage<User>({
@@ -52,57 +44,76 @@ export const getPaginationUsers = async (
     }
 };
 
-// get user details
-export const getUserDetails = async (
-    req: Request<{ id: string }, {}, {}, {}>,
+/** user details */
+export const userDetails = async (
+    req: IUserDetailsRequest,
     res: Response,
     next: NextFunction
 ) => {
     try {
         const { id } = req.params;
-        const data = await getUserDetailsService({
+        const data = await userDetailsService({
             id,
         });
 
-        return res.send(data);
+        return res.send(
+            successResponse({
+                data: data,
+            })
+        );
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };
 
-// get user details
-export const updateUserDetails = async (
-    req: Request<{ id: string }, {}, { body: updateUserDetailsBody }, {}>,
+/** update user */
+export const updateUser = async (
+    req: IUpdateUserRequest,
     res: Response,
     next: NextFunction
 ) => {
     try {
         const { id } = req.params;
-        const { body } = req.body;
-        console.log("body", body);
+        const { name, username, email, description, positionId } = req.body;
 
-        const data = await updateUserDetailsService({
+        const data = await updateUserService({
             id,
-            body,
+            body: {
+                name,
+                username,
+                email,
+                description,
+                positionId,
+            },
         });
 
-        return res.send(data);
+        return res.send(
+            successResponse<typeof data>({
+                data,
+            })
+        );
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };
 
-// create new user
-export const createUser = async (req: Request<{}, {}, { body: createUserBody }>, res: Response,next:NextFunction): Promise<any> => {
+/** create user */
+export const createUser = async (
+    req: ICreateUserRequest,
+    res: Response,
+    next: NextFunction
+): Promise<any> => {
     try {
-        const {
-            body: { name, description,email,password,positionId,username },
-        } = req.body;
+        const { name, description, email, password, positionId, username } =
+            req.body;
         const user = await createUserService({
             body: {
-                name, description,email,password,positionId,username
+                name,
+                description,
+                email,
+                password,
+                positionId,
+                username,
             },
         });
 
@@ -112,23 +123,7 @@ export const createUser = async (req: Request<{}, {}, { body: createUserBody }>,
     }
 };
 
-// update existing user
-export const updateUser = async (req: Request, res: Response): Promise<any> => {
-    const { name, email } = req.body as User;
-    const user = await prisma.user.update({
-        where: {
-            id: req.params.id,
-        },
-        data: {
-            name,
-            email,
-        },
-    });
-
-    res.send(user);
-};
-
-// delete user
+/** delete user */
 export const deleteUser = async (
     req: Request,
     res: Response,
