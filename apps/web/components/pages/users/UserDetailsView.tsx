@@ -10,7 +10,7 @@ interface UserDetailsViewProps {
 
 const UserDetailsView = (props: UserDetailsViewProps) => {
     const {
-        data: { data },
+        data,
         btnSecondary,
     } = props;
     return (

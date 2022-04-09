@@ -7,15 +7,12 @@ import {
     updateUserDetailsSDTO,
 } from "server";
 
-
 interface CreateUserProps {
     body: createUserBody;
 }
 export const createUser = (props: CreateUserProps) => {
     const { body } = props;
-    return backendApi.post<createUserDTO>(`/admin/users`, {
-        body,
-    });
+    return backendApi.post<createUserDTO>(`/admin/users`, body);
 };
 
 interface PatchUserDetailsProps {
@@ -24,9 +21,7 @@ interface PatchUserDetailsProps {
 }
 export const patchUserDetails = (props: PatchUserDetailsProps) => {
     const { id, body } = props;
-    return backendApi.patch<updateUserDetailsSDTO>(`/admin/users/${id}`, {
-        body,
-    });
+    return backendApi.patch<updateUserDetailsSDTO>(`/admin/users/${id}`, body);
 };
 
 export const deleteUser = (props: { id: string }) => {

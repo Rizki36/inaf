@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { createUserBody, updateUserDetailsBody } from "./user.dto";
 
-export const updateUserDetailsSchema = yup.object<Record<string, any>>({
+export const updateUserSchema = yup.object<Record<string, any>>({
     body: yup.object<Record<keyof updateUserDetailsBody, any>>({
         email: yup.string(),
         username: yup.string(),
@@ -19,5 +19,11 @@ export const createUserSchema = yup.object<Record<string, any>>({
         description: yup.string(),
         password: yup.string().required(),
         positionId: yup.string(),
+    }),
+});
+
+export const deleteUserSchema = yup.object<Record<string, any>>({
+    params: yup.object({
+        id: yup.string().required(),
     }),
 });

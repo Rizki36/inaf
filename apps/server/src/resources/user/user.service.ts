@@ -1,9 +1,12 @@
-import { createUserBody, updateUserDetailsBody } from "./user.dto";
+import {
+    ICreateUserProps,
+    IDeleteUserProps,
+    IPaginationUserProps,
+    IUpdateUserProps,
+    IUserDetailsProps,
+} from "./user.dto";
 import { PrismaClient, User, Prisma } from "@prisma/client";
-import { PaginationProps } from "../../../@types";
 import { successResponse } from "../../helpers/methods";
-
-interface getPaginationUsersProps extends PaginationProps<User> {}
 
 const prisma = new PrismaClient({
     log: [
@@ -14,10 +17,14 @@ const prisma = new PrismaClient({
     ],
 });
 
-// get pagination user
-export const getPaginationUsersService = async (
-    props: getPaginationUsersProps
-) => {
+prisma.$on("query", (e) => {
+    console.log("Query: " + e.query);
+    console.log("Params: " + e.params);
+    console.log("Duration: " + e.duration + "ms");
+});
+
+/** user pagination service */
+export const paginationUserService = async (props: IPaginationUserProps) => {
     const { page, perPage, sortPage, search } = props;
 
     const orderKey: keyof User =
@@ -30,7 +37,6 @@ export const getPaginationUsersService = async (
         };
     }
 
-    console.log("where", where);
     const data = await prisma.user.findMany({
         skip: page * perPage,
         take: perPage,
@@ -48,11 +54,6 @@ export const getPaginationUsersService = async (
         where,
     });
 
-    prisma.$on("query", (e) => {
-        console.log("Query: " + e.query);
-        console.log("Duration: " + e.duration + "ms");
-    });
-
     const totalRows = await prisma.user.count();
 
     return {
@@ -63,11 +64,8 @@ export const getPaginationUsersService = async (
     };
 };
 
-interface GetUserDetails {
-    id: string;
-}
-// get user details
-export const getUserDetailsService = async (props: GetUserDetails) => {
+/** user details service */
+export const userDetailsService = async (props: IUserDetailsProps) => {
     const { id } = props;
     const data = await prisma.user.findFirst({
         select: {
@@ -88,16 +86,11 @@ export const getUserDetailsService = async (props: GetUserDetails) => {
         },
     });
 
-    return successResponse<typeof data>({
-        data: data,
-    });
+    return data;
 };
 
-interface UpdateUserDetails {
-    id: string;
-    body: updateUserDetailsBody;
-}
-export const updateUserDetailsService = async (props: UpdateUserDetails) => {
+/** update user service */
+export const updateUserService = async (props: IUpdateUserProps) => {
     const { id, body } = props;
     const data = await prisma.user.update({
         data: {
@@ -112,16 +105,13 @@ export const updateUserDetailsService = async (props: UpdateUserDetails) => {
         },
     });
 
-    return successResponse<typeof data>({
-        data,
-    });
+    return data;
 };
 
-interface DeleteUser {
-    id: string;
-}
-export const deleteUserService = async (props: DeleteUser) => {
+/** delete user service */
+export const deleteUserService = async (props: IDeleteUserProps) => {
     const { id } = props;
+
     const data = await prisma.user.delete({
         where: {
             id,
@@ -133,10 +123,8 @@ export const deleteUserService = async (props: DeleteUser) => {
     });
 };
 
-interface CreateUser {
-    body: createUserBody;
-}
-export const createUserService = async (props: CreateUser) => {
+/** create user service */
+export const createUserService = async (props: ICreateUserProps) => {
     const { body } = props;
 
     const data = await prisma.user.create({
@@ -146,9 +134,5 @@ export const createUserService = async (props: CreateUser) => {
         data: body,
     });
 
-    console.log("created", data);
-
-    return successResponse<typeof data>({
-        data,
-    });
+    return data;
 };
