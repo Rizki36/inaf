@@ -44,7 +44,9 @@ interface GetPositionDetailsProps {
 export const usePositionDetails = (props: GetPositionDetailsProps) => {
     const { id } = props;
     const { data, error, mutate } = useSWR(id, (id) => {
-        return backendApi.get<getPositionDetailsDTO>(`admin/positions/${id}`);
+        return backendApi
+            .get<getPositionDetailsDTO>(`admin/positions/${id}`)
+            .then((res) => res.data);
     });
 
     return {

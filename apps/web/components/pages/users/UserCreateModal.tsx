@@ -17,6 +17,7 @@ import { createUserBody } from "server";
 import { createUser } from "@/libs/mutation/userMutation";
 import { commonError } from "@/helpers/errorHandler";
 import { usePositions } from "@/libs/query/positionQuery";
+import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
 
 interface IProps {
     modal: IUseModal;
@@ -252,46 +253,11 @@ const UserCreateModal = (props: IProps) => {
                                 </Grid>
 
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
-                                    <Controller
-                                        name={"positionId"}
+                                    <ControlledAutocomplete
+                                        name={inputs.positionId.name}
+                                        label={inputs.positionId.label}
                                         control={control}
-                                        render={({
-                                            field: { onChange, onBlur },
-                                            fieldState: { error },
-                                        }) => (
-                                            <Autocomplete
-                                                id="position"
-                                                disablePortal
-                                                options={positionOptions}
-                                                onChange={(e, v) => {
-                                                    if (typeof v !== "string")
-                                                        onChange(v.value);
-                                                }}
-                                                getOptionLabel={(option) =>
-                                                    option.label || ""
-                                                }
-                                                isOptionEqualToValue={(o, v) =>
-                                                    o.value === v.value
-                                                }
-                                                renderInput={(params) => (
-                                                    <TextField
-                                                        {...params}
-                                                        label={
-                                                            inputs.positionId
-                                                                .label
-                                                        }
-                                                        variant={"standard"}
-                                                        onBlur={onBlur}
-                                                        error={Boolean(
-                                                            error?.message
-                                                        )}
-                                                        helperText={
-                                                            error?.message
-                                                        }
-                                                    />
-                                                )}
-                                            />
-                                        )}
+                                        options={positionOptions}
                                     />
                                 </Grid>
                             </Grid>
