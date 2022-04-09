@@ -4,46 +4,53 @@ import verifyToken from "../../middleware/verifToken";
 import { authorization } from "../../middleware/authorization";
 import {
     createPositionSchema,
-    updatePositionDetailsSchema,
+    deletePositionSchema,
+    updatePositionSchema,
 } from "./position.validation";
-import validate from "../../middleware/validation";
+import validateRequest from "../../middleware/validationRequest";
 
 const route = express.Router();
 
+/** pagination position */
 route.get(
     "/admin/positions",
     verifyToken,
     authorization(["ADMIN"]),
-    PositionController.getPaginationPositions
+    PositionController.paginationPosition
 );
 
+/** create position */
 route.post(
     "/admin/positions",
     verifyToken,
     authorization(["ADMIN"]),
-    validate(createPositionSchema),
+    validateRequest(createPositionSchema),
     PositionController.createPosition
 );
 
+/** position details */
 route.get(
     "/admin/positions/:id",
     verifyToken,
     authorization(["ADMIN"]),
-    PositionController.getPositionDetails
+    PositionController.positionDetails
 );
 
+/** update position */
 route.patch(
     "/admin/positions/:id",
     verifyToken,
     authorization(["ADMIN"]),
-    validate(updatePositionDetailsSchema),
-    PositionController.updatePositionDetails
+    validateRequest(updatePositionSchema),
+    PositionController.updatePosition
 );
 
+/** delete position */
 route.delete(
     "/admin/positions/:id",
     verifyToken,
     authorization(["ADMIN"]),
+    validateRequest(deletePositionSchema),
     PositionController.deletePosition
 );
 

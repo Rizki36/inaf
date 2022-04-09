@@ -1,9 +1,11 @@
-import { createPositionBody, updatePositionDetailsBody } from "./position.dto";
+import {
+    ICreatePositionProps,
+    IDeletePositionProps,
+    IPaginationPositionsProps,
+    IPositionDetailsProps,
+    IUpdatePositionProps,
+} from "./position.dto";
 import { PrismaClient, Prisma, Position } from "@prisma/client";
-import { PaginationProps } from "../../../@types";
-import { successResponse } from "../../helpers/methods";
-
-interface getPaginationPositionsProps extends PaginationProps<Position> {}
 
 const prisma = new PrismaClient({
     log: [
@@ -14,9 +16,15 @@ const prisma = new PrismaClient({
     ],
 });
 
-// get pagination positions
-export const getPaginationPositionsService = async (
-    props: getPaginationPositionsProps
+prisma.$on("query", (e) => {
+    console.log("Query: " + e.query);
+    console.log("Params: " + e.params);
+    console.log("Duration: " + e.duration + "ms");
+});
+
+/** pagination position */
+export const paginationPositionService = async (
+    props: IPaginationPositionsProps
 ) => {
     const { page, perPage, sortPage, search } = props;
 
@@ -36,6 +44,7 @@ export const getPaginationPositionsService = async (
         select: {
             id: true,
             name: true,
+            description: true,
             createdAt: true,
             updatedAt: true,
         },
@@ -45,10 +54,6 @@ export const getPaginationPositionsService = async (
             },
         ],
         where,
-    });
-
-    prisma.$on("query", (e: Prisma.QueryEvent) => {
-        console.log(`${e.duration} ms : ${e.query}`);
     });
 
     const totalRows = await prisma.position.count();
@@ -61,12 +66,10 @@ export const getPaginationPositionsService = async (
     };
 };
 
-interface GetUPositionDetails {
-    id: string;
-}
-// get position details
-export const getPositionDetailsService = async (props: GetUPositionDetails) => {
+/** position details */
+export const positionDetailsService = async (props: IPositionDetailsProps) => {
     const { id } = props;
+
     const data = await prisma.position.findFirst({
         select: {
             id: true,
@@ -80,15 +83,11 @@ export const getPositionDetailsService = async (props: GetUPositionDetails) => {
         },
     });
 
-    return successResponse<typeof data>({
-        data: data,
-    });
+    return data;
 };
 
-interface CreatePosition {
-    body: createPositionBody;
-}
-export const createPositionService = async (props: CreatePosition) => {
+/** create position */
+export const createPositionService = async (props: ICreatePositionProps) => {
     const { body } = props;
 
     const data = await prisma.position.create({
@@ -98,20 +97,13 @@ export const createPositionService = async (props: CreatePosition) => {
         },
     });
 
-    return successResponse<typeof data>({
-        data,
-    });
+    return data;
 };
 
-interface UpdatePositionDetails {
-    id: string;
-    body: updatePositionDetailsBody;
-}
-export const updatePositionDetailsService = async (
-    props: UpdatePositionDetails
-) => {
+/** update position */
+export const updatePositionService = async (props: IUpdatePositionProps) => {
     const { id, body } = props;
-    console.log(body);
+
     const data = await prisma.position.update({
         data: {
             name: body.name,
@@ -122,23 +114,18 @@ export const updatePositionDetailsService = async (
         },
     });
 
-    return successResponse<typeof data>({
-        data,
-    });
+    return data;
 };
 
-interface DeletePosition {
-    id: string;
-}
-export const deletePositionService = async (props: DeletePosition) => {
+/** delete position */
+export const deletePositionService = async (props: IDeletePositionProps) => {
     const { id } = props;
+
     const data = await prisma.position.delete({
         where: {
             id,
         },
     });
 
-    return successResponse<typeof data>({
-        data,
-    });
+    return data;
 };
