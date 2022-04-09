@@ -77,16 +77,16 @@ model TaskGroup {
   projectId   String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  attachment  Json
+  attachment  Json?
 
   project Project? @relation(fields: [projectId], references: [id])
   Task    Task[]
 }
 
 model Task {
-  id          String   @id @default(uuid())
-  name        String   @db.VarChar(30)
-  description String   @db.Text
+  id          String    @id @default(uuid())
+  name        String    @db.VarChar(30)
+  description String    @db.Text
   taskGroupId String?
   projectId   String?
   beginAt     DateTime? @default(now())

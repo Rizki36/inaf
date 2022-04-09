@@ -48,7 +48,7 @@ export interface updateTaskBody
 export type updateTaskDTO = AsyncReturnType<typeof updateTaskService>;
 
 /** delete task */
-export type deletePositionDTO = AsyncReturnType<typeof deleteTaskService>;
+export type deleteTaskDTO = AsyncReturnType<typeof deleteTaskService>;
 
 /**
  * service
@@ -77,7 +77,7 @@ export interface IDeleteTaskProps {
  * controller
  */
 
-export type IPaginationTeamsRequest = Request<
+export type IPaginationTasksRequest = Request<
     {},
     {},
     {},
@@ -92,7 +92,7 @@ export type IPaginationTeamsRequest = Request<
 
 export type ITaskDetailsRequest = Request<{ id: string }, {}, {}, {}>;
 
-export type IUpdateTeamRequest = Request<
+export type IUpdateTaskRequest = Request<
     { id: string },
     {},
     updateTaskBody,

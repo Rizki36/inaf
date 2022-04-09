@@ -1,11 +1,11 @@
 import {
-    IPaginationTasksProps,
-    ICreateTaskServiceProps,
-    IDeleteTaskProps,
-    ITaskDetailsServiceProps,
-    IUpdateTaskProps,
-} from "./task.dto";
-import { PrismaClient, Prisma, Task } from "@prisma/client";
+    IPaginationTaskGroupsProps,
+    ICreateTaskGroupServiceProps,
+    IDeleteTaskGroupProps,
+    ITaskGroupDetailsServiceProps,
+    IUpdateTaskGroupProps,
+} from "./task_group.dto";
+import { PrismaClient, Prisma, Task, TaskGroup } from "@prisma/client";
 
 const prisma = new PrismaClient({
     log: [
@@ -22,33 +22,32 @@ prisma.$on("query", (e) => {
     console.log("Duration: " + e.duration + "ms");
 });
 
-/** pagination tasks */
-export const taskPaginationService = async (props: IPaginationTasksProps) => {
+/** pagination task groups */
+export const taskGroupPaginationService = async (
+    props: IPaginationTaskGroupsProps
+) => {
     const { page, perPage, sortPage, search } = props;
 
-    const orderKey: keyof Task =
+    const orderKey: keyof TaskGroup =
         [].find((i) => i === sortPage?.field) ?? "createdAt";
 
-    const where: Prisma.TaskFindManyArgs["where"] = {};
+    const where: Prisma.TaskGroupFindManyArgs["where"] = {};
     if (search) {
         where.OR = {
             name: { contains: search },
         };
     }
 
-    const data = await prisma.task.findMany({
+    const data = await prisma.taskGroup.findMany({
         skip: page * perPage,
         take: perPage,
         select: {
             id: true,
             name: true,
-            beginAt: true,
-            finishAt: true,
             createdAt: true,
             updatedAt: true,
             description: true,
             projectId: true,
-            taskGroupId: true,
             attachment: true,
         },
         orderBy: [
@@ -59,7 +58,7 @@ export const taskPaginationService = async (props: IPaginationTasksProps) => {
         where,
     });
 
-    const totalRows = await prisma.task.count();
+    const totalRows = await prisma.taskGroup.count();
 
     return {
         totalRows,
@@ -69,21 +68,20 @@ export const taskPaginationService = async (props: IPaginationTasksProps) => {
     };
 };
 
-/** details task */
-export const taskDetailsService = async (props: ITaskDetailsServiceProps) => {
+/** details task group */
+export const taskGroupDetailsService = async (
+    props: ITaskGroupDetailsServiceProps
+) => {
     const { id } = props;
-    const data = await prisma.task.findFirst({
+    const data = await prisma.taskGroup.findFirst({
         select: {
             id: true,
             name: true,
             description: true,
             attachment: true,
-            taskGroupId: true,
             projectId: true,
             createdAt: true,
             updatedAt: true,
-            beginAt: true,
-            finishAt: true,
         },
         where: {
             id,
@@ -93,18 +91,17 @@ export const taskDetailsService = async (props: ITaskDetailsServiceProps) => {
     return data;
 };
 
-/** create task */
-export const createTaskService = async (props: ICreateTaskServiceProps) => {
+/** create task group */
+export const createTaskGroupService = async (
+    props: ICreateTaskGroupServiceProps
+) => {
     const { body } = props;
 
-    const data = await prisma.task.create({
+    const data = await prisma.taskGroup.create({
         data: {
             name: body.name,
             description: body.description,
-            taskGroupId: body.taskGroupId,
             projectId: body.projectId,
-            beginAt: body.beginAt,
-            finishAt: body.finishAt,
             attachment: body.attachment,
         },
     });
@@ -112,17 +109,15 @@ export const createTaskService = async (props: ICreateTaskServiceProps) => {
     return data;
 };
 
-/** update task */
-export const updateTaskService = async (props: IUpdateTaskProps) => {
+/** update task group */
+export const updateTaskGroupService = async (props: IUpdateTaskGroupProps) => {
     const { id, body } = props;
-    const data = await prisma.task.update({
+
+    const data = await prisma.taskGroup.update({
         data: {
             name: body.name,
             description: body.description,
-            taskGroupId: body.taskGroupId,
             projectId: body.projectId,
-            beginAt: body.beginAt,
-            finishAt: body.finishAt,
             attachment: body.attachment,
         },
         where: {
@@ -133,10 +128,10 @@ export const updateTaskService = async (props: IUpdateTaskProps) => {
     return data;
 };
 
-/** delete task */
-export const deleteTaskService = async (props: IDeleteTaskProps) => {
+/** delete task group */
+export const deleteTaskGroupService = async (props: IDeleteTaskGroupProps) => {
     const { id } = props;
-    const data = await prisma.task.delete({
+    const data = await prisma.taskGroup.delete({
         where: {
             id,
         },

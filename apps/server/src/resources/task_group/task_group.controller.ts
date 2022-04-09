@@ -1,35 +1,35 @@
 import { getOrderPage } from "../../helpers/pagination";
-import { Task } from "@prisma/client";
+import { TaskGroup } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { getPage, getPerPage } from "../../helpers/pagination";
 import {
-    createTaskService,
-    deleteTaskService,
-    taskPaginationService,
-    taskDetailsService,
-    updateTaskService,
-} from "./task.service";
+    createTaskGroupService,
+    deleteTaskGroupService,
+    taskGroupPaginationService,
+    taskGroupDetailsService,
+    updateTaskGroupService,
+} from "./task_group.service";
 import {
-    ICreateTaskRequest,
-    IPaginationTasksRequest,
-    ITaskDetailsRequest,
-    IUpdateTaskRequest,
-} from "./task.dto";
+    ICreateTaskGroupRequest,
+    IPaginationTaskGroupsRequest,
+    ITaskGroupDetailsRequest,
+    IUpdateTaskGroupRequest,
+} from "./task_group.dto";
 import { createdResponse, successResponse } from "../../helpers/methods";
 
-/** pagination tasks */
-export const taskPagination = async (
-    req: IPaginationTasksRequest,
+/** pagination task groups */
+export const taskGroupPagination = async (
+    req: IPaginationTaskGroupsRequest,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
     let { page = "0", perPage = "40", field, sort, search } = req.query;
 
     try {
-        const data = await taskPaginationService({
+        const data = await taskGroupPaginationService({
             perPage: getPerPage(perPage),
             page: getPage(page),
-            sortPage: getOrderPage<Task>({
+            sortPage: getOrderPage<TaskGroup>({
                 sortProps: { field, sort },
                 filds: ["createdAt", "name"],
                 defaultField: "name",
@@ -44,15 +44,15 @@ export const taskPagination = async (
     }
 };
 
-/** details task */
-export const taskDetails = async (
-    req: ITaskDetailsRequest,
+/** details task group */
+export const taskGroupDetails = async (
+    req: ITaskGroupDetailsRequest,
     res: Response,
     next: NextFunction
 ) => {
     try {
         const { id } = req.params;
-        const data = await taskDetailsService({
+        const data = await taskGroupDetailsService({
             id,
         });
 
@@ -62,14 +62,13 @@ export const taskDetails = async (
             })
         );
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };
 
-/** update task */
-export const updateTask = async (
-    req: IUpdateTaskRequest,
+/** update task group */
+export const updateTaskGroup = async (
+    req: IUpdateTaskGroupRequest,
     res: Response,
     next: NextFunction
 ) => {
@@ -77,7 +76,7 @@ export const updateTask = async (
         const { id } = req.params;
         const body = req.body;
 
-        const data = await updateTaskService({
+        const data = await updateTaskGroupService({
             id,
             body,
         });
@@ -88,54 +87,42 @@ export const updateTask = async (
             })
         );
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };
 
-/** create task */
-export const createTask = async (
-    req: ICreateTaskRequest,
+/** create task group */
+export const createTaskGroup = async (
+    req: ICreateTaskGroupRequest,
     res: Response,
     next: NextFunction
 ): Promise<any> => {
     try {
-        const {
-            name,
-            description,
-            attachment,
-            beginAt,
-            finishAt,
-            taskGroupId,
-            projectId,
-        } = req.body;
-        const task = await createTaskService({
+        const { name, description, attachment, projectId } = req.body;
+        const taskGroup = await createTaskGroupService({
             body: {
                 name,
                 description,
                 attachment,
-                beginAt,
-                finishAt,
-                taskGroupId,
                 projectId,
             },
         });
 
-        res.send(createdResponse(task));
+        res.send(createdResponse(taskGroup));
     } catch (error) {
         next(error);
     }
 };
 
-/** delete task */
-export const deleteTask = async (
+/** delete task group */
+export const deleteTaskGroup = async (
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
     try {
         const { id } = req.params;
-        const data = await deleteTaskService({
+        const data = await deleteTaskGroupService({
             id,
         });
 
