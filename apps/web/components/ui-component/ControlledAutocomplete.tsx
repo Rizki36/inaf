@@ -1,5 +1,5 @@
 import { IOption } from "@/types/index";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, TextField, TextFieldProps } from "@mui/material";
 import { Control, Controller } from "react-hook-form";
 
 interface IControlledAutoCompleteProps {
@@ -11,7 +11,9 @@ interface IControlledAutoCompleteProps {
     disabled?: boolean;
 }
 
-const ControlledAutocomplete = (props: IControlledAutoCompleteProps) => {
+const ControlledAutocomplete = (
+    props: IControlledAutoCompleteProps & TextFieldProps
+) => {
     const { name, label, control, options, disabled = false } = props;
 
     const getCurrentOption = (value) => {
@@ -45,6 +47,7 @@ const ControlledAutocomplete = (props: IControlledAutoCompleteProps) => {
                             label={label}
                             variant={"standard"}
                             onBlur={onBlur}
+                            margin="normal"
                             error={Boolean(error?.message)}
                             helperText={error?.message}
                         />

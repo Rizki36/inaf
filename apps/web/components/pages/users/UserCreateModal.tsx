@@ -18,6 +18,7 @@ import { createUser } from "@/libs/mutation/userMutation";
 import { commonError } from "@/helpers/errorHandler";
 import { usePositions } from "@/libs/query/positionQuery";
 import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
+import ControlledTextField from "@/components/ui-component/ControlledTextField";
 
 interface IProps {
     modal: IUseModal;
@@ -143,112 +144,35 @@ const UserCreateModal = (props: IProps) => {
                         <Grid item lg={6} xs={12}>
                             <Grid container spacing={gridSpacing}>
                                 <Grid item lg={6} md={12} sm={12} xs={12}>
-                                    <Controller
+                                    <ControlledTextField
                                         control={control}
                                         name={inputs.name.name}
-                                        defaultValue=""
-                                        render={({ field }) => (
-                                            <TextField
-                                                {...field}
-                                                label={inputs.name.label}
-                                                fullWidth
-                                                margin="normal"
-                                                variant="standard"
-                                                error={Boolean(
-                                                    errors[inputs.name.name]
-                                                )}
-                                                helperText={
-                                                    errors[inputs.name.name]
-                                                        ? errors[
-                                                              inputs.name.name
-                                                          ].message
-                                                        : ""
-                                                }
-                                            />
-                                        )}
+                                        label={inputs.name.label}
                                     />
                                 </Grid>
 
                                 <Grid item lg={6} md={12} sm={12} xs={12}>
-                                    <Controller
+                                    <ControlledTextField
                                         control={control}
                                         name={inputs.email.name}
-                                        defaultValue=""
-                                        render={({ field }) => (
-                                            <TextField
-                                                {...field}
-                                                label={inputs.email.label}
-                                                fullWidth
-                                                margin="normal"
-                                                variant="standard"
-                                                error={Boolean(
-                                                    errors[inputs.email.name]
-                                                )}
-                                                helperText={
-                                                    errors[inputs.email.name]
-                                                        ? errors[
-                                                              inputs.email.name
-                                                          ].message
-                                                        : ""
-                                                }
-                                            />
-                                        )}
+                                        label={inputs.email.label}
                                     />
                                 </Grid>
 
                                 <Grid item lg={6} md={12} sm={12} xs={12}>
-                                    <Controller
+                                    <ControlledTextField
                                         control={control}
                                         name={inputs.username.name}
-                                        defaultValue=""
-                                        render={({ field }) => (
-                                            <TextField
-                                                {...field}
-                                                label={inputs.username.label}
-                                                fullWidth
-                                                margin="normal"
-                                                variant="standard"
-                                                error={Boolean(
-                                                    errors[inputs.username.name]
-                                                )}
-                                                helperText={
-                                                    errors[inputs.username.name]
-                                                        ? errors[
-                                                              inputs.username
-                                                                  .name
-                                                          ].message
-                                                        : ""
-                                                }
-                                            />
-                                        )}
+                                        label={inputs.username.label}
                                     />
                                 </Grid>
 
                                 <Grid item lg={6} md={12} sm={12} xs={12}>
-                                    <Controller
+                                    <ControlledTextField
+                                        type={"password"}
                                         control={control}
                                         name={inputs.password.name}
-                                        defaultValue=""
-                                        render={({ field }) => (
-                                            <TextField
-                                                {...field}
-                                                label={inputs.password.label}
-                                                fullWidth
-                                                margin="normal"
-                                                variant="standard"
-                                                error={Boolean(
-                                                    errors[inputs.password.name]
-                                                )}
-                                                helperText={
-                                                    errors[inputs.password.name]
-                                                        ? errors[
-                                                              inputs.password
-                                                                  .name
-                                                          ].message
-                                                        : ""
-                                                }
-                                            />
-                                        )}
+                                        label={inputs.password.label}
                                     />
                                 </Grid>
 
@@ -264,32 +188,14 @@ const UserCreateModal = (props: IProps) => {
                         </Grid>
                         <Grid item lg={6} xs={12}>
                             <Grid item lg={12} md={12} sm={12} xs={12}>
-                                <Controller
+                                <ControlledTextField
                                     control={control}
                                     name={inputs.description.name}
-                                    defaultValue=""
-                                    render={({ field }) => (
-                                        <TextField
-                                            {...field}
-                                            label={inputs.description.label}
-                                            fullWidth
-                                            multiline
-                                            margin="normal"
-                                            variant="outlined"
-                                            minRows={10}
-                                            error={Boolean(
-                                                errors[inputs.description.name]
-                                            )}
-                                            helperText={
-                                                errors[inputs.description.name]
-                                                    ? errors[
-                                                          inputs.description
-                                                              .name
-                                                      ].message
-                                                    : ""
-                                            }
-                                        />
-                                    )}
+                                    label={inputs.description.label}
+                                    margin="normal"
+                                    variant="outlined"
+                                    multiline
+                                    minRows={10}
                                 />
                             </Grid>
                         </Grid>

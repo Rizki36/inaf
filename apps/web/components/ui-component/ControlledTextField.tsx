@@ -1,13 +1,25 @@
-import { TextField } from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 import { Control, Controller } from "react-hook-form";
 
+// interface IControlledTextFieldProps extends TextFieldProps {
+//     name: string;
+//     label: string;
+//     control: Control<any>;
+//     type?: React.InputHTMLAttributes<unknown>["type"];
+//     variant?: "standard" | "outlined" | "filled";
+//     multiline?: boolean;
+//     minRows?: number;
+// }
 interface IControlledTextFieldProps {
     name: string;
     label: string;
     control: Control<any>;
 }
-const ControlledTextField = (props: IControlledTextFieldProps) => {
-    const { control, name, label } = props;
+
+const ControlledTextField = (
+    props: IControlledTextFieldProps & TextFieldProps
+) => {
+    const { control, name, label, type = "text", variant = "standard" } = props;
     return (
         <Controller
             control={control}
@@ -17,10 +29,12 @@ const ControlledTextField = (props: IControlledTextFieldProps) => {
                     {...field}
                     label={label}
                     fullWidth
+                    type={type}
                     margin="normal"
-                    variant="standard"
+                    variant={variant}
                     error={Boolean(error?.message)}
                     helperText={error?.message}
+                    {...props}
                 />
             )}
         />
