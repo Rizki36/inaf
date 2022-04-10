@@ -1,14 +1,15 @@
-import { EditProp, Inputs } from "@/types/index";
-import { Button, TextField, Grid } from "@mui/material";
-import { updateProjectDetailsBody, getProjectDetailsDTO } from "server";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useCallback } from "react";
-import { patchProjectDetails } from "@/libs/mutation/projectMutation";
-import { commonError } from "@/helpers/errorHandler";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Button, Grid } from "@mui/material";
 import MainCard from "@/components/ui-component/cards/MainCard";
+import ControlledTextField from "@/components/ui-component/ControlledTextField";
+
+import * as yup from "yup";
+import { commonError } from "@/helpers/errorHandler";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { gridSpacing } from "@/configs/constant";
+import { EditProp, Inputs } from "@/types/index";
+import { patchProjectDetails } from "@/libs/mutation/projectMutation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { updateProjectDetailsBody, getProjectDetailsDTO } from "server";
 
 interface IForm extends updateProjectDetailsBody {}
 
@@ -46,11 +47,7 @@ const ProjectDetailsEdit = (props: ProjectDetailsEditProps) => {
         btnSecondary,
     } = props;
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<IForm>({
+    const { control, handleSubmit } = useForm<IForm>({
         resolver: yupResolver(schema),
         defaultValues: {
             name: data.name,
@@ -58,72 +55,32 @@ const ProjectDetailsEdit = (props: ProjectDetailsEditProps) => {
         },
     });
 
-    const onSubmit: SubmitHandler<IForm> = useCallback(
-        (props) => {
-            const body = {
-                ...props,
-            };
-
-            patchProjectDetails({
-                id,
-                body,
+    const onSubmit: SubmitHandler<IForm> = (props) => {
+        patchProjectDetails({
+            id,
+            body: { ...props },
+        })
+            .then((res) => {
+                mutate();
+                toggleEdit();
             })
-                .then((res) => {
-                    mutate();
-                    toggleEdit();
-                })
-                .catch(commonError);
-        },
-        [id, mutate, toggleEdit]
-    );
+            .catch(commonError);
+    };
 
     return (
         <MainCard title="Project Details" secondary={<>{btnSecondary}</>}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={12} md={12} sm={12} xs={12}>
-                        <Controller
+                        <ControlledTextField
                             control={control}
                             name={inputs.name.name}
-                            defaultValue=""
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label={inputs.name.label}
-                                    className="w-full"
-                                    margin="normal"
-                                    variant="standard"
-                                    error={Boolean(errors[inputs.name.name])}
-                                    helperText={
-                                        errors[inputs.name.name]
-                                            ? errors[inputs.name.name].message
-                                            : ""
-                                    }
-                                />
-                            )}
+                            label={inputs.name.label}
                         />
-                        <Controller
+                        <ControlledTextField
                             control={control}
                             name={inputs.description.name}
-                            defaultValue=""
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label={inputs.description.label}
-                                    className="w-full"
-                                    margin="normal"
-                                    variant="standard"
-                                    error={Boolean(
-                                        errors[inputs.description.name]
-                                    )}
-                                    helperText={
-                                        errors[inputs.description.name]
-                                            ? errors[inputs.description.name]
-                                                  .message
-                                            : ""
-                                    }
-                                />
-                            )}
+                            label={inputs.description.label}
                         />
                     </Grid>
                     <Grid item lg={12} md={12} sm={12} xs={12}>

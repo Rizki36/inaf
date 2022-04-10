@@ -1,14 +1,15 @@
 import { EditProp, Inputs } from "@/types/index";
-import { Button, TextField, Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { updatePositionBody, getPositionDetailsDTO } from "server";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useCallback, useMemo } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useMemo } from "react";
 import { patchPositionDetails } from "@/libs/mutation/positionMutation";
 import { commonError } from "@/helpers/errorHandler";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import MainCard from "@/components/ui-component/cards/MainCard";
 import { gridSpacing } from "@/configs/constant";
+import ControlledTextField from "@/components/ui-component/ControlledTextField";
 
 interface IForm extends updatePositionBody {}
 
@@ -45,11 +46,7 @@ const PostionDetailsEdit = (props: PositionDetailsEditProps) => {
         mutate,
     } = props;
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<IForm>({
+    const { control, handleSubmit } = useForm<IForm>({
         resolver: yupResolver(schema),
         defaultValues: {
             name: data.name,
@@ -86,48 +83,16 @@ const PostionDetailsEdit = (props: PositionDetailsEditProps) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={12} md={12} sm={12} xs={12}>
-                        <Controller
+                        <ControlledTextField
                             control={control}
                             name={inputs.name.name}
-                            defaultValue=""
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label={inputs.name.label}
-                                    className="w-full"
-                                    margin="normal"
-                                    variant="standard"
-                                    error={Boolean(errors[inputs.name.name])}
-                                    helperText={
-                                        errors[inputs.name.name]
-                                            ? errors[inputs.name.name].message
-                                            : ""
-                                    }
-                                />
-                            )}
+                            label={inputs.name.label}
                         />
-                        <Controller
+
+                        <ControlledTextField
                             control={control}
                             name={inputs.description.name}
-                            defaultValue=""
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label={inputs.description.label}
-                                    className="w-full"
-                                    margin="normal"
-                                    variant="standard"
-                                    error={Boolean(
-                                        errors[inputs.description.name]
-                                    )}
-                                    helperText={
-                                        errors[inputs.description.name]
-                                            ? errors[inputs.description.name]
-                                                  .message
-                                            : ""
-                                    }
-                                />
-                            )}
+                            label={inputs.description.label}
                         />
                     </Grid>
                     <Grid item lg={12} md={12} sm={12} xs={12}>

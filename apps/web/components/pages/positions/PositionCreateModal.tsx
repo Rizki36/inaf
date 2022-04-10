@@ -1,15 +1,15 @@
 import { useCallback } from "react";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import ControlledTextField from "@/components/ui-component/ControlledTextField";
 
 import { gridSpacing } from "@/configs/constant";
 import { IUseModal } from "@/types/index";
 import { Grid, Typography } from "@mui/material";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Inputs } from "@/types/index";
@@ -45,12 +45,7 @@ const schema = yup
 const PositionCreateModal = (props: IProps) => {
     const { modal, mutate } = props;
 
-    const {
-        control,
-        reset,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<IForm>({
+    const { control, reset, handleSubmit } = useForm<IForm>({
         resolver: yupResolver(schema),
     });
 
@@ -91,52 +86,16 @@ const PositionCreateModal = (props: IProps) => {
                 <DialogContent dividers>
                     <Grid container spacing={gridSpacing}>
                         <Grid item lg={12} md={12} sm={12} xs={12}>
-                            <Controller
+                            <ControlledTextField
                                 control={control}
                                 name={inputs.name.name}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label={inputs.name.label}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="standard"
-                                        error={Boolean(
-                                            errors[inputs.name.name]
-                                        )}
-                                        helperText={
-                                            errors[inputs.name.name]
-                                                ? errors[inputs.name.name]
-                                                      .message
-                                                : ""
-                                        }
-                                    />
-                                )}
+                                label={inputs.name.label}
                             />
-                            <Controller
+
+                            <ControlledTextField
                                 control={control}
                                 name={inputs.description.name}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        label={inputs.description.label}
-                                        fullWidth
-                                        margin="normal"
-                                        variant="standard"
-                                        error={Boolean(
-                                            errors[inputs.description.name]
-                                        )}
-                                        helperText={
-                                            errors[inputs.description.name]
-                                                ? errors[
-                                                      inputs.description.name
-                                                  ].message
-                                                : ""
-                                        }
-                                    />
-                                )}
+                                label={inputs.description.label}
                             />
                         </Grid>
                     </Grid>
