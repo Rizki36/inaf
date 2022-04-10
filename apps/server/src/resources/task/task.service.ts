@@ -47,9 +47,19 @@ export const taskPaginationService = async (props: IPaginationTasksProps) => {
             createdAt: true,
             updatedAt: true,
             description: true,
-            projectId: true,
-            taskGroupId: true,
             attachment: true,
+            project: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
+            taskGroup: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
         },
         orderBy: [
             {
@@ -78,12 +88,22 @@ export const taskDetailsService = async (props: ITaskDetailsServiceProps) => {
             name: true,
             description: true,
             attachment: true,
-            taskGroupId: true,
-            projectId: true,
             createdAt: true,
             updatedAt: true,
             beginAt: true,
             finishAt: true,
+            project: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
+            taskGroup: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
         },
         where: {
             id,
@@ -97,14 +117,17 @@ export const taskDetailsService = async (props: ITaskDetailsServiceProps) => {
 export const createTaskService = async (props: ICreateTaskServiceProps) => {
     const { body } = props;
 
+    const beginAt = body.beginAt ? new Date(body.beginAt) : null;
+    const finishAt = body.finishAt ? new Date(body.finishAt) : null;
+
     const data = await prisma.task.create({
         data: {
             name: body.name,
             description: body.description,
             taskGroupId: body.taskGroupId,
             projectId: body.projectId,
-            beginAt: body.beginAt,
-            finishAt: body.finishAt,
+            beginAt,
+            finishAt,
             attachment: body.attachment,
         },
     });
