@@ -35,13 +35,9 @@ const Projects: Page = () => {
             setRowsState((prev) => ({
                 ...prev,
                 loading: false,
-                rows: data.data.data,
-                rowCount: data.data.totalRows,
+                rows: data.data,
+                rowCount: data.totalRows,
             }));
-        }
-
-        if (isError && !isLoading) {
-            console.log("Error");
         }
     }, [data, isError, isLoading]);
 
