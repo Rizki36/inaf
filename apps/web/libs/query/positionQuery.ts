@@ -1,5 +1,9 @@
 import backendApi from "configs/api/backendApi";
-import { getPaginationPositionsDTO, getPositionDetailsDTO } from "server";
+import {
+    getPaginationPositionsDTO,
+    getPositionDetailsDTO,
+    IResponse,
+} from "server";
 import { PaginationProps } from "../../@types/index";
 import useSWR from "swr";
 
@@ -17,15 +21,17 @@ export const usePositions = (props: getPositionsProps) => {
     const { data, error, mutate } = useSWR(
         ["admin/positions", page, perPage, sort, search],
         (url, page, perPage, sort, search) => {
-            return backendApi.get<getPaginationPositionsDTO>(url, {
-                params: {
-                    page,
-                    perPage,
-                    sort,
-                    field,
-                    search,
-                },
-            });
+            return backendApi
+                .get<getPaginationPositionsDTO>(url, {
+                    params: {
+                        page,
+                        perPage,
+                        sort,
+                        field,
+                        search,
+                    },
+                })
+                .then((res) => res.data);
         }
     );
 
@@ -45,7 +51,7 @@ export const usePositionDetails = (props: GetPositionDetailsProps) => {
     const { id } = props;
     const { data, error, mutate } = useSWR(id, (id) => {
         return backendApi
-            .get<getPositionDetailsDTO>(`admin/positions/${id}`)
+            .get<IResponse<getPositionDetailsDTO>>(`admin/positions/${id}`)
             .then((res) => res.data);
     });
 

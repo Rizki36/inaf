@@ -1,6 +1,6 @@
 import { EditProp, Inputs } from "@/types/index";
 import { Button, TextField, Grid } from "@mui/material";
-import { updatePositionDetailsBody, getPositionDetailsDTO } from "server";
+import { updatePositionBody, getPositionDetailsDTO } from "server";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useCallback, useMemo } from "react";
 import { patchPositionDetails } from "@/libs/mutation/positionMutation";
@@ -10,7 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import MainCard from "@/components/ui-component/cards/MainCard";
 import { gridSpacing } from "@/configs/constant";
 
-interface IForm extends updatePositionDetailsBody {}
+interface IForm extends updatePositionBody {}
 
 const inputs: Inputs<IForm> = {
     name: {
@@ -40,7 +40,7 @@ interface PositionDetailsEditProps {
 const PostionDetailsEdit = (props: PositionDetailsEditProps) => {
     const {
         id,
-        data: { data },
+        data,
         edit: { edit, toggleEdit },
         mutate,
     } = props;
@@ -57,24 +57,21 @@ const PostionDetailsEdit = (props: PositionDetailsEditProps) => {
         },
     });
 
-    const onSubmit: SubmitHandler<IForm> = useCallback(
-        (props) => {
-            const body = {
-                ...props,
-            };
+    const onSubmit: SubmitHandler<IForm> = (props) => {
+        const body = {
+            ...props,
+        };
 
-            patchPositionDetails({
-                id,
-                body,
+        patchPositionDetails({
+            id,
+            body,
+        })
+            .then((res) => {
+                mutate();
+                toggleEdit();
             })
-                .then((res) => {
-                    mutate();
-                    toggleEdit();
-                })
-                .catch(commonError);
-        },
-        [id]
-    );
+            .catch(commonError);
+    };
 
     const BtnSecondary = useMemo(() => {
         if (edit) {

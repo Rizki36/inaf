@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import * as yup from "yup";
 import { gridSpacing } from "@/configs/constant";
 import { IOption, IUseModal } from "@/types/index";
-import { Alert, Grid, Typography } from "@mui/material";
+import { Alert, Grid } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Inputs } from "@/types/index";
@@ -98,7 +98,7 @@ const ProjectTeamsUpdateModal = (props: IProps) => {
     useEffect(() => {
         /** get project options */
         const options = getOptionsFromPaginationQuery<
-            typeof positions["data"]["data"][number]
+            typeof positions["data"][number]
         >({
             label: "name",
             value: "id",
@@ -114,7 +114,7 @@ const ProjectTeamsUpdateModal = (props: IProps) => {
     useEffect(() => {
         /** get user options */
         const options = getOptionsFromPaginationQuery<
-            typeof users["data"]["data"][number]
+            typeof users["data"][number]
         >({
             label: "name",
             value: "id",

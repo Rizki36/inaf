@@ -2,7 +2,7 @@ import { EditProp, Inputs } from "@/types/index";
 import { Button, TextField, Grid } from "@mui/material";
 import { updateProjectDetailsBody, getProjectDetailsDTO } from "server";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { patchProjectDetails } from "@/libs/mutation/projectMutation";
 import { commonError } from "@/helpers/errorHandler";
 import * as yup from "yup";
@@ -40,8 +40,8 @@ interface ProjectDetailsEditProps {
 const ProjectDetailsEdit = (props: ProjectDetailsEditProps) => {
     const {
         id,
-        data: { data },
-        edit: { edit, toggleEdit },
+        data,
+        edit: { toggleEdit },
         mutate,
         btnSecondary,
     } = props;

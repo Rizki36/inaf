@@ -67,7 +67,8 @@ const ProjectCreateModal = (props: IProps) => {
                 body,
             })
                 .then(() => {
-                    reset(), mutate();
+                    reset();
+                    mutate();
                     modal.toggleModal();
                 })
                 .catch(commonError);

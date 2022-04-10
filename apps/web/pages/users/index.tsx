@@ -35,8 +35,8 @@ const Users: Page = () => {
             setRowsState((prev) => ({
                 ...prev,
                 loading: false,
-                rows: data.data.data,
-                rowCount: data.data.totalRows,
+                rows: data.data,
+                rowCount: data.totalRows,
             }));
         }
 
