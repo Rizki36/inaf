@@ -9,15 +9,12 @@ interface UserDetailsViewProps {
 }
 
 const UserDetailsView = (props: UserDetailsViewProps) => {
-    const {
-        data: { data },
-        btnSecondary,
-    } = props;
+    const { data, btnSecondary } = props;
     return (
         <MainCard title="Position Details" secondary={<>{btnSecondary}</>}>
             <Grid container spacing={gridSpacing}>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
-                    <div style={{ marginTop:"16px" }}>
+                    <div style={{ marginTop: "16px" }}>
                         <Typography
                             variant="body2"
                             color="text.secondary"
@@ -27,7 +24,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                         </Typography>
                         <Typography variant="body2">{data.name}</Typography>
                     </div>
-                    <div style={{ marginTop:"16px" }}>
+                    <div style={{ marginTop: "16px" }}>
                         <Typography
                             variant="body2"
                             color="text.secondary"
@@ -35,7 +32,9 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                         >
                             Description
                         </Typography>
-                        <Typography variant="body2">{data.description}</Typography>
+                        <Typography variant="body2">
+                            {data.description}
+                        </Typography>
                     </div>
                 </Grid>
             </Grid>
