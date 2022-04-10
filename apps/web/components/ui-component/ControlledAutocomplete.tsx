@@ -17,12 +17,7 @@ const ControlledAutocomplete = (
     const { name, label, control, options, disabled = false } = props;
 
     const getCurrentOption = (value) => {
-        return (
-            options.find((option) => option.value === value) ?? {
-                label: "",
-                value: "",
-            }
-        );
+        return options.find((option) => option.value === value);
     };
 
     return (
@@ -37,7 +32,8 @@ const ControlledAutocomplete = (
                     id={name}
                     options={options}
                     onChange={(e, v) => {
-                        if (typeof v !== "string") onChange(v?.value);
+                        if (!v) return onChange(null);
+                        if (typeof v !== "string") return onChange(v?.value);
                     }}
                     value={getCurrentOption(value)}
                     disabled={disabled}

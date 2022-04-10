@@ -2,10 +2,10 @@ import useSWR from "swr";
 import backendApi from "configs/api/backendApi";
 import { IResponse } from "server";
 import { PaginationProps } from "../../@types/index";
-import { getPaginationTaskGroupsDTO, getTaskGroupDetailsDTO } from "server";
+import { getPaginationTasksDTO, getTaskDetailsDTO } from "server";
 
-interface IUseTaskGroupsProps extends PaginationProps {}
-export const useTaskGroups = (props: IUseTaskGroupsProps) => {
+interface IUseTasksProps extends PaginationProps {}
+export const useTasks = (props: IUseTasksProps) => {
     const {
         page = 1,
         perPage = 40,
@@ -15,10 +15,10 @@ export const useTaskGroups = (props: IUseTaskGroupsProps) => {
     const { sort, field } = sortPage;
 
     const { data, error, mutate } = useSWR(
-        ["admin/task-groups", page, perPage, sort, search],
+        ["admin/tasks", page, perPage, sort, search],
         (url, page, perPage, sort, search) => {
             return backendApi
-                .get<getPaginationTaskGroupsDTO>(url, {
+                .get<getPaginationTasksDTO>(url, {
                     params: {
                         page,
                         perPage,
@@ -39,16 +39,16 @@ export const useTaskGroups = (props: IUseTaskGroupsProps) => {
     };
 };
 
-interface ITaskGroupDetailsProps {
+interface IUseTaskDetailsProps {
     id: string;
 }
 
-export const useTaskGroupDetails = (props: ITaskGroupDetailsProps) => {
+export const useTaskDetails = (props: IUseTaskDetailsProps) => {
     const { id } = props;
 
     const { data, error, mutate } = useSWR(id, (id) => {
         return backendApi
-            .get<IResponse<getTaskGroupDetailsDTO>>(`admin/task-groups/${id}`)
+            .get<IResponse<getTaskDetailsDTO>>(`admin/tasks/${id}`)
             .then((res) => res.data);
     });
 

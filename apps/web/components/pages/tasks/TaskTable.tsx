@@ -5,15 +5,15 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Dispatch, SetStateAction } from "react";
 import { IconEye } from "@tabler/icons";
 import Link from "next/link";
-import TaskGroupDeleteDialog from "./TaskGroupDeleteDialog";
+import TaskDeleteDialog from "./TaskDeleteDialog";
 
-interface TaskGroupTableProps {
+interface TaskTableProps {
     rowsState: RowsState;
     setRowsState: Dispatch<SetStateAction<RowsState>>;
     mutate: any;
 }
 
-const TaskGroupTable = (props: TaskGroupTableProps) => {
+const TaskTable = (props: TaskTableProps) => {
     const { rowsState, setRowsState, mutate } = props;
 
     return (
@@ -29,12 +29,27 @@ const TaskGroupTable = (props: TaskGroupTableProps) => {
                     {
                         field: "project",
                         headerName: "Project",
-                        width: 300,
+                        width: 200,
+                    },
+                    {
+                        field: "beginAt",
+                        headerName: "Begin At",
+                        width: 200,
+                    },
+                    {
+                        field: "finishAt",
+                        headerName: "Finish At",
+                        width: 200,
+                    },
+                    {
+                        field: "taskGroup",
+                        headerName: "Task Group",
+                        width: 200,
                     },
                     {
                         field: "description",
                         headerName: "Description",
-                        width: 300,
+                        width: 200,
                     },
                     {
                         field: "action",
@@ -44,10 +59,7 @@ const TaskGroupTable = (props: TaskGroupTableProps) => {
                         renderCell: (params) => {
                             return (
                                 <>
-                                    <Link
-                                        href={`task-groups/${params.id}`}
-                                        passHref
-                                    >
+                                    <Link href={`tasks/${params.id}`} passHref>
                                         <IconButton
                                             aria-label="delete"
                                             size="small"
@@ -56,7 +68,7 @@ const TaskGroupTable = (props: TaskGroupTableProps) => {
                                         </IconButton>
                                     </Link>
 
-                                    <TaskGroupDeleteDialog
+                                    <TaskDeleteDialog
                                         id={params.id as string}
                                         name={params.row.name}
                                         mutate={mutate}
@@ -103,4 +115,4 @@ const TaskGroupTable = (props: TaskGroupTableProps) => {
     );
 };
 
-export default TaskGroupTable;
+export default TaskTable;
