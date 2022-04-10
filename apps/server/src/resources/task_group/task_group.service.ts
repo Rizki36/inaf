@@ -47,8 +47,13 @@ export const taskGroupPaginationService = async (
             createdAt: true,
             updatedAt: true,
             description: true,
-            projectId: true,
             attachment: true,
+            project: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
         },
         orderBy: [
             {
@@ -79,9 +84,14 @@ export const taskGroupDetailsService = async (
             name: true,
             description: true,
             attachment: true,
-            projectId: true,
             createdAt: true,
             updatedAt: true,
+            project: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
         },
         where: {
             id,
