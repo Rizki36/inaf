@@ -7,13 +7,13 @@ import { IconEye } from "@tabler/icons";
 import Link from "next/link";
 import TaskGroupDeleteDialog from "./TaskGroupDeleteDialog";
 
-interface UserTableProps {
+interface TaskGroupTableProps {
     rowsState: RowsState;
     setRowsState: Dispatch<SetStateAction<RowsState>>;
     mutate: any;
 }
 
-const TaskGroupTable = (props: UserTableProps) => {
+const TaskGroupTable = (props: TaskGroupTableProps) => {
     const { rowsState, setRowsState, mutate } = props;
 
     return (

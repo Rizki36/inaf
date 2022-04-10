@@ -119,7 +119,7 @@ const TaskGroupDetailsEdit = (props: TaskGroupDetailsEditProps) => {
     if (!projectOptions.length) return <></>;
 
     return (
-        <MainCard title="User Details" secondary={<>{BtnSecondary}</>}>
+        <MainCard title="Task Group Details" secondary={<>{BtnSecondary}</>}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={6} xs={12}>

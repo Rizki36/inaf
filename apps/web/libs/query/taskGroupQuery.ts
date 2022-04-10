@@ -39,11 +39,11 @@ export const useTaskGroups = (props: IUseTaskGroupsProps) => {
     };
 };
 
-interface IUserDetailsProps {
+interface ITaskGroupDetailsProps {
     id: string;
 }
 
-export const useTaskGroupDetails = (props: IUserDetailsProps) => {
+export const useTaskGroupDetails = (props: ITaskGroupDetailsProps) => {
     const { id } = props;
 
     const { data, error, mutate } = useSWR(id, (id) => {
