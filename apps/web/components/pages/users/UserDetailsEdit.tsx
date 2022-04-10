@@ -91,8 +91,8 @@ const UserDetailsEdit = (props: UserDetailsEditProps) => {
     });
 
     useEffect(() => {
-        if (!isErrorPosition && !isLoadingPosition && positions.data.data) {
-            const options = positions.data.data.map((item) => {
+        if (!isErrorPosition && !isLoadingPosition && positions.data) {
+            const options = positions.data.map((item) => {
                 const option: IOption = {
                     label: item.name,
                     value: item.id,

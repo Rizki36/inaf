@@ -18,15 +18,17 @@ export const useUsers = (props: getUsetsProps) => {
     const { data, error, mutate } = useSWR(
         ["admin/users", page, perPage, sort, search],
         (url, page, perPage, sort, search) => {
-            return backendApi.get<getPaginationUsersDTO>(url, {
-                params: {
-                    page,
-                    perPage,
-                    sort,
-                    field,
-                    search,
-                },
-            });
+            return backendApi
+                .get<getPaginationUsersDTO>(url, {
+                    params: {
+                        page,
+                        perPage,
+                        sort,
+                        field,
+                        search,
+                    },
+                })
+                .then((res) => res.data);
         }
     );
 
