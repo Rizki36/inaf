@@ -2,6 +2,7 @@ export * from "./src/resources/user/user.dto";
 export * from "./src/resources/position/position.dto";
 export * from "./src/resources/project/project.dto";
 export * from "./src/resources/team/team.dto";
+export * from "./src/resources/task_group/task_group.dto";
 
 import {
     User as IUser,
