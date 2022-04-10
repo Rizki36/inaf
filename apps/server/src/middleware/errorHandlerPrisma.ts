@@ -9,6 +9,7 @@ async function errorHandlerPrisma(
     res: Response,
     next: NextFunction
 ): Promise<Response<any, Record<string, any>> | undefined> {
+    console.log(err);
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
         let errMsg = err.message;
 
@@ -17,6 +18,8 @@ async function errorHandlerPrisma(
 
         // TODO : create validation middleware for check existing resource
         if (err.code === "P2002") errMsg = "Resource already exist !";
+        if (err.code === "P2003")
+            errMsg = "Resource already used in other resources !";
 
         return res
             .status(StatusCodes.UNPROCESSABLE_ENTITY)
