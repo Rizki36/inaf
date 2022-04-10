@@ -12,19 +12,6 @@ import TotalPositionUsersCard from "@/components/pages/positions/widgets/TotalPo
 const PositionDetails: Page = () => {
     const router = useRouter();
     const { id } = router.query;
-    const [edit, setEdit] = useState(false);
-    const toggleEdit = useCallback(() => setEdit(!edit), [edit]);
-    const { data, isError, isLoading, mutate } = usePositionDetails({
-        id: id as string,
-    });
-
-    const btnSecondary = useMemo(() => {
-        if (edit) {
-            return <Button onClick={toggleEdit}>Cancel Edit</Button>;
-        } else {
-            return <Button onClick={toggleEdit}>Edit</Button>;
-        }
-    }, [edit, toggleEdit]);
 
     return (
         <Grid container spacing={gridSpacing}>
@@ -39,24 +26,7 @@ const PositionDetails: Page = () => {
                 </Grid>
             </Grid>
             <Grid item lg={8} md={12} sm={12} xs={12}>
-                {isLoading && <>Loading</>}
-                {isError && <>Error</>}
-
-                {data &&
-                    (edit ? (
-                        <PostionDetailsEdit
-                            id={id as string}
-                            data={data.data}
-                            edit={{ edit, toggleEdit }}
-                            mutate={mutate}
-                            btnSecondary={btnSecondary}
-                        />
-                    ) : (
-                        <PositionDetailsView
-                            data={data.data}
-                            btnSecondary={btnSecondary}
-                        />
-                    ))}
+                <PositionDetailsView positionId={id as string} />
             </Grid>
         </Grid>
     );

@@ -1,15 +1,53 @@
 import MainCard from "@/components/ui-component/cards/MainCard";
 import { gridSpacing } from "@/configs/constant";
-import { Grid, Typography } from "@mui/material";
-import { getPositionDetailsDTO } from "server";
+import { usePositionDetails } from "@/libs/query/positionQuery";
+import { Button, Grid, Typography } from "@mui/material";
+import { useCallback, useMemo, useState } from "react";
+import PostionDetailsEdit from "./PositionDetailsEdit";
 
 interface UserDetailsViewProps {
-    data: getPositionDetailsDTO;
-    btnSecondary: React.ReactNode;
+    positionId: string;
 }
 
 const UserDetailsView = (props: UserDetailsViewProps) => {
-    const { data, btnSecondary } = props;
+    const { positionId } = props;
+
+    /** state and function for edit component */
+    const [edit, setEdit] = useState(false);
+    const toggleEdit = useCallback(() => setEdit(!edit), [edit]);
+
+    /** hook destruction to get data position details */
+    const { data, isError, isLoading, mutate } = usePositionDetails({
+        id: positionId,
+    });
+
+    /** button edit or cancel edit */
+    const btnSecondary = useMemo(() => {
+        return (
+            <Button onClick={toggleEdit}>
+                {edit ? "Cancel Edit" : "Edit"}
+            </Button>
+        );
+    }, [edit, toggleEdit]);
+
+    if (isLoading) return <>Loading</>; // TODO : create skeleton project table
+    if (isError) return <>Error</>; // TODO : create common error component
+
+    /** component edit position details  */
+    if (edit) {
+        return (
+            <PostionDetailsEdit
+                id={positionId}
+                data={data.data}
+                edit={{ edit, toggleEdit }}
+                mutate={mutate}
+                btnSecondary={btnSecondary}
+            />
+        );
+    }
+
+    const { name, description } = data.data;
+
     return (
         <MainCard title="Position Details" secondary={<>{btnSecondary}</>}>
             <Grid container spacing={gridSpacing}>
@@ -22,7 +60,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                         >
                             Name
                         </Typography>
-                        <Typography variant="body2">{data.name}</Typography>
+                        <Typography variant="body2">{name}</Typography>
                     </div>
                     <div style={{ marginTop: "16px" }}>
                         <Typography
@@ -32,9 +70,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                         >
                             Description
                         </Typography>
-                        <Typography variant="body2">
-                            {data.description}
-                        </Typography>
+                        <Typography variant="body2">{description}</Typography>
                     </div>
                 </Grid>
             </Grid>
