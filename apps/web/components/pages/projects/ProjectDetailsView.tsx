@@ -3,7 +3,6 @@ import { gridSpacing } from "@/configs/constant";
 import { useProjectDetails } from "@/libs/query/projectQuery";
 import { Button, Grid, Typography } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
-import { getProjectDetailsDTO } from "server";
 import ProjectDetailsEdit from "./ProjectDetailsEdit";
 
 interface ProjectDetailsViewProps {
@@ -47,9 +46,7 @@ const UserDetailsView = (props: ProjectDetailsViewProps) => {
         );
     }
 
-    const {
-        data: { name, description },
-    } = data.data;
+    const { name, description } = data.data;
 
     return (
         <MainCard title="Project Details" secondary={<>{btnAction}</>}>

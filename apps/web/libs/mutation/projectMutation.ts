@@ -12,9 +12,8 @@ interface CreateProjectProps {
 }
 export const createProject = (props: CreateProjectProps) => {
     const { body } = props;
-    return backendApi.post<createProjectDTO>(`/admin/projects`, {
-        body,
-    });
+
+    return backendApi.post<createProjectDTO>(`/admin/projects`, body);
 };
 
 interface PatchProjectDetailsProps {
@@ -23,11 +22,10 @@ interface PatchProjectDetailsProps {
 }
 export const patchProjectDetails = (props: PatchProjectDetailsProps) => {
     const { id, body } = props;
+
     return backendApi.patch<updateProjectDetailsDTO>(
         `/admin/projects/${id}`,
-        {
-            body,
-        }
+        body
     );
 };
 

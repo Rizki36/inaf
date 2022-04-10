@@ -98,7 +98,7 @@ const ProjectTeamsUpdateModal = (props: IProps) => {
     useEffect(() => {
         /** get project options */
         const options = getOptionsFromPaginationQuery<
-            typeof positions["data"]["data"][number]
+            typeof positions["data"][number]
         >({
             label: "name",
             value: "id",
@@ -114,7 +114,7 @@ const ProjectTeamsUpdateModal = (props: IProps) => {
     useEffect(() => {
         /** get user options */
         const options = getOptionsFromPaginationQuery<
-            typeof users["data"]["data"][number]
+            typeof users["data"][number]
         >({
             label: "name",
             value: "id",
