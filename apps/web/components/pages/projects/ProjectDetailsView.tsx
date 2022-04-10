@@ -23,11 +23,11 @@ const UserDetailsView = (props: ProjectDetailsViewProps) => {
 
     /** button edit or cancel edit */
     const btnAction = useMemo(() => {
-        if (edit) {
-            return <Button onClick={toggleEdit}>Cancel Edit</Button>;
-        } else {
-            return <Button onClick={toggleEdit}>Edit</Button>;
-        }
+        return (
+            <Button onClick={toggleEdit}>
+                {edit ? "Cancel Edit" : "Edit"}
+            </Button>
+        );
     }, [edit, toggleEdit]);
 
     if (isLoading) return <>Loading</>; // TODO : create skeleton project table

@@ -22,7 +22,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
     });
 
     /** button edit or cancel edit */
-    const btnSecondary = useMemo(() => {
+    const btnAction = useMemo(() => {
         return (
             <Button onClick={toggleEdit}>
                 {edit ? "Cancel Edit" : "Edit"}
@@ -41,7 +41,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                 data={data.data}
                 edit={{ edit, toggleEdit }}
                 mutate={mutate}
-                btnSecondary={btnSecondary}
+                btnSecondary={btnAction}
             />
         );
     }
@@ -49,7 +49,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
     const { name, description } = data.data;
 
     return (
-        <MainCard title="Position Details" secondary={<>{btnSecondary}</>}>
+        <MainCard title="Position Details" secondary={<>{btnAction}</>}>
             <Grid container spacing={gridSpacing}>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
                     <div style={{ marginTop: "16px" }}>
