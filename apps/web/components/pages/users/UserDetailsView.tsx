@@ -1,20 +1,53 @@
 import MainCard from "@/components/ui-component/cards/MainCard";
 import { gridSpacing } from "@/configs/constant";
-import { Grid, Typography } from "@mui/material";
-import { getUserDetailsDTO } from "server";
+import { useUserDetails } from "@/libs/query/userQuery";
+import { Button, Grid, Typography } from "@mui/material";
+import { useCallback, useMemo, useState } from "react";
+import UserDetailsEdit from "./UserDetailsEdit";
 
 interface UserDetailsViewProps {
-    data: getUserDetailsDTO;
-    btnSecondary: React.ReactNode;
+    userId: string;
 }
 
 const UserDetailsView = (props: UserDetailsViewProps) => {
-    const {
-        data,
-        btnSecondary,
-    } = props;
+    const { userId } = props;
+
+    const [edit, setEdit] = useState(false);
+    const toggleEdit = useCallback(() => setEdit(!edit), [edit]);
+
+    /** hook destruction to get data user details */
+    const { data, isError, isLoading, mutate } = useUserDetails({
+        id: userId,
+    });
+
+    /** button edit or cancel edit */
+    const btnAction = useMemo(() => {
+        return (
+            <Button onClick={toggleEdit}>
+                {edit ? "Cancel Edit" : "Edit"}
+            </Button>
+        );
+    }, [edit, toggleEdit]);
+
+    if (isLoading) return <>Loading</>; // TODO : create skeleton project table
+    if (isError) return <>Error</>; // TODO : create common error component
+
+    if (edit) {
+        return (
+            <UserDetailsEdit
+                id={userId}
+                data={data.data}
+                edit={{ edit, toggleEdit }}
+                mutate={mutate}
+                btnSecondary={btnAction}
+            />
+        );
+    }
+
+    const { data: user } = data;
+
     return (
-        <MainCard title="User Details" secondary={<>{btnSecondary}</>}>
+        <MainCard title="User Details" secondary={<>{btnAction}</>}>
             <Grid container spacing={gridSpacing}>
                 <Grid item lg={6} xs={12}>
                     <Grid container spacing={gridSpacing}>
@@ -26,7 +59,9 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                             >
                                 Name
                             </Typography>
-                            <Typography variant="body2">{data.name || '-'}</Typography>
+                            <Typography variant="body2">
+                                {user.name || "-"}
+                            </Typography>
                         </Grid>
                         <Grid item lg={6} md={6} sm={6} xs={6}>
                             <Typography
@@ -37,7 +72,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                                 Username
                             </Typography>
                             <Typography variant="body2">
-                                {data.username || '-'}
+                                {user.username || "-"}
                             </Typography>
                         </Grid>
                         <Grid item lg={6} md={6} sm={6} xs={6}>
@@ -49,7 +84,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                                 Email
                             </Typography>
                             <Typography variant="body2">
-                                {data.email || '-'}
+                                {user.email || "-"}
                             </Typography>
                         </Grid>
                         <Grid item lg={6} md={6} sm={6} xs={6}>
@@ -61,7 +96,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                                 Position
                             </Typography>
                             <Typography variant="body2">
-                                {data.Position.name || '-'}
+                                {user?.Position?.name || "-"}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -74,7 +109,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
                     >
                         Description
                     </Typography>
-                    <Typography variant="body2">{data.description}</Typography>
+                    <Typography variant="body2">{user.description}</Typography>
                 </Grid>
             </Grid>
         </MainCard>

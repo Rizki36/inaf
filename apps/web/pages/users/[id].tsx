@@ -1,9 +1,6 @@
-import UserDetailsEdit from "@/components/pages/users/UserDetailsEdit";
 import UserDetailsView from "@/components/pages/users/UserDetailsView";
-import { useUserDetails } from "@/libs/query/userQuery";
 import { Page } from "@/types/index";
-import { Button, Grid } from "@mui/material";
-import { useCallback, useMemo, useState } from "react";
+import { Grid } from "@mui/material";
 import { useRouter } from "next/router";
 import RunningProjectCard from "@/components/pages/users/widgets/RunningProjectCard";
 import { gridSpacing } from "@/configs/constant";
@@ -12,19 +9,6 @@ import TodoListCard from "@/components/pages/users/widgets/TodoListCard";
 const UserDetails: Page = () => {
     const router = useRouter();
     const { id } = router.query;
-    const [edit, setEdit] = useState(false);
-    const toggleEdit = useCallback(() => setEdit(!edit),[edit]);
-    const { data, isError, isLoading, mutate } = useUserDetails({
-        id: id as string,
-    });
-
-    const btnSecondary = useMemo(() => {
-        if (edit) {
-            return <Button onClick={toggleEdit}>Cancel Edit</Button>;
-        } else {
-            return <Button onClick={toggleEdit}>Edit</Button>;
-        }
-    }, [edit, toggleEdit]);
 
     return (
         <Grid container spacing={gridSpacing}>
@@ -39,24 +23,7 @@ const UserDetails: Page = () => {
                 </Grid>
             </Grid>
             <Grid item lg={8} md={12} sm={12} xs={12}>
-                {isLoading && <>Loading</>}
-                {isError && <>Error</>}
-
-                {data &&
-                    (edit ? (
-                        <UserDetailsEdit
-                            id={id as string}
-                            data={data.data}
-                            edit={{ edit, toggleEdit }}
-                            mutate={mutate}
-                            btnSecondary={btnSecondary}
-                        />
-                    ) : (
-                        <UserDetailsView
-                            data={data.data}
-                            btnSecondary={btnSecondary}
-                        />
-                    ))}
+                <UserDetailsView userId={id as string} />
             </Grid>
         </Grid>
     );
