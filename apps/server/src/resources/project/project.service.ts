@@ -1,9 +1,11 @@
-import { createProjectBody, updateProjectDetailsBody } from "./project.dto";
+import {
+    IPaginationProjectProps,
+    ICreateProjectProps,
+    IUpdateProjectProps,
+    IDeleteProjectProps,
+    IProjectDetailsProps,
+} from "./project.dto";
 import { PrismaClient, Prisma, Project } from "@prisma/client";
-import { PaginationProps } from "../../../@types";
-import { successResponse } from "../../helpers/methods";
-
-interface getPaginationPositionsProps extends PaginationProps<Project> {}
 
 const prisma = new PrismaClient({
     log: [
@@ -14,9 +16,15 @@ const prisma = new PrismaClient({
     ],
 });
 
-// get pagination positions
-export const getPaginationProjectsService = async (
-    props: getPaginationPositionsProps
+prisma.$on("query", (e) => {
+    console.log("Query: " + e.query);
+    console.log("Params: " + e.params);
+    console.log("Duration: " + e.duration + "ms");
+});
+
+/** pagination positions */
+export const paginationProjectService = async (
+    props: IPaginationProjectProps
 ) => {
     const { page, perPage, sortPage, search } = props;
 
@@ -47,10 +55,6 @@ export const getPaginationProjectsService = async (
         where,
     });
 
-    prisma.$on("query", (e: Prisma.QueryEvent) => {
-        console.log(`${e.duration} ms : ${e.query}`);
-    });
-
     const totalRows = await prisma.project.count();
 
     return {
@@ -61,12 +65,10 @@ export const getPaginationProjectsService = async (
     };
 };
 
-interface GetProjectDetails {
-    id: string;
-}
-// get position details
-export const getProjectDetailsService = async (props: GetProjectDetails) => {
+/** project details */
+export const projectDetailsService = async (props: IProjectDetailsProps) => {
     const { id } = props;
+
     const data = await prisma.project.findFirst({
         select: {
             id: true,
@@ -80,15 +82,11 @@ export const getProjectDetailsService = async (props: GetProjectDetails) => {
         },
     });
 
-    return successResponse<typeof data>({
-        data: data,
-    });
+    return data;
 };
 
-interface CreateProject {
-    body: createProjectBody;
-}
-export const createProjectService = async (props: CreateProject) => {
+/** create project */
+export const createProjectService = async (props: ICreateProjectProps) => {
     const { body } = props;
 
     const data = await prisma.project.create({
@@ -98,20 +96,13 @@ export const createProjectService = async (props: CreateProject) => {
         },
     });
 
-    return successResponse<typeof data>({
-        data,
-    });
+    return data;
 };
 
-interface UpdateProjectDetails {
-    id: string;
-    body: updateProjectDetailsBody;
-}
-export const updateProjectDetailsService = async (
-    props: UpdateProjectDetails
-) => {
+/** update project */
+export const updateProjectService = async (props: IUpdateProjectProps) => {
     const { id, body } = props;
-    console.log(body);
+
     const data = await prisma.project.update({
         data: {
             name: body.name,
@@ -122,23 +113,18 @@ export const updateProjectDetailsService = async (
         },
     });
 
-    return successResponse<typeof data>({
-        data,
-    });
+    return data;
 };
 
-interface DeleteProject {
-    id: string;
-}
-export const deleteProjectService = async (props: DeleteProject) => {
+/** delete project */
+export const deleteProjectService = async (props: IDeleteProjectProps) => {
     const { id } = props;
+
     const data = await prisma.project.delete({
         where: {
             id,
         },
     });
 
-    return successResponse<typeof data>({
-        data,
-    });
+    return data;
 };

@@ -8,9 +8,15 @@ export const createProjectSchema = yup.object<Record<string, any>>({
     }),
 });
 
-export const updateProjectDetailsSchema = yup.object<Record<string, any>>({
+export const updateProjectSchema = yup.object<Record<string, any>>({
     body: yup.object<Record<keyof updateProjectDetailsBody, any>>({
         name: yup.string().min(3).max(25).required(),
         description: yup.string().required(),
+    }),
+});
+
+export const deleteProjectSchema = yup.object<Record<string, any>>({
+    params: yup.object({
+        id: yup.string().required(),
     }),
 });
