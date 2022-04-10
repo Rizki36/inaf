@@ -30,7 +30,7 @@ const UserDetailsView = (props: UserDetailsViewProps) => {
         );
     }, [edit, toggleEdit]);
 
-    if (isLoading) return <>Loading</>; // TODO : create skeleton project table
+    if (isLoading) return <>Loading</>; // TODO : create skeleton loading
     if (isError) return <>Error</>; // TODO : create common error component
 
     /** component edit position details  */
