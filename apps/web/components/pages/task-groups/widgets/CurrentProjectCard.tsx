@@ -1,9 +1,10 @@
 import { styled, useTheme } from "@mui/material/styles";
 import { Avatar, Box, Grid, Typography } from "@mui/material";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+
+/** components */
 import MainCard from "@/components/ui-component/cards/MainCard";
 import SkeletonRunningProjectCard from "@/components/ui-component/cards/Skeleton/EarningCard";
-
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
@@ -41,7 +42,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     },
 }));
 
-const RunningProjectCard = ({ isLoading }: { isLoading: boolean }) => {
+const CurrentProjectCard = ({ isLoading }: { isLoading: boolean }) => {
     const theme = useTheme();
 
     return (
@@ -66,7 +67,7 @@ const RunningProjectCard = ({ isLoading }: { isLoading: boolean }) => {
                                         color: theme.palette.secondary[200],
                                     }}
                                 >
-                                    Running Project
+                                    Current Project
                                 </Typography>
                             </Grid>
                             <Grid item>
@@ -115,4 +116,4 @@ const RunningProjectCard = ({ isLoading }: { isLoading: boolean }) => {
     );
 };
 
-export default RunningProjectCard;
+export default CurrentProjectCard;
