@@ -1,5 +1,7 @@
 # InAF
-Aplikasi to do untuk perusahaan
+Inaf Todo is an open source application for managing tasks in an institution/company.
+<img width="1792" alt="TechStack (1)" src="https://user-images.githubusercontent.com/39044004/162791755-2ed66cf7-1b3e-49db-98d6-b478385e1792.png">
+
 
 ## How To Run
 - yarn install
