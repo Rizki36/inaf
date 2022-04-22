@@ -29,7 +29,7 @@ const Theme = ({ children }) => {
     );
 };
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: Props) {
+function MyApp({ Component, pageProps: { ...pageProps } }: Props) {
     const Layout = Component.layout ?? AdminLayout;
     return (
         <Provider store={store}>

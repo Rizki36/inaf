@@ -9,7 +9,6 @@ import { IconButton } from "@mui/material";
 import { IconTrash } from "@tabler/icons";
 import { deleteUser } from "@/libs/mutation/userMutation";
 import { commonError } from "@/helpers/errorHandler";
-import { mutate } from "swr";
 
 interface UserDeleteDialogProps {
     id: string;
@@ -32,7 +31,7 @@ const UserDeleteDialog = (props: UserDeleteDialogProps) => {
         deleteUser({
             id,
         })
-            .then((res) => {
+            .then(() => {
                 mutate();
             })
             .catch((error) => commonError(error))

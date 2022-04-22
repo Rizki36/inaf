@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { forwardRef } from "react";
 // third-party
 import { motion, useCycle } from "framer-motion";

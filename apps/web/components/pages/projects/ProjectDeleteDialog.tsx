@@ -31,7 +31,7 @@ const ProjectDeleteDialog = (props: ProjectDeleteDialogProps) => {
         deleteProject({
             id,
         })
-            .then((res) => {
+            .then(() => {
                 mutate();
             })
             .catch((error) => commonError(error))

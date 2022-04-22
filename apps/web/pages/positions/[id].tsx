@@ -1,9 +1,6 @@
-import PostionDetailsEdit from "@/components/pages/positions/PositionDetailsEdit";
 import PositionDetailsView from "@/components/pages/positions/PositionDetailsView";
-import { usePositionDetails } from "@/libs/query/positionQuery";
 import { Page } from "@/types/index";
-import { Button, Grid } from "@mui/material";
-import { useCallback, useMemo, useState } from "react";
+import { Grid } from "@mui/material";
 import { useRouter } from "next/router";
 import { gridSpacing } from "@/configs/constant";
 import AttachmentListCard from "@/components/pages/positions/widgets/AttachmentListCard";

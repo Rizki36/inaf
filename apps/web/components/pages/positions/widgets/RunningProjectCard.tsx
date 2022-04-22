@@ -1,8 +1,5 @@
-import PropTypes from "prop-types";
-import { useState } from "react";
-
 import { styled, useTheme } from "@mui/material/styles";
-import { Avatar, Box, Grid, Menu, MenuItem, Typography } from "@mui/material";
+import { Avatar, Box, Grid, Typography } from "@mui/material";
 import MainCard from "@/components/ui-component/cards/MainCard";
 import SkeletonRunningProjectCard from "@/components/ui-component/cards/Skeleton/EarningCard";
 

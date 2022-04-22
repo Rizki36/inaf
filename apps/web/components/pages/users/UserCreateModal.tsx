@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -8,8 +7,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import { gridSpacing } from "@/configs/constant";
 import { IOption, IUseModal } from "@/types/index";
-import { Autocomplete, Grid, Typography } from "@mui/material";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Grid, Typography } from "@mui/material";
+import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Inputs } from "@/types/index";
@@ -80,12 +79,7 @@ const UserCreateModal = (props: IProps) => {
         // search: rowsState.search,
     });
 
-    const {
-        control,
-        reset,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<IForm>({
+    const { control, handleSubmit } = useForm<IForm>({
         resolver: yupResolver(schema),
     });
 

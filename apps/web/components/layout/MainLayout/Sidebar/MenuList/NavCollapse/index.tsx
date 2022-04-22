@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";

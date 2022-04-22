@@ -3,6 +3,7 @@ import MainCard from "@/components/ui-component/cards/MainCard";
 import ControlledTextField from "@/components/ui-component/ControlledTextField";
 
 import * as yup from "yup";
+import { ReactNode } from "react";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { gridSpacing } from "@/configs/constant";
@@ -36,7 +37,7 @@ interface ProjectDetailsEditProps {
     data: getProjectDetailsDTO;
     edit: EditProp;
     mutate: any;
-    btnSecondary: React.ReactNode;
+    btnSecondary: ReactNode;
 }
 const ProjectDetailsEdit = (props: ProjectDetailsEditProps) => {
     const {
@@ -60,7 +61,7 @@ const ProjectDetailsEdit = (props: ProjectDetailsEditProps) => {
             id,
             body: { ...props },
         })
-            .then((res) => {
+            .then(() => {
                 mutate();
                 toggleEdit();
             })

@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
-import { forwardRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import Link from "next/link";
 
 // material-ui
@@ -48,11 +47,6 @@ const NavItem = ({ item, level }) => {
             fontSize={level > 0 ? "inherit" : "medium"}
         />
     );
-
-    let itemTarget = "_self";
-    if (item.target) {
-        itemTarget = "_blank";
-    }
 
     const itemHandler = (id) => {
         dispatch(MENU_OPEN({ id }));

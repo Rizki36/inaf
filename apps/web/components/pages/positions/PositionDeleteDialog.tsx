@@ -31,7 +31,7 @@ const PositionDeleteDialog = (props: PositionDeleteDialogProps) => {
         deletePosition({
             id,
         })
-            .then((res) => {
+            .then(() => {
                 mutate();
             })
             .catch((error) => commonError(error))
