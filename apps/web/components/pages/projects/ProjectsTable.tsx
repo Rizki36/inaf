@@ -2,7 +2,7 @@ import QuickSearchToolbar from "@/components/QuickSearchToolbar";
 import { RowsState } from "@/types/index";
 import { IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, ChangeEvent } from "react";
 import { IconEye } from "@tabler/icons";
 import Link from "next/link";
 import ProjectsDeleteDialog from "./ProjectDeleteDialog";
@@ -77,9 +77,7 @@ const ProjectsTable = (props: ProjectsTableProps) => {
                 componentsProps={{
                     toolbar: {
                         value: rowsState.search,
-                        onChange: (
-                            event: React.ChangeEvent<HTMLInputElement>
-                        ) =>
+                        onChange: (event: ChangeEvent<HTMLInputElement>) =>
                             setRowsState((prev) => ({
                                 ...prev,
                                 search: event.target.value,

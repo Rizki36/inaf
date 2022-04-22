@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { useTheme } from "@mui/material/styles";
 import {
     Avatar,
@@ -8,8 +6,6 @@ import {
     CardContent,
     Divider,
     Grid,
-    Menu,
-    MenuItem,
     Typography,
 } from "@mui/material";
 

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";

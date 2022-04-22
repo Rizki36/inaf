@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import * as yup from "yup";
 import { gridSpacing } from "@/configs/constant";
 import { IOption, IUseModal } from "@/types/index";
-import { Alert, Grid, Typography } from "@mui/material";
+import { Alert, Grid } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Inputs } from "@/types/index";

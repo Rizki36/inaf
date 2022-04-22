@@ -27,19 +27,6 @@ const linkSX = {
 
 // ==============================|| BREADCRUMBS ||============================== //
 
-interface Breadcrumbs {
-    card: boolean;
-    divider: boolean;
-    icon: boolean;
-    icons: boolean;
-    maxItems: number;
-    navigation: object;
-    rightAlign: boolean;
-    separator: () => any | object;
-    title: boolean;
-    titleBottom: boolean;
-}
-
 const Breadcrumbs = ({
     card,
     divider,

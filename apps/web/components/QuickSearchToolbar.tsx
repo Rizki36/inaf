@@ -1,13 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {
-    ButtonBase,
-    FormControl,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput,
-    useTheme,
-} from "@mui/material";
+import { InputAdornment, OutlinedInput, useTheme } from "@mui/material";
 import { shouldForwardProp } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import { IconSearch } from "@tabler/icons";

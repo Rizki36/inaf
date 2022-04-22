@@ -31,7 +31,7 @@ const TaskDeleteDialog = (props: TaskDeleteDialogProps) => {
         deleteTask({
             id,
         })
-            .then((res) => {
+            .then(() => {
                 mutate();
             })
             .catch((error) => commonError(error))

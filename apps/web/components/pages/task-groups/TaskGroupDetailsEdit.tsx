@@ -6,9 +6,9 @@ import { gridSpacing } from "@/configs/constant";
 import { useProjects } from "@/libs/query/projectQuery";
 import { Button, Grid } from "@mui/material";
 import { patchTaskGroup } from "@/libs/mutation/taskGroupMutation";
-import { EditProp, Inputs, IOption } from "@/types/index";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect, useMemo, useState } from "react";
+import { EditProp, Inputs, IOption } from "@/types/index";
+import { useEffect, useMemo, useState, ReactNode } from "react";
 import { getTaskGroupDetailsDTO, updateTaskGroupBody } from "server";
 
 /** components */
@@ -46,7 +46,7 @@ interface TaskGroupDetailsEditProps {
     data: getTaskGroupDetailsDTO;
     edit: EditProp;
     mutate: any;
-    btnSecondary: React.ReactNode;
+    btnSecondary: ReactNode;
 }
 const TaskGroupDetailsEdit = (props: TaskGroupDetailsEditProps) => {
     const {
@@ -101,7 +101,7 @@ const TaskGroupDetailsEdit = (props: TaskGroupDetailsEditProps) => {
                 attachment: {},
             },
         })
-            .then((res) => {
+            .then(() => {
                 mutate();
                 toggleEdit();
             })

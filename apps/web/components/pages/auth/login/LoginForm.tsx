@@ -38,6 +38,8 @@ const LoginForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [errMsg, setErrMsg] = useState<string | null>(null);
 
+    console.log(errMsg);
+
     const {
         control,
         handleSubmit,
@@ -59,8 +61,8 @@ const LoginForm = () => {
             password,
         })
             .then(async (res) => {
-                localStorage.setItem(key_token,res.data.data.accessToken)
-                await mutate("account")
+                localStorage.setItem(key_token, res.data.data.accessToken);
+                await mutate("account");
                 Router.replace("/");
             })
             .catch((e: AxiosError) => {

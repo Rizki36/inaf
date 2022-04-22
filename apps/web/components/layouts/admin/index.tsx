@@ -4,11 +4,6 @@ import { FC } from "react";
 import MainLayout from "@/components/layout/MainLayout";
 
 const AdminLayout: FC = ({ children }) => {
-    const [open, setOpen] = React.useState(true);
-    const toggleDrawer = () => {
-        setOpen(!open);
-    };
-
     return (
         <MainLayout>
             <CssBaseline />

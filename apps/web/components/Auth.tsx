@@ -1,10 +1,8 @@
-import { useRouter } from "next/router";
-import React, { useCallback, useEffect } from "react";
-import { AuthOptions } from "../@types";
-import { useAppDispatch, useAppSelector } from "../configs/redux/hooks";
-import { logout, setUser } from "../configs/redux/userSlice";
 import { NextPage } from "next";
+import { useRouter } from "next/router";
 import { useProfile } from "@/libs/query/userQuery";
+import { AuthOptions } from "../@types";
+import React, { useCallback, useEffect } from "react";
 
 interface Props extends AuthOptions {
     children: any;
@@ -13,8 +11,8 @@ interface Props extends AuthOptions {
 const Auth: NextPage = (props: Props) => {
     const {
         mustLoggedIn = true,
-        redirectAuthenticated = "/",
-        redirectUnAuthenticated = "/login",
+        // redirectAuthenticated = "/",
+        // redirectUnAuthenticated = "/login",
         children,
     } = props;
 
@@ -27,22 +25,22 @@ const Auth: NextPage = (props: Props) => {
             console.log("unAuthenticated");
             router.replace("/login");
         }
-    },[isError, mustLoggedIn, router])
+    }, [isError, mustLoggedIn, router]);
 
     const handleRedirectAuthenticated = useCallback(() => {
         if (!mustLoggedIn && profile && !isError) {
             console.log("redirect Authenticated");
             router.push("/");
         }
-    },[isError, mustLoggedIn, profile, router])
+    }, [isError, mustLoggedIn, profile, router]);
 
     useEffect(() => {
-        handleRedirectUnAuthenticated()
+        handleRedirectUnAuthenticated();
     }, [handleRedirectUnAuthenticated]);
 
     // redirect user from login to redirectAuthenticated when is authenticated
     useEffect(() => {
-        handleRedirectAuthenticated()
+        handleRedirectAuthenticated();
     }, [handleRedirectAuthenticated]);
 
     // loading

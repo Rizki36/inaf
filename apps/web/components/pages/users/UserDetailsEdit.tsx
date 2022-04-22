@@ -1,16 +1,18 @@
-import { EditProp, Inputs, IOption } from "@/types/index";
-import { Button, TextField, Grid, Autocomplete } from "@mui/material";
-import { getUserDetailsDTO, updateUserDetailsBody } from "server";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useEffect, useMemo, useState } from "react";
-import { patchUserDetails } from "@/libs/mutation/userMutation";
-import { commonError } from "@/helpers/errorHandler";
 import * as yup from "yup";
+import { Box } from "@mui/system";
+import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
-import MainCard from "@/components/ui-component/cards/MainCard";
 import { gridSpacing } from "@/configs/constant";
 import { usePositions } from "@/libs/query/positionQuery";
-import { Box } from "@mui/system";
+import { Button, Grid } from "@mui/material";
+import { patchUserDetails } from "@/libs/mutation/userMutation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { EditProp, Inputs, IOption } from "@/types/index";
+import { useEffect, useMemo, useState, ReactNode } from "react";
+import { getUserDetailsDTO, updateUserDetailsBody } from "server";
+
+/** components */
+import MainCard from "@/components/ui-component/cards/MainCard";
 import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
 import ControlledTextField from "@/components/ui-component/ControlledTextField";
 
@@ -54,7 +56,7 @@ interface UserDetailsEditProps {
     data: getUserDetailsDTO;
     edit: EditProp;
     mutate: any;
-    btnSecondary: React.ReactNode;
+    btnSecondary: ReactNode;
 }
 const UserDetailsEdit = (props: UserDetailsEditProps) => {
     const {
@@ -117,7 +119,7 @@ const UserDetailsEdit = (props: UserDetailsEditProps) => {
             id,
             body,
         })
-            .then((res) => {
+            .then(() => {
                 mutate();
                 toggleEdit();
             })

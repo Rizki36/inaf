@@ -31,7 +31,7 @@ const TaskGroupDeleteDialog = (props: TaskGroupDeleteDialogProps) => {
         deleteTaskGroup({
             id,
         })
-            .then((res) => {
+            .then(() => {
                 mutate();
             })
             .catch((error) => commonError(error))

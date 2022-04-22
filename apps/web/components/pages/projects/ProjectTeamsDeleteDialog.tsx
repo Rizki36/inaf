@@ -33,7 +33,7 @@ const ProjectTeamsDeleteDialog = (props: ProjectDeleteDialogProps) => {
             projectId,
             userId,
         })
-            .then((res) => {
+            .then(() => {
                 mutate();
             })
             .catch((error) => commonError(error))

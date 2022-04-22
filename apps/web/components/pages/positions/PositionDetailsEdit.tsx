@@ -1,14 +1,16 @@
-import { EditProp, Inputs } from "@/types/index";
-import { Button, Grid } from "@mui/material";
-import { updatePositionBody, getPositionDetailsDTO } from "server";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useMemo } from "react";
-import { patchPositionDetails } from "@/libs/mutation/positionMutation";
-import { commonError } from "@/helpers/errorHandler";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import MainCard from "@/components/ui-component/cards/MainCard";
 import { gridSpacing } from "@/configs/constant";
+import { commonError } from "@/helpers/errorHandler";
+import { Button, Grid } from "@mui/material";
+import { EditProp, Inputs } from "@/types/index";
+import { useMemo, ReactNode } from "react";
+import { patchPositionDetails } from "@/libs/mutation/positionMutation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { updatePositionBody, getPositionDetailsDTO } from "server";
+
+/** components */
+import MainCard from "@/components/ui-component/cards/MainCard";
 import ControlledTextField from "@/components/ui-component/ControlledTextField";
 
 interface IForm extends updatePositionBody {}
@@ -36,7 +38,7 @@ interface PositionDetailsEditProps {
     data: getPositionDetailsDTO;
     edit: EditProp;
     mutate: any;
-    btnSecondary: React.ReactNode;
+    btnSecondary: ReactNode;
 }
 const PostionDetailsEdit = (props: PositionDetailsEditProps) => {
     const {
@@ -63,7 +65,7 @@ const PostionDetailsEdit = (props: PositionDetailsEditProps) => {
             id,
             body,
         })
-            .then((res) => {
+            .then(() => {
                 mutate();
                 toggleEdit();
             })

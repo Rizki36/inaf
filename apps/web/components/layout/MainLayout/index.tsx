@@ -1,7 +1,6 @@
 import { useAppDispatch } from "configs/redux/hooks";
 import { useAppSelector } from "../../../configs/redux/hooks";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 // material-ui
 import { styled, useTheme } from "@mui/material/styles";
@@ -17,7 +16,6 @@ import {
 import Breadcrumbs from "../../ui-component/extended/Breadcrumbs";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import Customization from "../Customization";
 import navigation from "@/components/menu-items";
 import { drawerWidth } from "@/configs/constant";
 
@@ -29,7 +27,7 @@ import { SET_MENU } from "@/configs/redux/customizationSlice";
 // styles
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     // @ts-ignore
-    ({ theme, open, children }) => ({
+    ({ theme, open }) => ({
         // @ts-ignore
         ...theme.typography.mainContent,
         ...(!open && {

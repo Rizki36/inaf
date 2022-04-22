@@ -1,23 +1,23 @@
 import * as yup from "yup";
 import { Box } from "@mui/system";
+import { patchTask } from "@/libs/mutation/taskMutation";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { gridSpacing } from "@/configs/constant";
 import { useProjects } from "@/libs/query/projectQuery";
 import { Button, Grid } from "@mui/material";
-import { patchTask } from "@/libs/mutation/taskMutation";
-import { EditProp, Inputs, IOption } from "@/types/index";
+import { useTaskGroups } from "@/libs/query/taskGroupQuery";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect, useMemo, useState } from "react";
+import { EditProp, Inputs, IOption } from "@/types/index";
+import { getOptionsFromPaginationQuery } from "@/helpers/inputHelper";
 import { getTaskDetailsDTO, updateTaskBody } from "server";
+import { useEffect, useMemo, useState, ReactNode } from "react";
 
 /** components */
 import MainCard from "@/components/ui-component/cards/MainCard";
 import ControlledTextField from "@/components/ui-component/ControlledTextField";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
 import ControlledDatePicker from "@/components/ui-component/ControlledDatePicker";
-import { getOptionsFromPaginationQuery } from "@/helpers/inputHelper";
-import { useTaskGroups } from "@/libs/query/taskGroupQuery";
+import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
 
 interface IForm extends Omit<updateTaskBody, "attachment"> {}
 
@@ -76,7 +76,7 @@ interface TaskDetailsEditProps {
     data: getTaskDetailsDTO;
     edit: EditProp;
     mutate: any;
-    btnSecondary: React.ReactNode;
+    btnSecondary: ReactNode;
 }
 const TaskDetailsEdit = (props: TaskDetailsEditProps) => {
     const {
@@ -157,7 +157,7 @@ const TaskDetailsEdit = (props: TaskDetailsEditProps) => {
                 attachment: {},
             },
         })
-            .then((res) => {
+            .then(() => {
                 mutate();
                 toggleEdit();
             })
