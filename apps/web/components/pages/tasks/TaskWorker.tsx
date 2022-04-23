@@ -1,4 +1,5 @@
 import MainCard from "@/components/ui-component/cards/MainCard";
+import { useTaskWorkersByTaskId } from "@/libs/query/taskWorkerQuery";
 import { Button } from "@mui/material";
 import { IconPlus } from "@tabler/icons";
 import useModal from "hooks/useModal";
@@ -21,8 +22,10 @@ const dummy: { id: string; img: string; name: string; position: string }[] = [
         position: "Developer",
     },
 ];
-const TaskWorkers = () => {
+const TaskWorkers: FC<{ taskId: string }> = ({ taskId }) => {
     const modal = useModal(false);
+    const { data, isError, isLoading } = useTaskWorkersByTaskId(taskId);
+
     return (
         <>
             <MainCard
@@ -39,14 +42,19 @@ const TaskWorkers = () => {
                     </Button>
                 }
             >
-                {dummy.map((dt) => (
-                    <ItemWorker
-                        {...dt}
-                        handleRemove={() => {
-                            alert(dt.name);
-                        }}
-                    />
-                ))}
+                {!isError &&
+                    !isLoading &&
+                    data.data.map((dt) => (
+                        <ItemWorker
+                            id={dt.user.name}
+                            img={"/avatar.jpg"}
+                            name={dt.user.name}
+                            position={dt.user?.Position?.name}
+                            handleRemove={() => {
+                                alert(dt.user.name);
+                            }}
+                        />
+                    ))}
             </MainCard>
             <TaskWorkerCreateModal modal={modal} mutate={() => {}} />
         </>

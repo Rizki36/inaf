@@ -46,4 +46,12 @@ route.delete(
     TaskController.deleteTaskWorker
 );
 
+/** pagination task workers */
+route.get(
+    "/admin/task-workers/tasks/:taskId",
+    verifyToken,
+    authorization(["ADMIN"]),
+    TaskController.taskWorkerByTaskId
+);
+
 export default route;

@@ -1,12 +1,12 @@
+import { gridSpacing } from "@/configs/constant";
 import { Page } from "@/types/index";
 import { Grid } from "@mui/material";
 import { useRouter } from "next/router";
-import { gridSpacing } from "@/configs/constant";
 
 /** components */
 import TaskDetailsView from "@/components/pages/tasks/TaskDetailsView";
-import CurrentProjectCard from "@/components/pages/tasks/widgets/CurrentProjectCard";
 import TaskWorkers from "@/components/pages/tasks/TaskWorker";
+import CurrentProjectCard from "@/components/pages/tasks/widgets/CurrentProjectCard";
 
 const TaskDetails: Page = () => {
     const router = useRouter();
@@ -20,7 +20,7 @@ const TaskDetails: Page = () => {
                         <CurrentProjectCard isLoading={false} />
                     </Grid>
                     <Grid item xs={12}>
-                        <TaskWorkers />
+                        <TaskWorkers taskId={id as string} />
                     </Grid>
                 </Grid>
             </Grid>

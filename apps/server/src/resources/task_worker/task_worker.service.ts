@@ -116,3 +116,33 @@ export const deleteTaskWorkerService = async (
 
     return data;
 };
+
+export const taskWorkerByTaskIdService = async (taskId: string) => {
+    console.log("task", taskId);
+    const data = await prisma.taskWorker.findMany({
+        where: {
+            taskId,
+        },
+        include: {
+            user: {
+                select: {
+                    name: true,
+                    Position: {
+                        select: {
+                            name: true,
+                        },
+                    },
+                },
+            },
+        },
+        // select: {
+        //     user: {
+        //         include: {
+        //             Position: true,
+        //         },
+        //     },
+        // },
+    });
+
+    return data;
+};
