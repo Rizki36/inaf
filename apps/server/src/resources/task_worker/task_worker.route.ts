@@ -5,6 +5,7 @@ import { authorization } from "../../middleware/authorization";
 import {
     createTaskWorkerSchema,
     deleteTaskWorkerSchema,
+    taskWorkerByTaskIdSchema,
     updateTaskWorkerSchema,
 } from "./task_worker.validation";
 import validateRequest from "../../middleware/validationRequest";
@@ -12,6 +13,7 @@ import validateRequest from "../../middleware/validationRequest";
 const route = express.Router();
 
 /** pagination task workers */
+// TODO : Remove cause it's not used
 route.get(
     "/admin/task-workers",
     verifyToken,
@@ -29,6 +31,7 @@ route.post(
 );
 
 /** update task worker */
+// TODO : Remove cause it's not used
 route.patch(
     "/admin/task-workers/:id",
     verifyToken,
@@ -46,11 +49,12 @@ route.delete(
     TaskController.deleteTaskWorker
 );
 
-/** pagination task workers */
+/** task workers by taskId */
 route.get(
     "/admin/task-workers/tasks/:taskId",
     verifyToken,
     authorization(["ADMIN"]),
+    validateRequest(taskWorkerByTaskIdSchema),
     TaskController.taskWorkerByTaskId
 );
 

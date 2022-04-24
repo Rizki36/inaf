@@ -135,13 +135,6 @@ export const taskWorkerByTaskIdService = async (taskId: string) => {
                 },
             },
         },
-        // select: {
-        //     user: {
-        //         include: {
-        //             Position: true,
-        //         },
-        //     },
-        // },
     });
 
     return data;
