@@ -1,9 +1,8 @@
 // assets
-// @ts-ignore
-import { IconDashboard, IconUsers } from "@tabler/icons";
+import {  IconUsers } from "@tabler/icons";
 
 // constant
-const icons = { IconDashboard, IconUsers };
+const icons = {  IconUsers };
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
 
