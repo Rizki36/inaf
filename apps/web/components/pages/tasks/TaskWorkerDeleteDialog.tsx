@@ -1,3 +1,4 @@
+import { deleteTaskWorker } from "@/libs/mutation/taskWorkerMutation";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -23,7 +24,16 @@ const TaskWorkerDeleteDialog = (props: TaskDeleteDialogProps) => {
         setOpen(false);
     };
 
-    const handleConfirm = () => {};
+    const handleConfirm = () => {
+        deleteTaskWorker({
+            id,
+        })
+            .then(() => {
+                mutate();
+            })
+            .catch((e) => console.log(e))
+            .finally(() => setOpen(false));
+    };
 
     return (
         <div>

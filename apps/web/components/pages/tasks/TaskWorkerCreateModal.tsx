@@ -15,8 +15,10 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { createTaskWorker } from "@/libs/mutation/taskWorkerMutation";
 
 interface IProps {
+    taskId: string;
     modal: IUseModal;
     mutate: any;
 }
@@ -78,7 +80,19 @@ const TaskWorkerCreateModal = (props: IProps) => {
         modal.toggleModal();
     };
 
-    const onSubmit: SubmitHandler<IForm> = (props) => {};
+    const onSubmit: SubmitHandler<IForm> = ({userId}) => {
+        createTaskWorker({
+            body:{
+                taskId: props.taskId,
+                userId,
+            }
+        }).then(()=>{
+            mutate()
+            modal.toggleModal();
+        }).catch(e=>{
+            setErrMsg(e.message)
+        })
+    };
 
     return (
         <Dialog

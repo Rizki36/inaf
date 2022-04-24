@@ -1,4 +1,5 @@
 import MainCard from "@/components/ui-component/cards/MainCard";
+import { deleteTask } from "@/libs/mutation/taskMutation";
 import { useTaskWorkersByTaskId } from "@/libs/query/taskWorkerQuery";
 import { Button } from "@mui/material";
 import { IconPlus } from "@tabler/icons";
@@ -8,23 +9,9 @@ import { FC } from "react";
 import TaskWorkerCreateModal from "./TaskWorkerCreateModal";
 import TaskWorkerDeleteDialog from "./TaskWorkerDeleteDialog";
 
-const dummy: { id: string; img: string; name: string; position: string }[] = [
-    {
-        id: "1",
-        img: "/avatar.jpg",
-        name: "John Doe",
-        position: "Developer",
-    },
-    {
-        id: "2",
-        img: "/avatar.jpg",
-        name: "Jane Doe",
-        position: "Developer",
-    },
-];
 const TaskWorkers: FC<{ taskId: string }> = ({ taskId }) => {
     const modal = useModal(false);
-    const { data, isError, isLoading } = useTaskWorkersByTaskId(taskId);
+    const { data, isError, isLoading, mutate } = useTaskWorkersByTaskId(taskId);
 
     return (
         <>
@@ -46,17 +33,15 @@ const TaskWorkers: FC<{ taskId: string }> = ({ taskId }) => {
                     !isLoading &&
                     data.data.map((dt) => (
                         <ItemWorker
-                            id={dt.user.name}
+                            id={dt.id}
                             img={"/avatar.jpg"}
                             name={dt.user.name}
                             position={dt.user?.Position?.name}
-                            handleRemove={() => {
-                                alert(dt.user.name);
-                            }}
+                            mutate={mutate}
                         />
                     ))}
             </MainCard>
-            <TaskWorkerCreateModal modal={modal} mutate={() => {}} />
+            <TaskWorkerCreateModal taskId={taskId} modal={modal} mutate={mutate} />
         </>
     );
 };
@@ -66,14 +51,14 @@ type ItemWorkerType = FC<{
     img: string;
     name: string;
     position: string;
-    handleRemove: () => void;
+    mutate: () => void;
 }>;
 const ItemWorker: ItemWorkerType = ({
     id,
     img,
     name,
     position,
-    handleRemove,
+    mutate
 }) => {
     return (
         <div className="flex items-center justify-between mb-5">
@@ -87,7 +72,7 @@ const ItemWorker: ItemWorkerType = ({
                 </div>
             </div>
             <div>
-                <TaskWorkerDeleteDialog id={id} name={name} mutate={() => {}} />
+                <TaskWorkerDeleteDialog id={id} name={name} mutate={mutate} />
             </div>
         </div>
     );
