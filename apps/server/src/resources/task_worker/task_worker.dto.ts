@@ -4,6 +4,7 @@ import { AsyncReturnType, PaginationProps } from "../../../@types";
 import {
     createTaskWorkerService,
     deleteTaskWorkerService,
+    taskWorkerByTaskIdService,
     taskWorkerPaginationService,
     updateTaskWorkerService,
 } from "./task_worker.service";
@@ -30,6 +31,10 @@ export type updateTaskWorkerDTO = AsyncReturnType<
 /** delete task worker */
 export type deleteTaskWorkerDTO = AsyncReturnType<
     typeof deleteTaskWorkerService
+>;
+
+export type taskWorkerByTaskIdDTO = AsyncReturnType<
+    typeof taskWorkerByTaskIdService
 >;
 
 /**

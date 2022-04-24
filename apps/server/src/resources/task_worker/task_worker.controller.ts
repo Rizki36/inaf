@@ -5,6 +5,7 @@ import { getPage, getPerPage } from "../../helpers/pagination";
 import {
     createTaskWorkerService,
     deleteTaskWorkerService,
+    taskWorkerByTaskIdService,
     taskWorkerPaginationService,
     updateTaskWorkerService,
 } from "./task_worker.service";
@@ -104,6 +105,27 @@ export const deleteTaskWorker = async (
         const data = await deleteTaskWorkerService({
             id,
         });
+
+        res.send(
+            successResponse({
+                data,
+            })
+        );
+    } catch (error) {
+        next(error);
+    }
+};
+
+/** pagination task workers */
+export const taskWorkerByTaskId = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    let { taskId } = req.params;
+
+    try {
+        const data = await taskWorkerByTaskIdService(taskId as string);
 
         res.send(
             successResponse({

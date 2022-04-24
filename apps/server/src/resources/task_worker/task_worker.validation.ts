@@ -20,3 +20,9 @@ export const deleteTaskWorkerSchema = yup.object<Record<string, any>>({
         id: yup.string().required(),
     }),
 });
+
+export const taskWorkerByTaskIdSchema = yup.object<Record<string, any>>({
+    params: yup.object<Record<string, any>>({
+        taskId: yup.string().required(),
+    }),
+});
