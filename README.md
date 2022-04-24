@@ -40,3 +40,6 @@ Project <br>
 
 Database Schema <br>
 ![Group 38 (1)](https://user-images.githubusercontent.com/39044004/153439231-90534900-ecf3-4c10-83d8-0cc537a9884f.png)
+![db](https://user-images.githubusercontent.com/39044004/164988765-1a26bac7-0da3-40e2-be1d-911dc41240f8.jpg)
+
+
