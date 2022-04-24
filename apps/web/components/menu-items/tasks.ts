@@ -1,8 +1,8 @@
 // assets
-import { IconDashboard, IconUsers, IconSubtask } from "@tabler/icons";
+import { IconSubtask } from "@tabler/icons";
 
 // constant
-const icons = { IconDashboard, IconUsers, IconSubtask };
+const icons = { IconSubtask };
 
 const task = {
     id: "tasks",

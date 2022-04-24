@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import { Page } from "../@types";
 import {
     Avatar,
+    AvatarGroup,
     Button,
     ButtonBase,
     Chip,
@@ -21,8 +22,8 @@ import { useState } from "react";
 import { IconCurrencyDollar } from "@tabler/icons";
 import { IconUsers } from "@tabler/icons";
 import { IconStack } from "@tabler/icons";
+import { IconSubtask } from "@tabler/icons";
 import Link from "next/link";
-import theme from "@/configs/mui/theme";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -90,17 +91,44 @@ const Dashboard: Page = () => {
                 <Grid item lg={3} md={12} sm={12} xs={12}>
                     <div className="bg-white flex flex-col py-2 px-5 rounded-lg h-full">
                         <h3>Total Task</h3>
-                        <h1 className="flex-1 self-end text-2xl font-bold">
-                            10
-                        </h1>
+                        <div className="flex items-center justify-between">
+                            <IconSubtask size={40} />
+                            <h1 className="flex-1 self-end text-2xl font-bold text-right">
+                                10
+                            </h1>
+                        </div>
                     </div>
                 </Grid>
                 <Grid item lg={3} md={12} sm={12} xs={12}>
                     <div className="bg-white flex flex-col py-2 px-5 rounded-lg h-full">
                         <h3>User In Project</h3>
-                        <h1 className="flex-1 self-end text-2xl font-bold">
-                            4
-                        </h1>
+                        <div className="flex items-center justify-between w-full">
+                            <AvatarGroup>
+                                <Avatar
+                                    alt="Remy Sharp"
+                                    src="/static/images/avatar/1.jpg"
+                                    sx={{ width: 24, height: 24 }}
+                                />
+                                <Avatar
+                                    alt="Travis Howard"
+                                    src="/static/images/avatar/2.jpg"
+                                    sx={{ width: 24, height: 24 }}
+                                />
+                                <Avatar
+                                    alt="Agnes Walker"
+                                    src="/static/images/avatar/4.jpg"
+                                    sx={{ width: 24, height: 24 }}
+                                />
+                                <Avatar
+                                    alt="Trevor Henderson"
+                                    src="/static/images/avatar/5.jpg"
+                                    sx={{ width: 24, height: 24 }}
+                                />
+                            </AvatarGroup>
+                            <h1 className="flex-1 self-end text-2xl font-bold text-right">
+                                4
+                            </h1>
+                        </div>
                     </div>
                 </Grid>
                 <Grid item lg={2} md={12} sm={12} xs={12}>
