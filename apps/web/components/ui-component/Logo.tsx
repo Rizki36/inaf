@@ -22,7 +22,7 @@ const Logo = () => {
         <Image
             src={logo}
             alt="Logo"
-            height={80}
+            height={50}
             width={100}
             objectFit="contain"
         />
