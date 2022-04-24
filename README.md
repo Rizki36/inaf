@@ -10,6 +10,11 @@ Inaf Todo is an open source application for managing tasks in an institution/com
 - yarn prisma-push
 - yarn dev
 
+## Whats you can get
+- E2E type, Response from server can be import into client directly with prisma + monorepo
+- Graphql
+- Rest Api Unit Test
+
 Home <br>
 ![home](https://user-images.githubusercontent.com/39044004/153438183-6c64f1a7-3246-42fa-911b-5bc83c94da67.png)
 
