@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useProfile } from "@/libs/query/userQuery";
 import { AuthOptions } from "../@types";
 import React, { useCallback, useEffect } from "react";
+import Logo from "./ui-component/Logo";
 
 interface Props extends AuthOptions {
     children: any;
@@ -44,7 +45,12 @@ const Auth: NextPage = (props: Props) => {
     }, [handleRedirectAuthenticated]);
 
     // loading
-    if (isLoading || (!profile && mustLoggedIn)) return <></>;
+    if (isLoading || (!profile && mustLoggedIn))
+        return (
+            <div className="h-screen w-screen flex justify-center items-center">
+                <Logo />
+            </div>
+        );
 
     return children;
 };

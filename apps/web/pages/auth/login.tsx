@@ -4,7 +4,6 @@ import { Page } from "../../@types";
 import { useTheme } from "@mui/material/styles";
 import { Divider, Grid, Stack, Typography, useMediaQuery } from "@mui/material";
 import Logo from "@/components/ui-component/Logo";
-import AuthFooter from "@/components/ui-component/cards/AuthFooter";
 import AuthWrapper1 from "@/components/pages/auth/login/AuthWrapper1";
 import AuthCardWrapper from "@/components/pages/auth/login/AuthCardWrapper";
 import Link from "next/link";
@@ -12,7 +11,6 @@ import { HeartBroken } from "@mui/icons-material";
 
 const Login: Page = () => {
     const theme = useTheme();
-    const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
 
     return (
         <AuthWrapper1>
@@ -45,11 +43,7 @@ const Login: Page = () => {
                                     <Grid item xs={12}>
                                         <Grid
                                             container
-                                            direction={
-                                                matchDownSM
-                                                    ? "column-reverse"
-                                                    : "row"
-                                            }
+                                            direction={"row"}
                                             alignItems="center"
                                             justifyContent="center"
                                         >
@@ -65,11 +59,7 @@ const Login: Page = () => {
                                                                 .secondary.main
                                                         }
                                                         gutterBottom
-                                                        variant={
-                                                            matchDownSM
-                                                                ? "h3"
-                                                                : "h2"
-                                                        }
+                                                        variant={"h2"}
                                                     >
                                                         Hi, Welcome Back
                                                     </Typography>
@@ -115,9 +105,7 @@ const Login: Page = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-                    <AuthFooter />
-                </Grid>
+                <Grid item xs={12} sx={{ m: 3, mt: 1 }}></Grid>
             </Grid>
         </AuthWrapper1>
     );
@@ -127,6 +115,5 @@ Login.layout = Fragment;
 Login.auth = {
     mustLoggedIn: false,
 };
-
 
 export default Login;

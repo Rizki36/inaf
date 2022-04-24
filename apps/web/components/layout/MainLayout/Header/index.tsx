@@ -32,7 +32,11 @@ const Header = ({ handleLeftDrawerToggle }) => {
             >
                 <Box
                     component="span"
-                    sx={{ display: { xs: "none", md: "block" }, flexGrow: 1 }}
+                    sx={{
+                        display: { xs: "none", md: "flex" },
+                        justifyContent: { md: "center" },
+                        flexGrow: 1,
+                    }}
                 >
                     <LogoSection />
                 </Box>
