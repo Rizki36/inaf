@@ -1,5 +1,5 @@
-import { IconDashboard, IconStack } from "@tabler/icons";
-const icons = { IconDashboard, IconStack };
+import { IconStack } from "@tabler/icons";
+const icons = { IconStack };
 
 const users = {
     id: "positions",
