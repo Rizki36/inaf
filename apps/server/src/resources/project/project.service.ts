@@ -39,8 +39,7 @@ export const paginationProjectService = async (
     }
 
     const data = await prisma.project.findMany({
-        skip: page * perPage,
-        take: perPage,
+        ...(perPage >= 0 && { skip: page * perPage, take: perPage }),
         select: {
             id: true,
             name: true,
