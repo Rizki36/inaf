@@ -14,6 +14,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import customizationReducer from "./customizationSlice";
+import dasboardReducer from "./dashboardSlice";
 
 const persistConfig = {
     key: "dikirim",
@@ -25,6 +26,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     user: userReducer,
     customization: customizationReducer,
+    dashboard: dasboardReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
