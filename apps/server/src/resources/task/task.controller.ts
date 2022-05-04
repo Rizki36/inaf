@@ -23,7 +23,14 @@ export const taskPagination = async (
     res: Response,
     next: NextFunction
 ): Promise<void> => {
-    let { page = "0", perPage = "40", field, sort, search } = req.query;
+    let {
+        page = "0",
+        perPage = "40",
+        field,
+        sort,
+        search,
+        projectId,
+    } = req.query;
 
     try {
         const data = await taskPaginationService({
@@ -36,6 +43,7 @@ export const taskPagination = async (
                 defaultSort: "asc",
             }),
             search,
+            ...(projectId && { projectId }),
         });
 
         res.send(data);

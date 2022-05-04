@@ -24,7 +24,7 @@ prisma.$on("query", (e) => {
 
 /** pagination tasks */
 export const taskPaginationService = async (props: IPaginationTasksProps) => {
-    const { page, perPage, sortPage, search } = props;
+    const { page, perPage, sortPage, search, projectId } = props;
 
     const orderKey: keyof Task =
         [].find((i) => i === sortPage?.field) ?? "createdAt";
@@ -33,6 +33,12 @@ export const taskPaginationService = async (props: IPaginationTasksProps) => {
     if (search) {
         where.OR = {
             name: { contains: search },
+        };
+    }
+
+    if (projectId) {
+        where.AND = {
+            projectId,
         };
     }
 
@@ -69,7 +75,9 @@ export const taskPaginationService = async (props: IPaginationTasksProps) => {
         where,
     });
 
-    const totalRows = await prisma.task.count();
+    const totalRows = await prisma.task.count({
+        where,
+    });
 
     return {
         totalRows,
