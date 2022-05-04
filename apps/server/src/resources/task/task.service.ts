@@ -43,17 +43,8 @@ export const taskPaginationService = async (props: IPaginationTasksProps) => {
     }
 
     const data = await prisma.task.findMany({
-        skip: page * perPage,
-        take: perPage,
-        select: {
-            id: true,
-            name: true,
-            beginAt: true,
-            finishAt: true,
-            createdAt: true,
-            updatedAt: true,
-            description: true,
-            attachment: true,
+        ...(perPage > -1 && { skip: page * perPage, take: perPage }),
+        include: {
             project: {
                 select: {
                     id: true,
