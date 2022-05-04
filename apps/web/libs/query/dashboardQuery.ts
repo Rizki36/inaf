@@ -1,13 +1,16 @@
 import backendApi from "@/configs/api/backendApi";
+import { GetDashboardResponse } from "server";
 import useSWR from "swr";
 
 export const useDashboard = (projectId?: string) => {
     const { data, error, mutate } = useSWR(["/dashboard", projectId], (url) => {
         return backendApi
-            .post(`${url}`, {
-                projectId,
+            .get<GetDashboardResponse>(`${url}`, {
+                params: {
+                    projectId,
+                },
             })
-            .then((res) => res.data);
+            .then((res) => res.data.data);
     });
 
     return {

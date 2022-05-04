@@ -28,7 +28,7 @@ const QuickLinkWidget = () => {
     return (
         <Grid container spacing={gridSpacing}>
             {list.map((item) => (
-                <Grid key={item.href} item sm={12}>
+                <Grid key={item.href} item xs={12}>
                     <LinkItem {...item} />
                 </Grid>
             ))}

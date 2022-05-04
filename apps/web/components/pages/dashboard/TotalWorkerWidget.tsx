@@ -1,7 +1,7 @@
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 
-const TotalWorkerWidget = () => {
+const TotalWorkerWidget = ({ totalWorker = 0 }) => {
     return (
         <div className="bg-white flex flex-col py-2 px-5 rounded-lg h-full">
             <h3>User In Project</h3>
@@ -29,7 +29,7 @@ const TotalWorkerWidget = () => {
                     />
                 </AvatarGroup>
                 <h1 className="flex-1 self-end text-2xl font-bold text-right">
-                    4
+                    {totalWorker}
                 </h1>
             </div>
         </div>

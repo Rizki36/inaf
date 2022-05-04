@@ -2,9 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface DashboardState {
     currentProject?: string;
 }
+
 const initialState: DashboardState = {
     currentProject: null,
 };
+
 export const dashboardSlice = createSlice({
     name: "dashboard",
     initialState,

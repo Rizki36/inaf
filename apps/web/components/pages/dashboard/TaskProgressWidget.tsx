@@ -2,12 +2,12 @@ import dynamic from "next/dynamic";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const TaskProgressWidget = () => {
+const TaskProgressWidget = ({ percent = 0 }) => {
     return (
         <div className="bg-white flex flex-col items-center py-5 px-5 rounded-lg h-full">
             <div id="chart">
                 <Chart
-                    series={[75]}
+                    series={[percent]}
                     height={350}
                     type="radialBar"
                     options={{
