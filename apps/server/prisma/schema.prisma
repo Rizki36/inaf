@@ -84,16 +84,17 @@ model TaskGroup {
 }
 
 model Task {
-  id          String    @id @default(uuid())
-  name        String    @db.VarChar(30)
-  description String    @db.Text
+  id          String     @id @default(uuid())
+  name        String     @db.VarChar(30)
+  description String     @db.Text
   taskGroupId String?
   projectId   String?
-  beginAt     DateTime? @default(now())
-  finishAt    DateTime? @default(now())
-  createdAt   DateTime? @default(now())
-  updatedAt   DateTime? @updatedAt
+  beginAt     DateTime?  @default(now())
+  finishAt    DateTime?  @default(now())
+  createdAt   DateTime?  @default(now())
+  updatedAt   DateTime?  @updatedAt
   attachment  Json?
+  status      StatusTask @default(OPEN)
 
   taskGroup  TaskGroup?   @relation(fields: [taskGroupId], references: [id])
   project    Project?     @relation(fields: [projectId], references: [id])
@@ -111,4 +112,10 @@ model TaskWorker {
 enum Role {
   USER
   ADMIN
+}
+
+enum StatusTask {
+  OPEN
+  IN_PROGRESS
+  DONE
 }

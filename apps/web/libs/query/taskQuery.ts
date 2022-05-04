@@ -4,19 +4,22 @@ import { IResponse } from "server";
 import { PaginationProps } from "../../@types/index";
 import { getPaginationTasksDTO, getTaskDetailsDTO } from "server";
 
-interface IUseTasksProps extends PaginationProps {}
+interface IUseTasksProps extends PaginationProps {
+    projectId?: string;
+}
 export const useTasks = (props: IUseTasksProps) => {
     const {
         page = 1,
         perPage = 40,
         sortPage = { sort: null, field: null },
         search,
+        projectId,
     } = props;
     const { sort, field } = sortPage;
 
     const { data, error, mutate } = useSWR(
-        ["admin/tasks", page, perPage, sort, search],
-        (url, page, perPage, sort, search) => {
+        ["admin/tasks", page, perPage, sort, search, projectId],
+        (url, page, perPage, sort, search, projectId) => {
             return backendApi
                 .get<getPaginationTasksDTO>(url, {
                     params: {
@@ -25,6 +28,7 @@ export const useTasks = (props: IUseTasksProps) => {
                         sort,
                         field,
                         search,
+                        projectId,
                     },
                 })
                 .then((res) => res.data);

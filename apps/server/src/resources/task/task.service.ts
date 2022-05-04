@@ -24,7 +24,7 @@ prisma.$on("query", (e) => {
 
 /** pagination tasks */
 export const taskPaginationService = async (props: IPaginationTasksProps) => {
-    const { page, perPage, sortPage, search } = props;
+    const { page, perPage, sortPage, search, projectId } = props;
 
     const orderKey: keyof Task =
         [].find((i) => i === sortPage?.field) ?? "createdAt";
@@ -36,18 +36,15 @@ export const taskPaginationService = async (props: IPaginationTasksProps) => {
         };
     }
 
+    if (projectId) {
+        where.AND = {
+            projectId,
+        };
+    }
+
     const data = await prisma.task.findMany({
-        skip: page * perPage,
-        take: perPage,
-        select: {
-            id: true,
-            name: true,
-            beginAt: true,
-            finishAt: true,
-            createdAt: true,
-            updatedAt: true,
-            description: true,
-            attachment: true,
+        ...(perPage > -1 && { skip: page * perPage, take: perPage }),
+        include: {
             project: {
                 select: {
                     id: true,
@@ -69,7 +66,9 @@ export const taskPaginationService = async (props: IPaginationTasksProps) => {
         where,
     });
 
-    const totalRows = await prisma.task.count();
+    const totalRows = await prisma.task.count({
+        where,
+    });
 
     return {
         totalRows,

@@ -54,7 +54,9 @@ export type deleteTaskDTO = AsyncReturnType<typeof deleteTaskService>;
  * service
  */
 
-export interface IPaginationTasksProps extends PaginationProps<Task> {}
+export interface IPaginationTasksProps extends PaginationProps<Task> {
+    projectId?: string;
+}
 
 export interface ITaskDetailsServiceProps {
     id: string;
@@ -87,6 +89,7 @@ export type IPaginationTasksRequest = Request<
         field: keyof Task;
         sort: "asc" | "desc";
         search?: string;
+        projectId?: string;
     }
 >;
 

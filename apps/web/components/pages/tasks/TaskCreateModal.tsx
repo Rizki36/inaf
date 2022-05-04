@@ -27,6 +27,7 @@ import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomp
 interface IProps {
     modal: IUseModal;
     mutate: any;
+    projectId?: string;
 }
 
 interface IForm extends Omit<createTaskBody, "attachment"> {}
@@ -96,6 +97,7 @@ const TaskCreateModal = (props: IProps) => {
     } = useProjects({
         page: 0,
         perPage: 40,
+        enableFetch: !props?.projectId,
     });
 
     const {
@@ -112,6 +114,7 @@ const TaskCreateModal = (props: IProps) => {
         defaultValues: {
             beginAt: null,
             finishAt: null,
+            projectId: props?.projectId,
         },
     });
 
@@ -175,7 +178,7 @@ const TaskCreateModal = (props: IProps) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <DialogTitle>
                     <Typography variant="h3" fontWeight={"bolder"}>
-                        Create New Task Group
+                        Create New Task
                     </Typography>
                 </DialogTitle>
                 <DialogContent dividers>
@@ -198,12 +201,14 @@ const TaskCreateModal = (props: IProps) => {
                                     />
                                 </Grid>
                                 <Grid item lg={6} md={12} sm={12} xs={12}>
-                                    <ControlledAutocomplete
-                                        name={inputs.projectId.name}
-                                        label={inputs.projectId.label}
-                                        control={control}
-                                        options={projectOptions}
-                                    />
+                                    {!props?.projectId && (
+                                        <ControlledAutocomplete
+                                            name={inputs.projectId.name}
+                                            label={inputs.projectId.label}
+                                            control={control}
+                                            options={projectOptions}
+                                        />
+                                    )}
                                 </Grid>
                                 <Grid item lg={6} md={12} sm={12} xs={12}>
                                     <ControlledDatePicker
