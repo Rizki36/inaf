@@ -9,8 +9,21 @@ const prisma = new PrismaClient({
     ],
 });
 
-export const getDashboardService = async (props: { projectId: string }) => {
-    const { projectId } = props;
+export const getDashboardService = async (props: { projectId?: string }) => {
+    let { projectId } = props;
+
+    /** when projectId not provided get last updated project */
+    if (!projectId) {
+        const project = await prisma.project.findFirst({
+            orderBy: {
+                updatedAt: "desc",
+            },
+        });
+
+        projectId = project?.id;
+
+        if (!projectId) throw new Error("No project found");
+    }
 
     const totalTaskInProgress = await prisma.task.count({
         where: {
@@ -40,6 +53,7 @@ export const getDashboardService = async (props: { projectId: string }) => {
     });
 
     return {
+        projectId,
         totalTask: totalTaskInProgress + totalTaskOpen + totalTaskDone,
         totalTaskOpen,
         totalTaskInProgress,
