@@ -7,9 +7,11 @@ import teamRoute from "./team/team.route";
 import taskRoute from "./task/task.route";
 import taskGroupRoute from "./task_group/task_group.route";
 import taskWorkerRoute from "./task_worker/task_worker.route";
+import dashboardRoute from "./dashboard/dashboard.route";
 
 const route = express.Router();
 
+// TODO : refactor group routes
 route.use([
     authRoute,
     userRoute,
@@ -20,5 +22,7 @@ route.use([
     taskGroupRoute,
     taskWorkerRoute,
 ]);
+
+route.use("/dashboard", dashboardRoute);
 
 export default route;
