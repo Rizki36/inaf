@@ -38,8 +38,7 @@ export const paginationUserService = async (props: IPaginationUserProps) => {
     }
 
     const data = await prisma.user.findMany({
-        skip: page * perPage,
-        take: perPage,
+        ...(perPage > -1 && { skip: page * perPage, take: perPage }),
         select: {
             id: true,
             username: true,

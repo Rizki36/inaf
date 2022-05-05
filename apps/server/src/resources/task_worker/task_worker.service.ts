@@ -33,8 +33,7 @@ export const taskWorkerPaginationService = async (
     const where: Prisma.TaskWorkerFindManyArgs["where"] = {};
 
     const data = await prisma.taskWorker.findMany({
-        skip: page * perPage,
-        take: perPage,
+        ...(perPage > -1 && { skip: page * perPage, take: perPage }),
         select: {
             id: true,
             task: {
