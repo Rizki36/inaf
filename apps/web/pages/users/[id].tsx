@@ -15,7 +15,7 @@ const UserDetails: Page = () => {
             <Grid item lg={4} md={12} sm={12} xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item xs={12}>
-                        <RunningProjectCard isLoading={false} />
+                        <RunningProjectCard userId={id as string} />
                     </Grid>
                     <Grid item xs={12}>
                         <TodoListCard isLoading={false} />

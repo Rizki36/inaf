@@ -8,6 +8,7 @@ import {
     paginationUserService,
     userDetailsService,
     updateUserService,
+    userProjectsService,
 } from "./user.service";
 import {
     ICreateUserRequest,
@@ -137,7 +138,25 @@ export const deleteUser = async (
 
         return res.send(data);
     } catch (error) {
-        console.log(error);
+        next(error);
+    }
+};
+
+/** user projects */
+export const userProjects = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { id } = req.params;
+
+        const data = await userProjectsService({
+            userId: id,
+        });
+
+        return res.send(data);
+    } catch (error) {
         next(error);
     }
 };
