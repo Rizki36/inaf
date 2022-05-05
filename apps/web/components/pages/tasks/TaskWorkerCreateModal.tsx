@@ -21,6 +21,7 @@ interface IProps {
     taskId: string;
     modal: IUseModal;
     mutate: any;
+    existingWorkerIds?: string[];
 }
 
 interface IForm {
@@ -41,7 +42,7 @@ const schema = yup
     .required();
 
 const TaskWorkerCreateModal = (props: IProps) => {
-    const { modal, mutate } = props;
+    const { modal, mutate, existingWorkerIds } = props;
 
     const [errMsg, setErrMsg] = useState<string | null>(null);
 
@@ -73,25 +74,32 @@ const TaskWorkerCreateModal = (props: IProps) => {
             data: users,
         });
 
-        setUserOptions(options);
-    }, [isErrorUser, isLoadingUser, users]);
+        /** show only users not in task */
+        const optionFiltered = options.filter((item) => {
+            return !existingWorkerIds?.find((id) => id === item.value);
+        });
+
+        setUserOptions(optionFiltered);
+    }, [isErrorUser, isLoadingUser, users, existingWorkerIds]);
 
     const handleCancel = () => {
         modal.toggleModal();
     };
 
-    const onSubmit: SubmitHandler<IForm> = ({userId}) => {
+    const onSubmit: SubmitHandler<IForm> = ({ userId }) => {
         createTaskWorker({
-            body:{
+            body: {
                 taskId: props.taskId,
                 userId,
-            }
-        }).then(()=>{
-            mutate()
-            modal.toggleModal();
-        }).catch(e=>{
-            setErrMsg(e.message)
+            },
         })
+            .then(() => {
+                mutate();
+                modal.toggleModal();
+            })
+            .catch((e) => {
+                setErrMsg(e.message);
+            });
     };
 
     return (
@@ -102,11 +110,7 @@ const TaskWorkerCreateModal = (props: IProps) => {
             fullWidth={true}
         >
             <form onSubmit={handleSubmit(onSubmit)}>
-                <DialogTitle>
-                    <Typography variant="h3" fontWeight={"bolder"}>
-                        Add Task Worker
-                    </Typography>
-                </DialogTitle>
+                <DialogTitle>Add Task Worker</DialogTitle>
                 <DialogContent dividers>
                     <Grid container spacing={gridSpacing}>
                         <Grid item xs={12}>

@@ -13,6 +13,8 @@ const TaskWorkers: FC<{ taskId: string }> = ({ taskId }) => {
     const modal = useModal(false);
     const { data, isError, isLoading, mutate } = useTaskWorkersByTaskId(taskId);
 
+    const existingWorkerIds = data?.data?.map((i) => i.userId) || [];
+
     return (
         <>
             <MainCard
@@ -33,6 +35,7 @@ const TaskWorkers: FC<{ taskId: string }> = ({ taskId }) => {
                     !isLoading &&
                     data.data.map((dt) => (
                         <ItemWorker
+                            key={dt.id}
                             id={dt.id}
                             img={"/avatar.jpg"}
                             name={dt.user.name}
@@ -41,7 +44,14 @@ const TaskWorkers: FC<{ taskId: string }> = ({ taskId }) => {
                         />
                     ))}
             </MainCard>
-            <TaskWorkerCreateModal taskId={taskId} modal={modal} mutate={mutate} />
+            {!isError && !isLoading && (
+                <TaskWorkerCreateModal
+                    taskId={taskId}
+                    modal={modal}
+                    mutate={mutate}
+                    existingWorkerIds={existingWorkerIds}
+                />
+            )}
         </>
     );
 };
@@ -53,13 +63,7 @@ type ItemWorkerType = FC<{
     position: string;
     mutate: () => void;
 }>;
-const ItemWorker: ItemWorkerType = ({
-    id,
-    img,
-    name,
-    position,
-    mutate
-}) => {
+const ItemWorker: ItemWorkerType = ({ id, img, name, position, mutate }) => {
     return (
         <div className="flex items-center justify-between mb-5">
             <div className="flex items-center">
