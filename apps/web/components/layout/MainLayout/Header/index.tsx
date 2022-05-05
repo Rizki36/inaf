@@ -1,22 +1,21 @@
-import PropTypes from "prop-types";
-
 // material-ui
 import { useTheme } from "@mui/material/styles";
-import { Avatar, Box, ButtonBase } from "@mui/material";
+import { Avatar, Box, ButtonBase, Typography } from "@mui/material";
 
 // project imports
 import LogoSection from "../LogoSection";
-import SearchSection from "./SearchSection";
 import ProfileSection from "./ProfileSection";
-import NotificationSection from "./NotificationSection";
 
 // assets
 import { IconMenu2 } from "@tabler/icons";
-
-// ==============================|| MAIN NAVBAR / HEADER ||============================== //
+import { useRouter } from "next/router";
 
 const Header = ({ handleLeftDrawerToggle }) => {
     const theme = useTheme();
+    const router = useRouter();
+    const pathNames = router.pathname.replace("-", " ").split("/");
+
+    const title = pathNames[1];
 
     return (
         <>
@@ -62,20 +61,23 @@ const Header = ({ handleLeftDrawerToggle }) => {
                 </ButtonBase>
             </Box>
 
-            {/* header search */}
-            <SearchSection />
+            <Box ml={5}>
+                <Typography
+                    sx={{ textTransform: "capitalize" }}
+                    fontSize={"1.5rem"}
+                >
+                    {title}
+                </Typography>
+            </Box>
+
+            {/* <SearchSection /> */}
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ flexGrow: 1 }} />
 
-            {/* notification & profile */}
-            <NotificationSection />
+            {/* <NotificationSection /> */}
             <ProfileSection />
         </>
     );
-};
-
-Header.propTypes = {
-    handleLeftDrawerToggle: PropTypes.func,
 };
 
 export default Header;
