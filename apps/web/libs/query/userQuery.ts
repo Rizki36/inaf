@@ -1,6 +1,10 @@
-import { IResponse } from "./../../../server/index";
 import backendApi from "configs/api/backendApi";
-import { getPaginationUsersDTO, getUserDetailsDTO } from "server";
+import {
+    getPaginationUsersDTO,
+    getUserDetailsDTO,
+    IResponse,
+    UserProjectDTO,
+} from "server";
 import { PaginationProps } from "../../@types/index";
 import useSWR from "swr";
 
@@ -28,6 +32,26 @@ export const useUsers = (props: getUsetsProps) => {
                         search,
                     },
                 })
+                .then((res) => res.data);
+        }
+    );
+
+    return {
+        data,
+        isLoading: !error && !data,
+        isError: error,
+        mutate,
+    };
+};
+
+export const useUserProject = (props: { userId: string }) => {
+    const { userId } = props;
+
+    const { data, error, mutate } = useSWR(
+        ["admin/users", userId],
+        (url, userId) => {
+            return backendApi
+                .get<any, UserProjectDTO>(`${url}/${userId}/projects`)
                 .then((res) => res.data);
         }
     );
