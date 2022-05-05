@@ -39,8 +39,7 @@ export const taskGroupPaginationService = async (
     }
 
     const data = await prisma.taskGroup.findMany({
-        skip: page * perPage,
-        take: perPage,
+        ...(perPage > -1 && { skip: page * perPage, take: perPage }),
         select: {
             id: true,
             name: true,

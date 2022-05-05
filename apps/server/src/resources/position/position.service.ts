@@ -39,8 +39,7 @@ export const paginationPositionService = async (
     }
 
     const data = await prisma.position.findMany({
-        skip: page * perPage,
-        take: perPage,
+        ...(perPage > -1 && { skip: page * perPage, take: perPage }),
         select: {
             id: true,
             name: true,
