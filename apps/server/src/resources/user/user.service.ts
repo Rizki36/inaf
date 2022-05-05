@@ -135,3 +135,19 @@ export const createUserService = async (props: ICreateUserProps) => {
 
     return data;
 };
+
+/** user projects service */
+export const userProjectsService = async ({ userId }: { userId: string }) => {
+    /** find project where are user in project team */
+    const data = await prisma.project.findMany({
+        where: {
+            teams: {
+                some: {
+                    userId,
+                },
+            },
+        },
+    });
+
+    return data;
+};

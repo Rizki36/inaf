@@ -49,4 +49,12 @@ route.delete(
     UserController.deleteUser
 );
 
+/** user projects */
+route.get(
+    "/admin/users/:id/projects",
+    verifyToken,
+    authorization(["ADMIN"]),
+    UserController.userProjects
+);
+
 export default route;

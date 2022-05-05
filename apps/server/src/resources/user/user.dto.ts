@@ -1,12 +1,17 @@
 import { User } from "@prisma/client";
 import { Request } from "express";
-import { AsyncReturnType, PaginationProps } from "./../../../@types/index.d";
+import {
+    AsyncReturnType,
+    IResponse,
+    PaginationProps,
+} from "./../../../@types/index.d";
 import {
     deleteUserService,
     paginationUserService,
     userDetailsService,
     updateUserService,
     createUserService,
+    userProjectsService,
 } from "./user.service";
 
 export type getPaginationUsersDTO = AsyncReturnType<
@@ -30,6 +35,11 @@ export type createUserDTO = AsyncReturnType<typeof createUserService>;
 export type updateUserDetailsSDTO = AsyncReturnType<typeof updateUserService>;
 
 export type deleteUserDTO = AsyncReturnType<typeof deleteUserService>;
+
+export type UserProjectDTO = IResponse<
+    AsyncReturnType<typeof userProjectsService>
+>;
+
 
 /**
  * controller
