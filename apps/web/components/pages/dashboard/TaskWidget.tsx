@@ -43,7 +43,10 @@ const TaskWidget: FC<{
         return task?.data?.filter((item) => item.status === "DONE");
     }, [task?.data]);
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading)
+        return (
+            <div className="bg-white flex flex-col py-1 px-5 rounded-lg h-full"></div>
+        );
 
     return (
         <>
