@@ -3,7 +3,7 @@ const icons = { IconStack };
 
 const users = {
     id: "positions",
-    title: "Positions",
+    title: "",
     type: "group",
     children: [
         {

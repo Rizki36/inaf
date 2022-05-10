@@ -1,14 +1,14 @@
 // assets
-import {  IconUsers } from "@tabler/icons";
+import { IconUsers } from "@tabler/icons";
 
 // constant
-const icons = {  IconUsers };
+const icons = { IconUsers };
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
 
 const users = {
     id: "users",
-    title: "Users",
+    title: "",
     type: "group",
     children: [
         {

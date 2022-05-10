@@ -6,7 +6,7 @@ const icons = { IconSubtask };
 
 const task = {
     id: "tasks",
-    title: "Task",
+    title: "",
     type: "group",
     children: [
         {

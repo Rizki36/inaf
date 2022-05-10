@@ -8,7 +8,7 @@ const icons = { IconDashboard, IconUsers, IconSubtask };
 
 const taskGroup = {
     id: "task-groups",
-    title: "Task Group",
+    title: "",
     type: "group",
     children: [
         {
