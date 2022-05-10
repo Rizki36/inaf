@@ -45,7 +45,7 @@ const Auth: NextPage = (props: Props) => {
     }, [handleRedirectAuthenticated]);
 
     // loading
-    if (isLoading && !profile && mustLoggedIn)
+    if (isLoading || (!profile && mustLoggedIn))
         return (
             <div className="h-screen w-screen flex justify-center items-center">
                 <Logo />
