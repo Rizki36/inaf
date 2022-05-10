@@ -3,7 +3,7 @@ const icons = { IconCurrencyDollar };
 
 const projects = {
     id: "projects",
-    title: "Projects",
+    title: "",
     type: "group",
     children: [
         {
