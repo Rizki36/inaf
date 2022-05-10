@@ -161,45 +161,64 @@ const RunningProjectCard = ({ userId }: { userId: string }) => {
                         </Grid>
                         <Grid item>
                             <Grid container alignItems="center">
-                                <Grid item>
-                                    <Typography
-                                        sx={{
-                                            fontSize: "2.125rem",
-                                            fontWeight: 500,
-                                            mr: 1,
-                                            mt: 1.75,
-                                            mb: 0.75,
-                                        }}
-                                    >
-                                        {currentProject?.name}
-                                    </Typography>
-                                </Grid>
-                                <Grid item>
-                                    <Link
-                                        href={`/projects/${currentProject?.id}`}
-                                        passHref
-                                    >
-                                        <Avatar
+                                {!!currentProject ? (
+                                    <>
+                                        <Grid item>
+                                            <Typography
+                                                sx={{
+                                                    fontSize: "2.125rem",
+                                                    fontWeight: 500,
+                                                    mr: 1,
+                                                    mt: 1.75,
+                                                    mb: 0.75,
+                                                }}
+                                            >
+                                                {currentProject?.name}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item>
+                                            <Link
+                                                href={`/projects/${currentProject?.id}`}
+                                                passHref
+                                            >
+                                                <Avatar
+                                                    sx={{
+                                                        cursor: "pointer",
+                                                        ...theme.typography
+                                                            .smallAvatar,
+                                                        backgroundColor:
+                                                            theme.palette
+                                                                .secondary[200],
+                                                        color: theme.palette
+                                                            .secondary.dark,
+                                                    }}
+                                                >
+                                                    <ArrowUpwardIcon
+                                                        fontSize="inherit"
+                                                        sx={{
+                                                            transform:
+                                                                "rotate3d(1, 1, 1, 45deg)",
+                                                        }}
+                                                    />
+                                                </Avatar>
+                                            </Link>
+                                        </Grid>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Typography
                                             sx={{
-                                                cursor: "pointer",
-                                                ...theme.typography.smallAvatar,
-                                                backgroundColor:
-                                                    theme.palette
-                                                        .secondary[200],
-                                                color: theme.palette.secondary
-                                                    .dark,
+                                                fontSize: "1rem",
+                                                fontWeight: 500,
+                                                mr: 1,
+                                                mt: 1.75,
+                                                mb: 0.75,
                                             }}
                                         >
-                                            <ArrowUpwardIcon
-                                                fontSize="inherit"
-                                                sx={{
-                                                    transform:
-                                                        "rotate3d(1, 1, 1, 45deg)",
-                                                }}
-                                            />
-                                        </Avatar>
-                                    </Link>
-                                </Grid>
+                                            No Running Project
+                                        </Typography>
+                                    </>
+                                )}
                             </Grid>
                         </Grid>
                     </Grid>
