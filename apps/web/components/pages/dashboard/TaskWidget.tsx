@@ -10,11 +10,14 @@ import {
     List,
     ListItem,
     ListItemText,
+    Skeleton,
     Tab,
+    Typography,
 } from "@mui/material";
 import useModal from "hooks/useModal";
 import { FC, useMemo, useState } from "react";
 import TaskCreateModal from "../tasks/TaskCreateModal";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 const TaskWidget: FC<{
     projectId: string;
@@ -22,6 +25,7 @@ const TaskWidget: FC<{
     const {
         data: task,
         isLoading,
+        isError,
         mutate,
     } = useTasks({
         page: 0,
@@ -43,11 +47,6 @@ const TaskWidget: FC<{
         return task?.data?.filter((item) => item.status === "DONE");
     }, [task?.data]);
 
-    if (isLoading)
-        return (
-            <div className="bg-white flex flex-col py-1 px-5 rounded-lg h-full"></div>
-        );
-
     return (
         <>
             <div className="bg-white flex flex-col py-1 px-5 rounded-lg h-full">
@@ -62,83 +61,102 @@ const TaskWidget: FC<{
                         </Button>
                     </div>
                 </div>
-                <div>
-                    <TabContext value={tab}>
-                        <Box
-                            sx={{
-                                borderBottom: 1,
-                                borderColor: "divider",
-                            }}
-                        >
-                            <TabList
-                                onChange={(e, val) => setTab(val)}
-                                aria-label="lab API tabs example"
-                            >
-                                <Tab label="Active" value="1" />
-                                <Tab label="Done" value="2" />
-                            </TabList>
-                        </Box>
-                        <TabPanel value="1">
-                            <List
+                <div className="h-full">
+                    {!isLoading && !isError && (
+                        <TabContext value={tab}>
+                            <Box
                                 sx={{
-                                    width: "100%",
-                                    bgcolor: "background.paper",
+                                    borderBottom: 1,
+                                    borderColor: "divider",
                                 }}
                             >
-                                {unDoneTask.map((task) => (
-                                    <ListItem key={task.id} disablePadding>
-                                        <ListItemText
-                                            primary={task.name}
-                                            secondary={
-                                                !!task.finishAt &&
-                                                `Due to ${task.finishAt}`
-                                            }
-                                        />
-                                        <div className="flex gap-x-1">
-                                            <Chip
-                                                size="small"
-                                                label={`• ${mapStatus(
-                                                    task.status
-                                                )}`}
-                                                color="secondary"
-                                                variant="outlined"
+                                <TabList
+                                    onChange={(e, val) => setTab(val)}
+                                    aria-label="lab API tabs example"
+                                >
+                                    <Tab label="Active" value="1" />
+                                    <Tab label="Done" value="2" />
+                                </TabList>
+                            </Box>
+                            <TabPanel value="1">
+                                <List
+                                    sx={{
+                                        width: "100%",
+                                        bgcolor: "background.paper",
+                                    }}
+                                >
+                                    {unDoneTask.map((task) => (
+                                        <ListItem key={task.id} disablePadding>
+                                            <ListItemText
+                                                primary={task.name}
+                                                secondary={
+                                                    !!task.finishAt &&
+                                                    `Due to ${task.finishAt}`
+                                                }
                                             />
-                                        </div>
-                                    </ListItem>
-                                ))}
-                            </List>
-                        </TabPanel>
-                        <TabPanel value="2">
-                            <List
-                                sx={{
-                                    width: "100%",
-                                    bgcolor: "background.paper",
-                                }}
-                            >
-                                {doneTask.map((task) => (
-                                    <ListItem key={task.id} disablePadding>
-                                        <ListItemText
-                                            primary={task.name}
-                                            secondary={
-                                                !!task.finishAt &&
-                                                `Due to ${task.finishAt}`
-                                            }
-                                        />
-                                        <div className="flex gap-x-1">
-                                            <Chip
-                                                size="small"
-                                                label={`• ${mapStatus(
-                                                    task.status
-                                                )}`}
-                                                color="success"
-                                                variant="outlined"
+                                            <div className="flex gap-x-1">
+                                                <Chip
+                                                    size="small"
+                                                    label={`• ${mapStatus(
+                                                        task.status
+                                                    )}`}
+                                                    color="secondary"
+                                                    variant="outlined"
+                                                />
+                                            </div>
+                                        </ListItem>
+                                    ))}
+                                </List>
+                            </TabPanel>
+                            <TabPanel value="2">
+                                <List
+                                    sx={{
+                                        width: "100%",
+                                        bgcolor: "background.paper",
+                                    }}
+                                >
+                                    {doneTask.map((task) => (
+                                        <ListItem key={task.id} disablePadding>
+                                            <ListItemText
+                                                primary={task.name}
+                                                secondary={
+                                                    !!task.finishAt &&
+                                                    `Due to ${task.finishAt}`
+                                                }
                                             />
-                                        </div>
-                                    </ListItem>
-                                ))}
-                            </List>
-                        </TabPanel>
-                    </TabContext>
+                                            <div className="flex gap-x-1">
+                                                <Chip
+                                                    size="small"
+                                                    label={`• ${mapStatus(
+                                                        task.status
+                                                    )}`}
+                                                    color="success"
+                                                    variant="outlined"
+                                                />
+                                            </div>
+                                        </ListItem>
+                                    ))}
+                                </List>
+                            </TabPanel>
+                        </TabContext>
+                    )}
+
+                    {isLoading && (
+                        <div className="mt-5 mb-5">
+                            {[...Array(5)].map((_, index) => (
+                                <Skeleton animation="wave" height={40} />
+                            ))}
+                        </div>
+                    )}
+
+                    {isError && (
+                        <div className="flex flex-col h-full justify-center items-center -mt-4">
+                            <ErrorOutlineIcon fontSize="large" />
+                            <Typography variant="h3" mt={1} color="inherit">
+                                There was an error while loading data
+                            </Typography>
+                        </div>
+                    )}
                 </div>
             </div>
 
