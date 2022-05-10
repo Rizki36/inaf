@@ -1,5 +1,6 @@
 # InAF
 Inaf Todo is an open source application for managing tasks in an institution/company.
+There are tasks (issue), task groups (milestones), projects like some features on github.
 <img width="1792" alt="TechStack (1)" src="https://user-images.githubusercontent.com/39044004/162791755-2ed66cf7-1b3e-49db-98d6-b478385e1792.png">
 
 
