@@ -16,6 +16,8 @@ import ProjectTeamsDeleteDialog from "./ProjectTeamsDeleteDialog";
 import ProjectTeamsCreateModal from "./ProjectTeamsCreateModal";
 import useModal from "hooks/useModal";
 import ProjectTeamsUpdateModal from "./ProjectTeamsUpdateModal";
+import LoadingCard from "@/components/ui-component/LoadingCard";
+import ErrorCard from "@/components/ui-component/ErrorCard";
 
 interface IProjectsTeamsTableProps {
     projectId: string;
@@ -55,8 +57,8 @@ const ProjectsTeamsTable = (props: IProjectsTeamsTableProps) => {
         });
     }, [data, isError, isLoading]);
 
-    if (isLoading) return <>Loading</>; // TODO : create skeleton project teams table
-    if (isError) return <>Error</>; // TODO : create common error component
+    if (isLoading) return <LoadingCard />;
+    if (isError) return <ErrorCard />;
 
     return (
         <>

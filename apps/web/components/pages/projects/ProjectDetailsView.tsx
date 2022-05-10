@@ -1,4 +1,6 @@
 import MainCard from "@/components/ui-component/cards/MainCard";
+import ErrorCard from "@/components/ui-component/ErrorCard";
+import LoadingCard from "@/components/ui-component/LoadingCard";
 import { gridSpacing } from "@/configs/constant";
 import { useProjectDetails } from "@/libs/query/projectQuery";
 import { Button, Grid, Typography } from "@mui/material";
@@ -30,8 +32,8 @@ const UserDetailsView = (props: ProjectDetailsViewProps) => {
         );
     }, [edit, toggleEdit]);
 
-    if (isLoading) return <>Loading</>; // TODO : create skeleton project table
-    if (isError) return <>Error</>; // TODO : create common error component
+    if (isLoading) return <LoadingCard />;
+    if (isError) return <ErrorCard />;
 
     /** component edit project details  */
     if (edit) {

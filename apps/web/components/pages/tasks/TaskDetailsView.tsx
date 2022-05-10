@@ -7,6 +7,8 @@ import TaskDetailsEdit from "./TaskDetailsEdit";
 /** components */
 import MainCard from "@/components/ui-component/cards/MainCard";
 import { formatDate } from "@/helpers/dateHelper";
+import LoadingCard from "@/components/ui-component/LoadingCard";
+import ErrorCard from "@/components/ui-component/ErrorCard";
 
 interface TaskDetailsViewProps {
     taskId: string;
@@ -32,8 +34,8 @@ const TaskDetailsView = (props: TaskDetailsViewProps) => {
         );
     }, [edit, toggleEdit]);
 
-    if (isLoading) return <>Loading</>; // TODO : create skeleton project table
-    if (isError) return <>Error</>; // TODO : create common error component
+    if (isLoading) return <LoadingCard />;
+    if (isError) return <ErrorCard />;
 
     if (edit) {
         return (
