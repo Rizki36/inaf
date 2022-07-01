@@ -17,7 +17,7 @@ import Breadcrumbs from "../../ui/Breadcrumbs";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import navigation from "@/components/menu-items";
-import { drawerWidth } from "@/configs/constant";
+import { drawerWidth } from "@/configs/constants";
 
 // assets
 import { IconChevronRight } from "@tabler/icons";

@@ -6,7 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { IUseModal } from "@/types/index";
 import { Grid, Typography } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";

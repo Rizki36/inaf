@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { commonError } from "@/helpers/errorHandler";
 import { Button, Grid } from "@mui/material";
 import { EditProp, Inputs } from "@/types/index";

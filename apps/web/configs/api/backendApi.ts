@@ -1,4 +1,4 @@
-import { key_token } from './../constant';
+import { key_token } from '../constants';
 import axios from "axios";
 import process from "process";
 

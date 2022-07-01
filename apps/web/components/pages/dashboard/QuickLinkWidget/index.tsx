@@ -1,4 +1,4 @@
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import ButtonBase from "@mui/material/ButtonBase";
 import Grid from "@mui/material/Grid";
 import { IconCurrencyDollar, IconStack, IconUsers } from "@tabler/icons";

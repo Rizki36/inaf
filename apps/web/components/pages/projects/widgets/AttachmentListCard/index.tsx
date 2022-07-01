@@ -10,7 +10,7 @@ import MainCard from "@/components/ui/MainCard";
 import SkeletonPopularCard from "@/components/ui/Skeleton/PopularCard";
 
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import AnimateButton from "@/components/ui/AnimateButton";
 import AttachmentItem from "./AttachmentItem";
 

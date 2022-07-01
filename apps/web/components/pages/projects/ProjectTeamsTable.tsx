@@ -10,7 +10,7 @@ import { useMemo, useState } from "react";
 import { IconPlus, IconPencil } from "@tabler/icons";
 import { useTeamsByPorject } from "@/libs/query/teamQuery";
 import MainCard from "@/components/ui/MainCard";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import AnimateButton from "@/components/ui/AnimateButton";
 import ProjectTeamsDeleteDialog from "./ProjectTeamsDeleteDialog";
 import ProjectTeamsCreateModal from "./ProjectTeamsCreateModal";

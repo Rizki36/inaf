@@ -1,4 +1,4 @@
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { Grid, Skeleton } from "@mui/material";
 import MainCard from "../MainCard";
 

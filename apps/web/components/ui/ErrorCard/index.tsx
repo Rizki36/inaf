@@ -1,4 +1,4 @@
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { Grid, Typography } from "@mui/material";
 import MainCard from "../MainCard";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";

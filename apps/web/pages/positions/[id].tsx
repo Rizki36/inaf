@@ -2,7 +2,7 @@ import PositionDetailsView from "@/components/pages/positions/PositionDetailsVie
 import { Page } from "@/types/index";
 import { Grid } from "@mui/material";
 import { useRouter } from "next/router";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import AttachmentListCard from "@/components/pages/positions/widgets/AttachmentListCard";
 import TotalPositionUsersCard from "@/components/pages/positions/widgets/TotalPositionUsersCard";
 

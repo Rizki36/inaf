@@ -1,4 +1,4 @@
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { getOptionsFromPaginationQuery } from "@/helpers/inputHelper";
 import { useUsers } from "@/libs/query/userQuery";
 import { Inputs, IOption, IUseModal } from "@/types/index";

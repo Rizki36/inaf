@@ -1,7 +1,7 @@
 import { Page } from "@/types/index";
 import { Grid } from "@mui/material";
 import { useRouter } from "next/router";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 
 /** components */
 import TaskGroupDetailsView from "@/components/pages/task-groups/TaskGroupDetailsView";

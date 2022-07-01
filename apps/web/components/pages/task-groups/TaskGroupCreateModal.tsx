@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { Inputs } from "@/types/index";
 import { createTaskGroup } from "@/libs/mutation/taskGroupMutation";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createTaskGroupBody } from "server";

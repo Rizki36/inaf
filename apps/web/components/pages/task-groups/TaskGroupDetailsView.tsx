@@ -1,4 +1,4 @@
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { useTaskGroupDetails } from "@/libs/query/taskGroupQuery";
 import { Button, Grid, Typography } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";

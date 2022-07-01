@@ -2,7 +2,7 @@ import ProjectDetailsView from "@/components/pages/projects/ProjectDetailsView";
 import { Page } from "@/types/index";
 import { Grid } from "@mui/material";
 import { useRouter } from "next/router";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import AttachmentListCard from "@/components/pages/projects/widgets/AttachmentListCard";
 import ProjectsTeamsTable from "@/components/pages/projects/ProjectTeamsTable";
 

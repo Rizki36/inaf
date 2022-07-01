@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { Box } from "@mui/system";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { useProjects } from "@/libs/query/projectQuery";
 import { Button, Grid } from "@mui/material";
 import { patchTaskGroup } from "@/libs/mutation/taskGroupMutation";

@@ -8,7 +8,7 @@ import { loginMutation } from "@/libs/mutation/loginMutation";
 import { commonError } from "helpers/errorHandler";
 import { AxiosError } from "axios";
 import Router from "next/router";
-import { key_token } from "@/configs/constant";
+import { key_token } from "@/configs/constants";
 import { mutate } from "swr";
 
 interface IForm {

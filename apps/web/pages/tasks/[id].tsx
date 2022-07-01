@@ -1,4 +1,4 @@
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { Page } from "@/types/index";
 import { Grid } from "@mui/material";
 import { useRouter } from "next/router";

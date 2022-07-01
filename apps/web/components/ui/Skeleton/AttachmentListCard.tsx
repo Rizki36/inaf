@@ -1,6 +1,6 @@
 import { Card, CardContent, Grid } from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
-import { gridSpacing } from "configs/constant";
+import { gridSpacing } from "@/configs/constants";
 
 const AttachmentListCard = () => (
     <Card>

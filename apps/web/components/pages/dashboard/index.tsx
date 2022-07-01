@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import Grid from "@mui/material/Grid";
 import ProjectDetailWidget from "./ProjectDetailWidget";
 import ProjectWidget from "./ProjectWidget";

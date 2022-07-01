@@ -7,7 +7,7 @@ import { Box, Card, Divider, Grid, Typography } from "@mui/material";
 import MuiBreadcrumbs from "@mui/material/Breadcrumbs";
 
 // project imports
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 
 // assets
 import { IconTallymark1 } from "@tabler/icons";

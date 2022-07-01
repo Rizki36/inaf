@@ -3,7 +3,7 @@ import { Inputs } from "@/types/index";
 import { AxiosError } from "axios";
 import { createTask } from "@/libs/mutation/taskMutation";
 import { useProjects } from "@/libs/query/projectQuery";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTaskGroups } from "@/libs/query/taskGroupQuery";

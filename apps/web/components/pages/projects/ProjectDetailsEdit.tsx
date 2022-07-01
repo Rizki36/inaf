@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { ReactNode } from "react";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { EditProp, Inputs } from "@/types/index";
 import { patchProjectDetails } from "@/libs/mutation/projectMutation";
 import { SubmitHandler, useForm } from "react-hook-form";

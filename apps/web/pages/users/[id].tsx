@@ -3,7 +3,7 @@ import { Page } from "@/types/index";
 import { Grid } from "@mui/material";
 import { useRouter } from "next/router";
 import RunningProjectCard from "@/components/pages/users/widgets/RunningProjectCard";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import TodoListCard from "@/components/pages/users/widgets/TodoListCard";
 
 const UserDetails: Page = () => {
