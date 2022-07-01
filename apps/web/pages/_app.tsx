@@ -6,7 +6,7 @@ import Auth from "../components/Auth";
 import { Provider } from "react-redux";
 import store, { persistor } from "../configs/redux/store";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material";
-import AdminLayout from "components/layouts/admin";
+import AdminLayout from "@/components/layout/AdminLayout";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import themes from "configs/themes";
 import { useAppSelector } from "@/configs/redux/hooks";
