@@ -24,10 +24,11 @@ import { IconChevronRight } from "@tabler/icons";
 import { SET_MENU } from "@/configs/redux/customizationSlice";
 
 // styles
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+const Main = styled("main", {
+    shouldForwardProp: (prop) => prop !== "open",
+})(
     // @ts-ignore
     ({ theme, open }) => ({
-        // @ts-ignore
         ...theme.typography.mainContent,
         ...(!open && {
             borderBottomLeftRadius: 0,
@@ -71,8 +72,6 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     })
 );
 
-// ==============================|| MAIN LAYOUT ||============================== //
-
 const MainLayout = ({ children }) => {
     const theme = useTheme();
     const matchDownMd = useMediaQuery(theme.breakpoints.down("lg"));
@@ -112,13 +111,11 @@ const MainLayout = ({ children }) => {
                 }}
             >
                 <Toolbar>
-                    {/* @ts-ignore */}
                     <Header handleLeftDrawerToggle={handleLeftDrawerToggle} />
                 </Toolbar>
             </AppBar>
 
             {/* drawer */}
-            {/* @ts-ignore */}
             <Sidebar
                 drawerOpen={leftDrawerOpened}
                 drawerToggle={handleLeftDrawerToggle}
@@ -138,8 +135,6 @@ const MainLayout = ({ children }) => {
                 />
                 {children}
             </Main>
-            {/* @ts-ignore */}
-            {/* <Customization /> */}
         </Box>
     );
 };
