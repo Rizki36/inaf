@@ -20,7 +20,6 @@ import navigation from "@/components/menu-items";
 import { drawerWidth } from "@/configs/constant";
 
 // assets
-// @ts-ignore
 import { IconChevronRight } from "@tabler/icons";
 import { SET_MENU } from "@/configs/redux/customizationSlice";
 
