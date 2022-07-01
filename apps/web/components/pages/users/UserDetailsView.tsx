@@ -1,5 +1,5 @@
 import MainCard from "@/components/ui-component/cards/MainCard";
-import ErrorCard from "@/components/ui-component/ErrorCard";
+import ErrorCard from "@/components/ui/ErrorCard";
 import LoadingCard from "@/components/ui/LoadingCard";
 import { gridSpacing } from "@/configs/constant";
 import { useUserDetails } from "@/libs/query/userQuery";

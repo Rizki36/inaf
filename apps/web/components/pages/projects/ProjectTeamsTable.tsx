@@ -17,7 +17,7 @@ import ProjectTeamsCreateModal from "./ProjectTeamsCreateModal";
 import useModal from "hooks/useModal";
 import ProjectTeamsUpdateModal from "./ProjectTeamsUpdateModal";
 import LoadingCard from "@/components/ui/LoadingCard";
-import ErrorCard from "@/components/ui-component/ErrorCard";
+import ErrorCard from "@/components/ui/ErrorCard";
 
 interface IProjectsTeamsTableProps {
     projectId: string;

@@ -7,7 +7,7 @@ import TaskGroupDetailsEdit from "./TaskGroupDetailsEdit";
 /** components */
 import MainCard from "@/components/ui-component/cards/MainCard";
 import LoadingCard from "@/components/ui/LoadingCard";
-import ErrorCard from "@/components/ui-component/ErrorCard";
+import ErrorCard from "@/components/ui/ErrorCard";
 
 interface TaskGroupDetailsViewProps {
     taskGroupId: string;
