@@ -17,7 +17,7 @@ import { useEffect, useMemo, useState, ReactNode } from "react";
 import MainCard from "@/components/ui-component/cards/MainCard";
 import ControlledTextField from "@/components/ui-component/ControlledTextField";
 import ControlledDatePicker from "@/components/ui-component/ControlledDatePicker";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 
 interface IForm extends Omit<updateTaskBody, "attachment"> {}
 

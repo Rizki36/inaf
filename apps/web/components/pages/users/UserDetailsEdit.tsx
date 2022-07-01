@@ -13,7 +13,7 @@ import { getUserDetailsDTO, updateUserDetailsBody } from "server";
 
 /** components */
 import MainCard from "@/components/ui-component/cards/MainCard";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 import ControlledTextField from "@/components/ui-component/ControlledTextField";
 
 interface IForm extends updateUserDetailsBody {}

@@ -9,7 +9,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
 /** components */
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";

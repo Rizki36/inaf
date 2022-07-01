@@ -14,7 +14,7 @@ import { getTaskGroupDetailsDTO, updateTaskGroupBody } from "server";
 /** components */
 import MainCard from "@/components/ui-component/cards/MainCard";
 import ControlledTextField from "@/components/ui-component/ControlledTextField";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 
 interface IForm extends Omit<updateTaskGroupBody, "attachment"> {}
 

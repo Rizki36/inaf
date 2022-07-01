@@ -16,7 +16,7 @@ import { createUserBody } from "server";
 import { createUser } from "@/libs/mutation/userMutation";
 import { commonError } from "@/helpers/errorHandler";
 import { usePositions } from "@/libs/query/positionQuery";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 import ControlledTextField from "@/components/ui-component/ControlledTextField";
 
 interface IProps {

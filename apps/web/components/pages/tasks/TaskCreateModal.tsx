@@ -22,7 +22,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import ControlledTextField from "@/components/ui-component/ControlledTextField";
 import ControlledDatePicker from "@/components/ui-component/ControlledDatePicker";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 
 interface IProps {
     modal: IUseModal;

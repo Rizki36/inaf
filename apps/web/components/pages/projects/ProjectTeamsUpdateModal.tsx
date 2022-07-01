@@ -17,7 +17,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { usePositions } from "@/libs/query/positionQuery";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 import { useUsers } from "@/libs/query/userQuery";
 import { getOptionsFromPaginationQuery } from "@/helpers/inputHelper";
 import { updateTeam } from "@/libs/mutation/teamMutation";
