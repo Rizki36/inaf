@@ -1,5 +1,5 @@
 import React from "react";
-import QuickSearchToolbar from "@/components/QuickSearchToolbar";
+import QuickSearchToolbar from "@/components/ui/QuickSearchToolbar";
 import { RowsState } from "@/types/index";
 import { IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
