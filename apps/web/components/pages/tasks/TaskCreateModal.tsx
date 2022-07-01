@@ -21,7 +21,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import ControlledTextField from "@/components/ui-component/ControlledTextField";
-import ControlledDatePicker from "@/components/ui-component/ControlledDatePicker";
+import ControlledDatePicker from "@/components/ui/ControlledDatePicker";
 import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 
 interface IProps {
