@@ -49,7 +49,7 @@ const RunningProjectCard = ({ userId }: { userId: string }) => {
     const theme = useTheme();
     const [currentProject, setCurrentProject] = useState<Project>(null);
 
-    const { data, isError, isLoading } = useUserProject({
+    const { data, isLoading } = useUserProject({
         userId,
     });
 
@@ -161,7 +161,7 @@ const RunningProjectCard = ({ userId }: { userId: string }) => {
                         </Grid>
                         <Grid item>
                             <Grid container alignItems="center">
-                                {!!currentProject ? (
+                                {currentProject ? (
                                     <>
                                         <Grid item>
                                             <Typography

@@ -9,7 +9,7 @@ export type LinkItemType = {
 };
 const LinkItem: FC<LinkItemType> = ({ Icon, title, href }) => {
     return (
-        <Link href={href}>
+        <Link href={href} passHref>
             <ButtonBase className="bg-white flex items-center justify-between py-5 px-5 rounded-lg w-full">
                 <div className="flex items-center">
                     <Icon />

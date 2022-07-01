@@ -22,6 +22,7 @@ const Dashboard = () => {
         if (data?.projectId) {
             dispatch(setProject(data.projectId));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data?.projectId]);
 
     const progressTask = data?.totalTaskDone || 0;

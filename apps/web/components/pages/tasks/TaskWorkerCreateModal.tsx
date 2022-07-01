@@ -3,7 +3,7 @@ import { getOptionsFromPaginationQuery } from "@/helpers/inputHelper";
 import { useUsers } from "@/libs/query/userQuery";
 import { Inputs, IOption, IUseModal } from "@/types/index";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert, Grid, Typography } from "@mui/material";
+import { Alert, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
