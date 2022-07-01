@@ -1,7 +1,7 @@
 import { styled, useTheme } from "@mui/material/styles";
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import MainCard from "@/components/ui/MainCard";
-import SkeletonRunningProjectCard from "@/components/ui-component/cards/Skeleton/EarningCard";
+import SkeletonRunningProjectCard from "@/components/ui/Skeleton/EarningCard";
 
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 

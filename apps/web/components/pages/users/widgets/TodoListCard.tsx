@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import MainCard from "@/components/ui/MainCard";
-import SkeletonPopularCard from "@/components/ui-component/cards/Skeleton/PopularCard";
+import SkeletonPopularCard from "@/components/ui/Skeleton/PopularCard";
 
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import { gridSpacing } from "@/configs/constant";
