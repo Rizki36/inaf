@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 // project imports
-import AnimateButton from "@/components/ui-component/extended/AnimateButton";
+import AnimateButton from "@/components/ui/AnimateButton";
 
 // styles
 const CardStyle = styled(Card)(({ theme }) => ({

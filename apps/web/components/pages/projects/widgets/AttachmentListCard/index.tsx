@@ -11,7 +11,7 @@ import SkeletonPopularCard from "@/components/ui-component/cards/Skeleton/Popula
 
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import { gridSpacing } from "@/configs/constant";
-import AnimateButton from "@/components/ui-component/extended/AnimateButton";
+import AnimateButton from "@/components/ui/AnimateButton";
 import AttachmentItem from "./AttachmentItem";
 
 const AttachmentListCard = ({ isLoading }: { isLoading: boolean }) => {
