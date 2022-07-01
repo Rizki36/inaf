@@ -14,7 +14,7 @@ import { getUserDetailsDTO, updateUserDetailsBody } from "server";
 /** components */
 import MainCard from "@/components/ui-component/cards/MainCard";
 import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
+import ControlledTextField from "@/components/ui/ControlledTextField";
 
 interface IForm extends updateUserDetailsBody {}
 

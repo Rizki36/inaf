@@ -1,6 +1,6 @@
 import { Button, Grid } from "@mui/material";
 import MainCard from "@/components/ui-component/cards/MainCard";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
+import ControlledTextField from "@/components/ui/ControlledTextField";
 
 import * as yup from "yup";
 import { ReactNode } from "react";

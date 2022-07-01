@@ -20,7 +20,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
+import ControlledTextField from "@/components/ui/ControlledTextField";
 import ControlledDatePicker from "@/components/ui/ControlledDatePicker";
 import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 

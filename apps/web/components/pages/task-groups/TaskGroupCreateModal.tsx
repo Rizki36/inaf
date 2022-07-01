@@ -17,7 +17,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
+import ControlledTextField from "@/components/ui/ControlledTextField";
 import { useProjects } from "@/libs/query/projectQuery";
 
 interface IProps {

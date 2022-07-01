@@ -17,7 +17,7 @@ import { createUser } from "@/libs/mutation/userMutation";
 import { commonError } from "@/helpers/errorHandler";
 import { usePositions } from "@/libs/query/positionQuery";
 import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
+import ControlledTextField from "@/components/ui/ControlledTextField";
 
 interface IProps {
     modal: IUseModal;

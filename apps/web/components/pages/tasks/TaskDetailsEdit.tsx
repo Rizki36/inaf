@@ -15,7 +15,7 @@ import { useEffect, useMemo, useState, ReactNode } from "react";
 
 /** components */
 import MainCard from "@/components/ui-component/cards/MainCard";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
+import ControlledTextField from "@/components/ui/ControlledTextField";
 import ControlledDatePicker from "@/components/ui/ControlledDatePicker";
 import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 
