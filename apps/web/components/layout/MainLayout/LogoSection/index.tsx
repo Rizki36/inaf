@@ -2,7 +2,7 @@
 import { ButtonBase } from "@mui/material";
 
 // project imports
-import Logo from "@/components/ui-component/Logo";
+import Logo from "@/components/ui/Logo";
 
 const LogoSection = () => (
     <ButtonBase disableRipple>

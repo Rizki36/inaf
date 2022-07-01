@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useProfile } from "@/libs/query/userQuery";
 import { AuthOptions } from "../@types";
 import React, { useCallback, useEffect } from "react";
-import Logo from "./ui-component/Logo";
+import Logo from "./ui/Logo";
 
 interface Props extends AuthOptions {
     children: any;
