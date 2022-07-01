@@ -1,8 +1,8 @@
 import LoginForm from "components/pages/auth/login/LoginForm";
 import { Fragment } from "react";
-import { Page } from "../../@types";
+import { Page } from "../../../@types";
 import { useTheme } from "@mui/material/styles";
-import { Divider, Grid, Stack, Typography, useMediaQuery } from "@mui/material";
+import { Divider, Grid, Stack, Typography } from "@mui/material";
 import Logo from "@/components/ui/Logo";
 import AuthWrapper1 from "@/components/pages/auth/login/AuthWrapper1";
 import AuthCardWrapper from "@/components/pages/auth/login/AuthCardWrapper";
