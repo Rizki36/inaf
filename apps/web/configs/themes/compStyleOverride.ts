@@ -1,5 +1,4 @@
 import { CustomComponents } from "@/types/index";
-import { Theme, ThemeOptions } from "@mui/material";
 
 export default function componentStyleOverrides(theme: CustomComponents) {
     const bgColor = theme.colors?.grey50;
