@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 // project imports
-import Breadcrumbs from "../../ui-component/extended/Breadcrumbs";
+import Breadcrumbs from "../../ui/Breadcrumbs";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import navigation from "@/components/menu-items";
