@@ -4,7 +4,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Inputs } from "@/types/index";
-import { loginMutation } from "libs/mutation/Auth";
+import { loginMutation } from "@/libs/mutation/loginMutation";
 import { commonError } from "helpers/errorHandler";
 import { AxiosError } from "axios";
 import Router from "next/router";
