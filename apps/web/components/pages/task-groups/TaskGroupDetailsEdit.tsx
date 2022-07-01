@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { Box } from "@mui/system";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { useProjects } from "@/libs/query/projectQuery";
 import { Button, Grid } from "@mui/material";
 import { patchTaskGroup } from "@/libs/mutation/taskGroupMutation";
@@ -12,9 +12,9 @@ import { useEffect, useMemo, useState, ReactNode } from "react";
 import { getTaskGroupDetailsDTO, updateTaskGroupBody } from "server";
 
 /** components */
-import MainCard from "@/components/ui-component/cards/MainCard";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
+import MainCard from "@/components/ui/MainCard";
+import ControlledTextField from "@/components/ui/ControlledTextField";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 
 interface IForm extends Omit<updateTaskGroupBody, "attachment"> {}
 

@@ -144,7 +144,11 @@ const TaskWidget: FC<{
                     {isLoading && (
                         <div className="mt-5 mb-5">
                             {[...Array(5)].map((_, index) => (
-                                <Skeleton animation="wave" height={40} />
+                                <Skeleton
+                                    key={index}
+                                    animation="wave"
+                                    height={40}
+                                />
                             ))}
                         </div>
                     )}

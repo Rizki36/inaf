@@ -1,5 +1,4 @@
-import MainCard from "@/components/ui-component/cards/MainCard";
-import { deleteTask } from "@/libs/mutation/taskMutation";
+import MainCard from "@/components/ui/MainCard";
 import { useTaskWorkersByTaskId } from "@/libs/query/taskWorkerQuery";
 import { Button } from "@mui/material";
 import { IconPlus } from "@tabler/icons";
@@ -68,7 +67,12 @@ const ItemWorker: ItemWorkerType = ({ id, img, name, position, mutate }) => {
         <div className="flex items-center justify-between mb-5">
             <div className="flex items-center">
                 <div className="relative w-10 h-10 overflow-hidden rounded-full">
-                    <Image src={img} layout="fill" objectFit="cover" />
+                    <Image
+                        src={img}
+                        layout="fill"
+                        objectFit="cover"
+                        alt="image"
+                    />
                 </div>
                 <div className="ml-5">
                     <h4 className="m-0">{name}</h4>

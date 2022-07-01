@@ -1,6 +1,5 @@
 import { setProject } from "@/configs/redux/dashboardSlice";
 import { useAppDispatch, useAppSelector } from "@/configs/redux/hooks";
-import { useDashboard } from "@/libs/query/dashboardQuery";
 import { useProjects } from "@/libs/query/projectQuery";
 import Avatar from "@mui/material/Avatar";
 import ButtonBase from "@mui/material/ButtonBase";
@@ -29,6 +28,7 @@ const ProjectWidget = () => {
         // if (data) {
         //     dispatch(setProject(data.id));
         // }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [project?.data]);
 
     const handleChange = (direction: "next" | "back" = "next") => {

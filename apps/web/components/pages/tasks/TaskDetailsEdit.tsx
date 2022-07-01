@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { patchTask } from "@/libs/mutation/taskMutation";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { useProjects } from "@/libs/query/projectQuery";
 import { Button, Grid } from "@mui/material";
 import { useTaskGroups } from "@/libs/query/taskGroupQuery";
@@ -14,10 +14,10 @@ import { getTaskDetailsDTO, updateTaskBody } from "server";
 import { useEffect, useMemo, useState, ReactNode } from "react";
 
 /** components */
-import MainCard from "@/components/ui-component/cards/MainCard";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
-import ControlledDatePicker from "@/components/ui-component/ControlledDatePicker";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
+import MainCard from "@/components/ui/MainCard";
+import ControlledTextField from "@/components/ui/ControlledTextField";
+import ControlledDatePicker from "@/components/ui/ControlledDatePicker";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 
 interface IForm extends Omit<updateTaskBody, "attachment"> {}
 

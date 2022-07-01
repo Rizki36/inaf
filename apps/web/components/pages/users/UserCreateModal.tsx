@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { IOption, IUseModal } from "@/types/index";
 import { Grid, Typography } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -16,8 +16,8 @@ import { createUserBody } from "server";
 import { createUser } from "@/libs/mutation/userMutation";
 import { commonError } from "@/helpers/errorHandler";
 import { usePositions } from "@/libs/query/positionQuery";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
+import ControlledTextField from "@/components/ui/ControlledTextField";
 
 interface IProps {
     modal: IUseModal;

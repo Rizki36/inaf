@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import Grid from "@mui/material/Grid";
 import ProjectDetailWidget from "./ProjectDetailWidget";
 import ProjectWidget from "./ProjectWidget";
@@ -22,6 +22,7 @@ const Dashboard = () => {
         if (data?.projectId) {
             dispatch(setProject(data.projectId));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data?.projectId]);
 
     const progressTask = data?.totalTaskDone || 0;

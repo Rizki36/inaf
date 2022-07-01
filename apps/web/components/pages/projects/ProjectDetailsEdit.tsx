@@ -1,12 +1,12 @@
 import { Button, Grid } from "@mui/material";
-import MainCard from "@/components/ui-component/cards/MainCard";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
+import MainCard from "@/components/ui/MainCard";
+import ControlledTextField from "@/components/ui/ControlledTextField";
 
 import * as yup from "yup";
 import { ReactNode } from "react";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { EditProp, Inputs } from "@/types/index";
 import { patchProjectDetails } from "@/libs/mutation/projectMutation";
 import { SubmitHandler, useForm } from "react-hook-form";

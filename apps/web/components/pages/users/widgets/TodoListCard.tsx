@@ -9,12 +9,12 @@ import {
     Typography,
 } from "@mui/material";
 
-import MainCard from "@/components/ui-component/cards/MainCard";
-import SkeletonPopularCard from "@/components/ui-component/cards/Skeleton/PopularCard";
+import MainCard from "@/components/ui/MainCard";
+import SkeletonPopularCard from "@/components/ui/Skeleton/PopularCard";
 
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
-import { gridSpacing } from "@/configs/constant";
-import AnimateButton from "@/components/ui-component/extended/AnimateButton";
+import { gridSpacing } from "@/configs/constants";
+import AnimateButton from "@/components/ui/AnimateButton";
 
 const TodoListCard = ({ isLoading }: { isLoading: boolean }) => {
     const theme = useTheme();

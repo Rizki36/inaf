@@ -6,7 +6,7 @@ import { Page, RowsState } from "@/types/index";
 import { useEffect, useState } from "react";
 
 /** components */
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import TaskGroupTable from "@/components/pages/task-groups/TaskGroupTable";
 import TaskGroupCreateModal from "@/components/pages/task-groups/TaskGroupCreateModal";
 

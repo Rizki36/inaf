@@ -4,9 +4,9 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
+import ControlledTextField from "@/components/ui/ControlledTextField";
 
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { IUseModal } from "@/types/index";
 import { Grid, Typography } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";

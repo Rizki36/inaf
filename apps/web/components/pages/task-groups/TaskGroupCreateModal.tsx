@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { Inputs } from "@/types/index";
 import { createTaskGroup } from "@/libs/mutation/taskGroupMutation";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createTaskGroupBody } from "server";
@@ -16,8 +16,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
+import ControlledTextField from "@/components/ui/ControlledTextField";
 import { useProjects } from "@/libs/query/projectQuery";
 
 interface IProps {

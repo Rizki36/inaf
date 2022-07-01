@@ -1,7 +1,7 @@
-import MainCard from "@/components/ui-component/cards/MainCard";
-import ErrorCard from "@/components/ui-component/ErrorCard";
-import LoadingCard from "@/components/ui-component/LoadingCard";
-import { gridSpacing } from "@/configs/constant";
+import MainCard from "@/components/ui/MainCard";
+import ErrorCard from "@/components/ui/ErrorCard";
+import LoadingCard from "@/components/ui/LoadingCard";
+import { gridSpacing } from "@/configs/constants";
 import { usePositionDetails } from "@/libs/query/positionQuery";
 import { Button, Grid, Typography } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";

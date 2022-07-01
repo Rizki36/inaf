@@ -1,7 +1,7 @@
 import { styled, useTheme } from "@mui/material/styles";
 import { Avatar, Box, ButtonBase, Grid, Typography } from "@mui/material";
-import MainCard from "@/components/ui-component/cards/MainCard";
-import SkeletonRunningProjectCard from "@/components/ui-component/cards/Skeleton/EarningCard";
+import MainCard from "@/components/ui/MainCard";
+import SkeletonRunningProjectCard from "@/components/ui/Skeleton/EarningCard";
 
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { useUserProject } from "@/libs/query/userQuery";
@@ -49,7 +49,7 @@ const RunningProjectCard = ({ userId }: { userId: string }) => {
     const theme = useTheme();
     const [currentProject, setCurrentProject] = useState<Project>(null);
 
-    const { data, isError, isLoading } = useUserProject({
+    const { data, isLoading } = useUserProject({
         userId,
     });
 
@@ -161,7 +161,7 @@ const RunningProjectCard = ({ userId }: { userId: string }) => {
                         </Grid>
                         <Grid item>
                             <Grid container alignItems="center">
-                                {!!currentProject ? (
+                                {currentProject ? (
                                     <>
                                         <Grid item>
                                             <Typography

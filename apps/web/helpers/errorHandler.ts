@@ -1,4 +1,4 @@
-import { commonErrorMsg } from "@/configs/constant";
+import { commonErrorMsg } from "@/configs/constants";
 import { AxiosError } from "axios";
 export const commonError = (e: AxiosError) => {
     if (e.response?.data?.errors) {

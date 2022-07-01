@@ -1,13 +1,13 @@
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { useTaskGroupDetails } from "@/libs/query/taskGroupQuery";
 import { Button, Grid, Typography } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
 import TaskGroupDetailsEdit from "./TaskGroupDetailsEdit";
 
 /** components */
-import MainCard from "@/components/ui-component/cards/MainCard";
-import LoadingCard from "@/components/ui-component/LoadingCard";
-import ErrorCard from "@/components/ui-component/ErrorCard";
+import MainCard from "@/components/ui/MainCard";
+import LoadingCard from "@/components/ui/LoadingCard";
+import ErrorCard from "@/components/ui/ErrorCard";
 
 interface TaskGroupDetailsViewProps {
     taskGroupId: string;

@@ -3,7 +3,7 @@ import { Inputs } from "@/types/index";
 import { AxiosError } from "axios";
 import { createTask } from "@/libs/mutation/taskMutation";
 import { useProjects } from "@/libs/query/projectQuery";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTaskGroups } from "@/libs/query/taskGroupQuery";
@@ -20,9 +20,9 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
-import ControlledDatePicker from "@/components/ui-component/ControlledDatePicker";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
+import ControlledTextField from "@/components/ui/ControlledTextField";
+import ControlledDatePicker from "@/components/ui/ControlledDatePicker";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 
 interface IProps {
     modal: IUseModal;

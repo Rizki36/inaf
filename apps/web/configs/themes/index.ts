@@ -1,11 +1,8 @@
 import {
     CustomComponents,
-    CustomTypography,
     ICustomization,
 } from "@/types/index";
 import { createTheme, ThemeOptions } from "@mui/material/styles";
-
-import { Theme } from "@mui/material";
 
 // assets
 import colors from "../../assets/scss/_themes-vars.module.scss";

@@ -6,7 +6,7 @@ import Auth from "../components/Auth";
 import { Provider } from "react-redux";
 import store, { persistor } from "../configs/redux/store";
 import { StyledEngineProvider, ThemeProvider } from "@mui/material";
-import AdminLayout from "components/layouts/admin";
+import MainLayout from "@/components/layout/MainLayout";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import themes from "configs/themes";
 import { useAppSelector } from "@/configs/redux/hooks";
@@ -30,7 +30,7 @@ const Theme = ({ children }) => {
 };
 
 function MyApp({ Component, pageProps: { ...pageProps } }: Props) {
-    const Layout = Component.layout ?? AdminLayout;
+    const Layout = Component.layout ?? MainLayout;
     return (
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>

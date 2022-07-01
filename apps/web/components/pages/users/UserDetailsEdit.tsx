@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { Box } from "@mui/system";
 import { commonError } from "@/helpers/errorHandler";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { gridSpacing } from "@/configs/constant";
+import { gridSpacing } from "@/configs/constants";
 import { usePositions } from "@/libs/query/positionQuery";
 import { Button, Grid } from "@mui/material";
 import { patchUserDetails } from "@/libs/mutation/userMutation";
@@ -12,9 +12,9 @@ import { useEffect, useMemo, useState, ReactNode } from "react";
 import { getUserDetailsDTO, updateUserDetailsBody } from "server";
 
 /** components */
-import MainCard from "@/components/ui-component/cards/MainCard";
-import ControlledAutocomplete from "@/components/ui-component/ControlledAutocomplete";
-import ControlledTextField from "@/components/ui-component/ControlledTextField";
+import MainCard from "@/components/ui/MainCard";
+import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
+import ControlledTextField from "@/components/ui/ControlledTextField";
 
 interface IForm extends updateUserDetailsBody {}
 

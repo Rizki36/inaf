@@ -3,8 +3,8 @@ import { Avatar, Box, Grid, Typography } from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 /** components */
-import MainCard from "@/components/ui-component/cards/MainCard";
-import SkeletonRunningProjectCard from "@/components/ui-component/cards/Skeleton/EarningCard";
+import MainCard from "@/components/ui/MainCard";
+import SkeletonRunningProjectCard from "@/components/ui/Skeleton/EarningCard";
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
