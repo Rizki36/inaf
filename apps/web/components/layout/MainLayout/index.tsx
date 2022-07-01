@@ -16,7 +16,7 @@ import {
 import Breadcrumbs from "../../ui/Breadcrumbs";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import navigation from "@/components/menu-items";
+import navigation from "@/components/layout/MainLayout/menuItem";
 import { drawerWidth } from "@/configs/constants";
 
 // assets
