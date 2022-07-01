@@ -1,5 +1,5 @@
 import UsersTable from "@/components/pages/users/UsersTable";
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import { Page, RowsState } from "@/types/index";
 import { Button } from "@mui/material";
 import { useUsers } from "libs/query/userQuery";

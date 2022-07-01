@@ -10,7 +10,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { updatePositionBody, getPositionDetailsDTO } from "server";
 
 /** components */
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import ControlledTextField from "@/components/ui/ControlledTextField";
 
 interface IForm extends updatePositionBody {}

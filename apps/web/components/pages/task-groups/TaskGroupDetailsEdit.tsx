@@ -12,7 +12,7 @@ import { useEffect, useMemo, useState, ReactNode } from "react";
 import { getTaskGroupDetailsDTO, updateTaskGroupBody } from "server";
 
 /** components */
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import ControlledTextField from "@/components/ui/ControlledTextField";
 import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";
 

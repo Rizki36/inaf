@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from "react";
 import TaskDetailsEdit from "./TaskDetailsEdit";
 
 /** components */
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import { formatDate } from "@/helpers/dateHelper";
 import LoadingCard from "@/components/ui/LoadingCard";
 import ErrorCard from "@/components/ui/ErrorCard";

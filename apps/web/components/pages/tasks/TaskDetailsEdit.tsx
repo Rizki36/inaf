@@ -14,7 +14,7 @@ import { getTaskDetailsDTO, updateTaskBody } from "server";
 import { useEffect, useMemo, useState, ReactNode } from "react";
 
 /** components */
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import ControlledTextField from "@/components/ui/ControlledTextField";
 import ControlledDatePicker from "@/components/ui/ControlledDatePicker";
 import ControlledAutocomplete from "@/components/ui/ControlledAutocomplete";

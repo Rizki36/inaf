@@ -1,5 +1,5 @@
 import ProjectsTable from "@/components/pages/projects/ProjectsTable";
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import { Page, RowsState } from "@/types/index";
 import { Button } from "@mui/material";
 import { useProjects } from "libs/query/projectQuery";

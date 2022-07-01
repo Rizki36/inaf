@@ -1,4 +1,4 @@
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import { deleteTask } from "@/libs/mutation/taskMutation";
 import { useTaskWorkersByTaskId } from "@/libs/query/taskWorkerQuery";
 import { Button } from "@mui/material";

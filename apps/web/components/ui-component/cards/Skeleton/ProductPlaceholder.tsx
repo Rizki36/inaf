@@ -2,7 +2,7 @@
 import { CardContent, Grid, Skeleton, Stack } from "@mui/material";
 
 // project import
-import MainCard from "../MainCard";
+import MainCard from "../../../ui/MainCard";
 
 // ===========================|| SKELETON TOTAL GROWTH BAR CHART ||=========================== //
 

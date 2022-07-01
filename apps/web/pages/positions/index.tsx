@@ -1,5 +1,5 @@
 import PositionsTable from "@/components/pages/positions/PositionsTable";
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import { Page, RowsState } from "@/types/index";
 import { Button } from "@mui/material";
 import { usePositions } from "libs/query/positionQuery";

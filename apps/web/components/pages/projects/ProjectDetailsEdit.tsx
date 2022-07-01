@@ -1,5 +1,5 @@
 import { Button, Grid } from "@mui/material";
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import ControlledTextField from "@/components/ui/ControlledTextField";
 
 import * as yup from "yup";

@@ -9,7 +9,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useMemo, useState } from "react";
 import { IconPlus, IconPencil } from "@tabler/icons";
 import { useTeamsByPorject } from "@/libs/query/teamQuery";
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import { gridSpacing } from "@/configs/constant";
 import AnimateButton from "@/components/ui/AnimateButton";
 import ProjectTeamsDeleteDialog from "./ProjectTeamsDeleteDialog";

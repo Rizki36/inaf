@@ -2,7 +2,7 @@
 import { Box } from "@mui/material";
 
 // project import
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 
 // ==============================|| AUTHENTICATION CARD WRAPPER ||============================== //
 

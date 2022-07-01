@@ -9,7 +9,7 @@ import {
     Typography,
 } from "@mui/material";
 
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import TotalPositionUsersCardSkeleton from "@/components/ui-component/cards/Skeleton/TotalPositionUsersCard";
 
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";

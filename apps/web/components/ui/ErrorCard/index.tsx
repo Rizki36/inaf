@@ -1,6 +1,6 @@
 import { gridSpacing } from "@/configs/constant";
 import { Grid, Typography } from "@mui/material";
-import MainCard from "../../ui-component/cards/MainCard";
+import MainCard from "../MainCard";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { FC } from "react";
 

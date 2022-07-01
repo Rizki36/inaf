@@ -6,7 +6,7 @@ import {
     Typography,
 } from "@mui/material";
 
-import MainCard from "@/components/ui-component/cards/MainCard";
+import MainCard from "@/components/ui/MainCard";
 import SkeletonPopularCard from "@/components/ui-component/cards/Skeleton/PopularCard";
 
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
