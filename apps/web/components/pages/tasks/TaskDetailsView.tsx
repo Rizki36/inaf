@@ -7,7 +7,7 @@ import TaskDetailsEdit from "./TaskDetailsEdit";
 /** components */
 import MainCard from "@/components/ui-component/cards/MainCard";
 import { formatDate } from "@/helpers/dateHelper";
-import LoadingCard from "@/components/ui-component/LoadingCard";
+import LoadingCard from "@/components/ui/LoadingCard";
 import ErrorCard from "@/components/ui-component/ErrorCard";
 
 interface TaskDetailsViewProps {

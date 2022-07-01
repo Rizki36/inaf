@@ -1,6 +1,6 @@
 import MainCard from "@/components/ui-component/cards/MainCard";
 import ErrorCard from "@/components/ui-component/ErrorCard";
-import LoadingCard from "@/components/ui-component/LoadingCard";
+import LoadingCard from "@/components/ui/LoadingCard";
 import { gridSpacing } from "@/configs/constant";
 import { useProjectDetails } from "@/libs/query/projectQuery";
 import { Button, Grid, Typography } from "@mui/material";

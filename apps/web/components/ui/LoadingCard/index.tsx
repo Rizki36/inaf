@@ -1,6 +1,6 @@
 import { gridSpacing } from "@/configs/constant";
 import { Grid, Skeleton } from "@mui/material";
-import MainCard from "./cards/MainCard";
+import MainCard from "../../ui-component/cards/MainCard";
 
 const LoadingCard = () => {
     return (

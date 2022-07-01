@@ -16,7 +16,7 @@ import ProjectTeamsDeleteDialog from "./ProjectTeamsDeleteDialog";
 import ProjectTeamsCreateModal from "./ProjectTeamsCreateModal";
 import useModal from "hooks/useModal";
 import ProjectTeamsUpdateModal from "./ProjectTeamsUpdateModal";
-import LoadingCard from "@/components/ui-component/LoadingCard";
+import LoadingCard from "@/components/ui/LoadingCard";
 import ErrorCard from "@/components/ui-component/ErrorCard";
 
 interface IProjectsTeamsTableProps {
