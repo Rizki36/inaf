@@ -106,6 +106,13 @@ const TaskWidget: FC<{
                                             </div>
                                         </ListItem>
                                     ))}
+                                    {unDoneTask.length === 0 && (
+                                        <ListItem disablePadding>
+                                            <ListItemText
+                                                primary={"No tasks left"}
+                                            />
+                                        </ListItem>
+                                    )}
                                 </List>
                             </TabPanel>
                             <TabPanel value="2">
@@ -136,6 +143,15 @@ const TaskWidget: FC<{
                                             </div>
                                         </ListItem>
                                     ))}
+                                    {doneTask.length === 0 && (
+                                        <ListItem disablePadding>
+                                            <ListItemText
+                                                primary={
+                                                    "No completed tasks left"
+                                                }
+                                            />
+                                        </ListItem>
+                                    )}
                                 </List>
                             </TabPanel>
                         </TabContext>
