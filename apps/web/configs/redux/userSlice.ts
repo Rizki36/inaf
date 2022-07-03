@@ -21,7 +21,7 @@ export const userSlice = createSlice({
         setToken(state, action: PayloadAction<string>) {
             state.token = action.payload;
         },
-        logout(state) {
+        logout() {
             console.log("loggedOut");
             return initialState;
         },
