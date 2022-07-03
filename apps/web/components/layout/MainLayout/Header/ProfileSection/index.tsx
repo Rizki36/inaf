@@ -29,6 +29,8 @@ import Transitions from "@/components/ui/Transitions";
 import { IconLogout, IconSettings } from "@tabler/icons";
 import { useAppSelector } from "@/configs/redux/hooks";
 import { useRouter } from "next/router";
+import { mutate } from "swr";
+import { logout } from "@/libs/request/auth";
 
 // ==============================|| PROFILE MENU ||============================== //
 
@@ -44,7 +46,9 @@ const ProfileSection = () => {
      * */
     const anchorRef = useRef(null);
     const handleLogout = async () => {
-        push("/logout");
+        await logout();
+        await mutate("account", null);
+        push("/login");
     };
 
     const handleClose = (event) => {
@@ -154,7 +158,7 @@ const ProfileSection = () => {
                                     boxShadow
                                     shadow={theme.shadows[16]}
                                 >
-                                    <Box sx={{ p: 2 }}>
+                                    <Box sx={{ px: 2, pt: 2 }}>
                                         <Stack>
                                             <Stack
                                                 direction="row"
@@ -185,7 +189,7 @@ const ProfileSection = () => {
                                             overflowX: "hidden",
                                         }}
                                     >
-                                        <Box sx={{ p: 2 }}>
+                                        <Box sx={{ px: 2 }}>
                                             <List
                                                 component="nav"
                                                 sx={{
