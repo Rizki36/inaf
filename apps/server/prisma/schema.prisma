@@ -1,6 +1,5 @@
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["debian-openssl-3.0.x"]
+  provider = "prisma-client-js"
 }
 
 generator typegraphql {
@@ -38,6 +37,7 @@ model Project {
   attachments Json?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
 
   teams     Team[]
   taskGroup TaskGroup[]
