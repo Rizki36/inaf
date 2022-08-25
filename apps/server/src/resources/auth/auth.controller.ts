@@ -47,7 +47,7 @@ export const signin = async (
         //responding to client request with user profile success message and  access token .
         res.cookie("token", data.accessToken, {
             maxAge: 1000 * 60 * 60,
-            httpOnly: true,
+            // httpOnly: true,
             path: "/",
             // secure: true
         }).json(successResponse({ data }));
@@ -82,7 +82,7 @@ export const logout = async (
         console.log(req);
         res.cookie("token", "", {
             maxAge: Number(100) * 1000,
-            httpOnly: true,
+            // httpOnly: true,
             path: "/",
             // secure: true
         }).json(successResponse({}));
