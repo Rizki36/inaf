@@ -182,6 +182,7 @@ const ProfileSection = () => {
                                         </Stack>
                                         <Divider />
                                     </Box>
+                                    {/* @ts-ignore */}
                                     <PerfectScrollbar
                                         style={{
                                             height: "100%",

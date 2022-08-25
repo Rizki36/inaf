@@ -26,7 +26,9 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
                     <LogoSection />
                 </Box>
             </Box>
+            {/* @ts-ignore */}
             <BrowserView>
+                {/* @ts-ignore */}
                 <PerfectScrollbar
                     component="div"
                     style={{
@@ -41,6 +43,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
                     {/* <MenuCard /> */}
                 </PerfectScrollbar>
             </BrowserView>
+            {/* @ts-ignore */}
             <MobileView>
                 <Box sx={{ px: 2 }}>
                     <MenuList />

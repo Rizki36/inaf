@@ -33,10 +33,14 @@ function MyApp({ Component, pageProps: { ...pageProps } }: Props) {
     const Layout = Component.layout ?? MainLayout;
     return (
         <Provider store={store}>
+            {/* @ts-ignore */}
             <PersistGate loading={null} persistor={persistor}>
                 <Theme>
+                    {/* @ts-ignore */}
                     <Auth {...Component.auth}>
+                        {/* @ts-ignore */}
                         <Layout>
+                            {/* @ts-ignore */}
                             <Component {...pageProps} />
                         </Layout>
                     </Auth>

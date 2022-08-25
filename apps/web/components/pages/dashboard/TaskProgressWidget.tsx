@@ -6,6 +6,7 @@ const TaskProgressWidget = ({ percent = 0 }) => {
     return (
         <div className="bg-white flex flex-col items-center py-5 px-5 rounded-lg h-full">
             <div id="chart">
+                {/* @ts-ignore */}
                 <Chart
                     series={[percent]}
                     height={350}

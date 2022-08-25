@@ -207,6 +207,7 @@ const NotificationSection = () => {
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12}>
+                                            {/* @ts-ignore */}
                                             <PerfectScrollbar
                                                 style={{
                                                     height: "100%",
